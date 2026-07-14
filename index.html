@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Lucas — Créateur de contenu &amp; monteur vidéo marketing</title>
+  <meta name="description" content="Créateur de contenu et monteur vidéo orienté marketing. Du storytelling de fond aux formats publicitaires optimisés pour la conversion.">
+
+  <!-- Typographies -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- ============================================================
+     EN-TÊTE — navigation minimale, sticky
+     ============================================================ -->
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top">Lucas<span class="brand-dot">.</span></a>
+    <nav aria-label="Navigation principale">
+      <a href="#realisations">Réalisations</a>
+      <a href="#reels">Reels</a>
+      <a href="#projets">Projets persos</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============================================================
+       1. HERO — pitch + showreel en autoplay
+       ============================================================ -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="tag reveal">Vidéo · Marketing · Montage</p>
+      <h1 class="reveal">
+        Des images qui racontent.<br>
+        <span class="muted">Des formats qui convertissent.</span>
+      </h1>
+      <p class="pitch reveal">
+        Créateur de contenu et monteur vidéo orienté marketing. Je traduis
+        l’identité et les bénéfices d’une marque en images percutantes, du
+        storytelling de fond aux formats publicitaires optimisés pour la conversion.
+      </p>
+    </div>
+
+    <!-- Showreel : autoplay, muted, loop, playsinline (obligatoire pour l'autoplay mobile) -->
+    <div class="wrap">
+      <div class="showreel reveal">
+        <video data-autoplay autoplay muted loop playsinline preload="metadata"
+               poster="assets/posters/showreel.jpg" aria-label="Showreel — condensé des meilleures images">
+          <source src="assets/videos/showreel.mp4" type="video/mp4">
+        </video>
+        <span class="showreel-label tag">Showreel — 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       2. FORMATS LONGS (PAYSAGE) — 3 colonnes sur desktop
+       Chaque carte possède un accordéon "déclinaisons Ads"
+       ============================================================ -->
+  <section id="realisations">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="tag">01 — Réalisations</span>
+        <h2>Formats longs</h2>
+        <p>
+          Le format long installe la confiance et pose le récit. Chaque projet
+          est ensuite décliné en formats courts pensés pour l’acquisition —
+          ouvrez les déclinaisons pour voir le passage du récit à la pub.
+        </p>
+      </div>
+
+      <div class="work-grid">
+
+        <!-- ===== Projet 01 ===== -->
+        <article class="work-card reveal">
+          <div class="video-frame ratio-169">
+            <video controls preload="metadata" poster="assets/posters/projet-01.jpg">
+              <source src="assets/videos/projet-01.mp4" type="video/mp4">
+            </video>
+            <!-- Alternative YouTube/Vimeo : supprime la balise <video> ci-dessus et utilise :
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Projet 01"
+                    loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+            -->
+          </div>
+          <div class="work-body">
+            <span class="tag">Témoignage client · 2026</span>
+            <h3>Titre du projet 01</h3>
+            <p>Une phrase de contexte : l’objectif marketing, l’angle choisi, le résultat.</p>
+            <button class="ads-toggle" aria-expanded="false" aria-controls="ads-01">
+              <span class="label">Voir les déclinaisons Ads</span>
+              <span class="chev" aria-hidden="true">↓</span>
+            </button>
+          </div>
+          <!-- Panneau accordéon : les formats courts issus de ce projet -->
+          <div class="ads-panel" id="ads-01">
+            <div class="ads-inner">
+              <div class="ads-grid">
+                <figure class="ad-clip">
+                  <div class="video-frame ratio-916">
+                    <video controls preload="none" poster="assets/posters/projet-01-ad-hook.jpg">
+                      <source src="assets/videos/projet-01-ad-hook.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <figcaption class="tag">Hook · 15 s</figcaption>
+                </figure>
+                <figure class="ad-clip">
+                  <div class="video-frame ratio-916">
+                    <video controls preload="none" poster="assets/posters/projet-01-ad-preuve.jpg">
+                      <source src="assets/videos/projet-01-ad-preuve.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <figcaption class="tag">Preuve · 30 s</figcaption>
+                </figure>
+                <figure class="ad-clip">
+                  <div class="video-frame ratio-916">
+                    <video controls preload="none" poster="assets/posters/projet-01-ad-cta.jpg">
+                      <source src="assets/videos/projet-01-ad-cta.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <figcaption class="tag">CTA · 6 s</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ===== Projet 02 ===== -->
+        <article class="work-card reveal">
+          <div class="video-frame ratio-169">
+            <video controls preload="metadata" poster="assets/posters/projet-02.jpg">
+              <source src="assets/videos/projet-02.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="work-body">
+            <span class="tag">Film de marque · 2026</span>
+            <h3>Titre du projet 02</h3>
+            <p>Une phrase de contexte : l’objectif marketing, l’angle choisi, le résultat.</p>
+            <button class="ads-toggle" aria-expanded="false" aria-controls="ads-02">
+              <span class="label">Voir les déclinaisons Ads</span>
+              <span class="chev" aria-hidden="true">↓</span>
+            </button>
+          </div>
+          <div class="ads-panel" id="ads-02">
+            <div class="ads-inner">
+              <div class="ads-grid">
+                <figure class="ad-clip">
+                  <div class="video-frame ratio-916">
+                    <video controls preload="none" poster="assets/posters/projet-02-ad-hook.jpg">
+                      <source src="assets/videos/projet-02-ad-hook.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <figcaption class="tag">Hook · 15 s</figcaption>
+                </figure>
+                <figure class="ad-clip">
+                  <div class="video-frame ratio-916">
+                    <video controls preload="none" poster="assets/posters/projet-02-ad-story.jpg">
+                      <source src="assets/videos/projet-02-ad-story.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <figcaption class="tag">Story · 20 s</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ===== Projet 03 ===== -->
+        <article class="work-card reveal">
+          <div class="video-frame ratio-169">
+            <video controls preload="metadata" poster="assets/posters/projet-03.jpg">
+              <source src="assets/videos/projet-03.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="work-body">
+            <span class="tag">Interview fondateur · 2026</span>
+            <h3>Titre du projet 03</h3>
+            <p>Une phrase de contexte : l’objectif marketing, l’angle choisi, le résultat.</p>
+            <button class="ads-toggle" aria-expanded="false" aria-controls="ads-03">
+              <span class="label">Voir les déclinaisons Ads</span>
+              <span class="chev" aria-hidden="true">↓</span>
+            </button>
+          </div>
+          <div class="ads-panel" id="ads-03">
+            <div class="ads-inner">
+              <div class="ads-grid">
+                <figure class="ad-clip">
+                  <div class="video-frame ratio-916">
+                    <video controls preload="none" poster="assets/posters/projet-03-ad-hook.jpg">
+                      <source src="assets/videos/projet-03-ad-hook.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <figcaption class="tag">Hook · 15 s</figcaption>
+                </figure>
+                <figure class="ad-clip">
+                  <div class="video-frame ratio-916">
+                    <video controls preload="none" poster="assets/posters/projet-03-ad-citation.jpg">
+                      <source src="assets/videos/projet-03-ad-citation.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <figcaption class="tag">Citation · 10 s</figcaption>
+                </figure>
+                <figure class="ad-clip">
+                  <div class="video-frame ratio-916">
+                    <video controls preload="none" poster="assets/posters/projet-03-ad-cta.jpg">
+                      <source src="assets/videos/projet-03-ad-cta.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <figcaption class="tag">CTA · 6 s</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       3. REELS & SHORTS (PORTRAIT 9:16)
+       ============================================================ -->
+  <section id="reels">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="tag">02 — Reels &amp; Shorts</span>
+        <h2>Formats verticaux</h2>
+        <p>
+          Pensés pour le feed : un hook dans les trois premières secondes,
+          un rythme serré, un message par vidéo.
+        </p>
+      </div>
+
+      <div class="reels-grid">
+        <figure class="reel-card reveal">
+          <div class="video-frame ratio-916">
+            <video controls preload="none" poster="assets/posters/reel-01.jpg">
+              <source src="assets/videos/reel-01.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="tag">Reel 01 · TikTok</figcaption>
+        </figure>
+
+        <figure class="reel-card reveal">
+          <div class="video-frame ratio-916">
+            <video controls preload="none" poster="assets/posters/reel-02.jpg">
+              <source src="assets/videos/reel-02.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="tag">Reel 02 · Instagram</figcaption>
+        </figure>
+
+        <figure class="reel-card reveal">
+          <div class="video-frame ratio-916">
+            <video controls preload="none" poster="assets/posters/reel-03.jpg">
+              <source src="assets/videos/reel-03.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="tag">Reel 03 · YouTube Shorts</figcaption>
+        </figure>
+
+        <figure class="reel-card reveal">
+          <div class="video-frame ratio-916">
+            <video controls preload="none" poster="assets/posters/reel-04.jpg">
+              <source src="assets/videos/reel-04.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="tag">Reel 04 · Instagram</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       4. PROJETS PERSOS — section plus brute / créative
+       ============================================================ -->
+  <section id="projets" class="raw">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="tag">03 — Hors commande</span>
+        <h2>Projets personnels</h2>
+        <p>Ce que je filme quand personne ne me le demande. Drone, expérimentations, créations libres.</p>
+      </div>
+
+      <div class="perso-grid">
+        <figure class="perso-item span-7 reveal">
+          <div class="video-frame ratio-169">
+            <video controls preload="none" poster="assets/posters/perso-drone.jpg">
+              <source src="assets/videos/perso-drone.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption>
+            <span class="tag">Drone · 4K</span>
+            <p>Plans aériens — littoral, forêt, lignes urbaines.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="perso-item span-5 reveal">
+          <div class="video-frame ratio-169">
+            <video controls preload="none" poster="assets/posters/perso-expe.jpg">
+              <source src="assets/videos/perso-expe.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption>
+            <span class="tag">Expérimentation</span>
+            <p>Textures, vitesses, matières — recherche de style libre.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="perso-item span-5 reveal">
+          <div class="video-frame ratio-169">
+            <video controls preload="none" poster="assets/posters/perso-typo.jpg">
+              <source src="assets/videos/perso-typo.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption>
+            <span class="tag">Motion</span>
+            <p>Typographie en mouvement, rythmée au son.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="perso-item span-7 reveal">
+          <div class="video-frame ratio-169">
+            <video controls preload="none" poster="assets/posters/perso-voyage.jpg">
+              <source src="assets/videos/perso-voyage.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption>
+            <span class="tag">Carnet de route</span>
+            <p>Montages voyage — tourné, monté, étalonné en solo.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       5. CONTACT
+       ============================================================ -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="tag">04 — Parlons-en</span>
+        <h2>Un projet, une question, un café</h2>
+      </div>
+
+      <div class="contact-lines reveal">
+        <a href="mailto:lucas.charreau@icloud.com">
+          <span>lucas.charreau@icloud.com</span>
+          <span class="what">Email</span>
+        </a>
+        <a href="https://www.linkedin.com/in/ton-profil/" target="_blank" rel="noopener">
+          <span>LinkedIn</span>
+          <span class="what">Profil</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    © 2026 Lucas — Créateur de contenu &amp; monteur vidéo
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

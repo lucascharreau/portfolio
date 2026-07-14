@@ -1,0 +1,3 @@
+# Fichiers locaux à ne pas publier
+.DS_Store
+.claude/
