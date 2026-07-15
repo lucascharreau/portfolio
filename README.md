@@ -1,6 +1,7 @@
 # Portfolio vidéo — Lucas
 
-Site portfolio one-page, dark mode, orienté vidéo marketing.
+Site portfolio one-page, design « salle de montage » : noir profond, filets,
+accent rouge REC, typographie affiche (Anton), timecode et tête de lecture.
 100 % statique (HTML / CSS / JS vanilla) — aucun build, aucune dépendance.
 
 ## Structure
@@ -60,7 +61,7 @@ Le site sera en ligne quelques minutes plus tard sur
 ## Personnaliser
 
 - **Couleurs, polices, espacements** : tout est dans les variables en tête
-  de `css/style.css` (`--bg`, `--accent`, `--radius`…).
+  de `css/style.css` (`--black`, `--red`, `--pad`…).
 - **Textes** : titres, descriptions et tags sont directement dans `index.html`,
   chaque section est délimitée par un commentaire.
 - **Contact** : l'email et le lien LinkedIn sont dans la section `#contact`.

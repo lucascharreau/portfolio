@@ -1,34 +1,122 @@
 /* ============================================================
-   PORTFOLIO VIDÉO — main.js
-   JS minimal, sans dépendance. Trois responsabilités :
-   1. Accordéons "déclinaisons Ads"
-   2. Apparition douce des blocs au scroll
-   3. Gestion intelligente de la lecture vidéo (perf/batterie)
+   PORTFOLIO VIDÉO — main.js (design v2 « salle de montage »)
+   JS minimal, sans dépendance. Cinq responsabilités :
+   1. Tiroir des déclinaisons Ads (un seul ouvert à la fois)
+   2. Tête de lecture : progression du scroll
+   3. Timecode qui défile (habillage REC)
+   4. Apparition des blocs au scroll
+   5. Gestion de la lecture vidéo (perf / batterie / audio)
    ============================================================ */
 
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 /* ------------------------------------------------------------
-   1. ACCORDÉONS — révèle les déclinaisons Ads d'un projet.
-   L'animation est faite en CSS (grid-template-rows 0fr → 1fr) ;
-   ici on ne gère que l'état (classe .open + ARIA).
+   1. TIROIR DES DÉCLINAISONS — chaque bouton ouvre son panneau
+   pleine largeur sous la grille ; ouvrir un projet ferme l'autre.
+   La hauteur est animée en JS : 0 → hauteur mesurée → auto.
    ------------------------------------------------------------ */
-document.querySelectorAll('.ads-toggle').forEach((btn) => {
+const adsButtons = document.querySelectorAll('.ads-btn');
+
+/* Anime la hauteur d'un panneau entre deux valeurs (easeInOutQuad).
+   `to === null` signifie « hauteur libre » (auto) en fin d'animation. */
+function animateHeight(set, from, to, onDone) {
+  if (reducedMotion) {
+    set.style.height = to === 0 ? '0px' : 'auto';
+    if (onDone) onDone();
+    return;
+  }
+  const duration = 450;
+  const start = performance.now();
+  const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - ((-2 * t + 2) ** 2) / 2);
+
+  (function step(now) {
+    const p = Math.min((now - start) / duration, 1);
+    set.style.height = from + (to - from) * ease(p) + 'px';
+    if (p < 1) requestAnimationFrame(step);
+    else if (onDone) onDone();
+  })(start);
+}
+
+function collapseSet(set) {
+  set.querySelectorAll('video').forEach((v) => v.pause());
+  set.classList.remove('open');
+  set.style.visibility = 'visible'; // reste visible le temps de la fermeture
+  animateHeight(set, set.getBoundingClientRect().height, 0, () => {
+    set.style.visibility = ''; // la règle CSS (hidden) reprend la main
+  });
+}
+
+function expandSet(set) {
+  set.classList.add('open');
+  animateHeight(set, set.getBoundingClientRect().height, set.scrollHeight, () => {
+    set.style.height = 'auto'; // suit ensuite les redimensionnements
+  });
+}
+
+adsButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
-    const panel = document.getElementById(btn.getAttribute('aria-controls'));
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    const target = document.getElementById(btn.getAttribute('aria-controls'));
+    const wasOpen = btn.getAttribute('aria-expanded') === 'true';
 
-    btn.setAttribute('aria-expanded', String(!isOpen));
-    panel.classList.toggle('open', !isOpen);
-    btn.querySelector('.label').textContent = isOpen
-      ? 'Voir les déclinaisons Ads'
-      : 'Masquer les déclinaisons';
+    // On ferme tout (panneaux + états des boutons)…
+    document.querySelectorAll('.ads-set.open').forEach(collapseSet);
+    adsButtons.forEach((b) => {
+      b.setAttribute('aria-expanded', 'false');
+      b.querySelector('.sign').textContent = '+';
+    });
 
-    // À la fermeture, on met en pause les vidéos du panneau
-    if (isOpen) panel.querySelectorAll('video').forEach((v) => v.pause());
+    // …puis on ouvre le panneau demandé (sauf si on vient de le fermer)
+    if (!wasOpen) {
+      btn.setAttribute('aria-expanded', 'true');
+      btn.querySelector('.sign').textContent = '−';
+      expandSet(target);
+      // Amène le tiroir dans le viewport une fois la transition lancée
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'nearest' });
+      }, 250);
+    }
   });
 });
 
 /* ------------------------------------------------------------
-   2. APPARITION AU SCROLL — ajoute .visible aux éléments .reveal
+   2. TÊTE DE LECTURE — la fine barre rouge en haut de l'écran
+   reflète la position de scroll dans la page.
+   ------------------------------------------------------------ */
+const playhead = document.querySelector('.playhead');
+
+function updatePlayhead() {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const ratio = max > 0 ? window.scrollY / max : 0;
+  playhead.style.width = (ratio * 100).toFixed(2) + '%';
+}
+window.addEventListener('scroll', updatePlayhead, { passive: true });
+updatePlayhead();
+
+/* ------------------------------------------------------------
+   3. TIMECODE — HH:MM:SS:FF (25 i/s) depuis l'arrivée sur la page.
+   Purement décoratif ; désactivé si l'utilisateur préfère
+   réduire les animations.
+   ------------------------------------------------------------ */
+const tcElements = document.querySelectorAll('[data-tc]');
+
+if (tcElements.length && !reducedMotion) {
+  const start = performance.now();
+  const pad = (n) => String(n).padStart(2, '0');
+
+  (function tickTimecode(now) {
+    const t = (now - start) / 1000;
+    const tc =
+      pad(Math.floor(t / 3600)) + ':' +
+      pad(Math.floor(t / 60) % 60) + ':' +
+      pad(Math.floor(t) % 60) + ':' +
+      pad(Math.floor((t % 1) * 25));
+    tcElements.forEach((el) => { el.textContent = tc; });
+    requestAnimationFrame(tickTimecode);
+  })(start);
+}
+
+/* ------------------------------------------------------------
+   4. APPARITION AU SCROLL — ajoute .visible aux .reveal
    quand ils entrent dans le viewport (une seule fois).
    ------------------------------------------------------------ */
 const revealObserver = new IntersectionObserver(
@@ -45,21 +133,17 @@ const revealObserver = new IntersectionObserver(
 document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
 /* ------------------------------------------------------------
-   3. VIDÉOS & VIEWPORT —
+   5. VIDÉOS & VIEWPORT —
    - le showreel (data-autoplay) se met en pause hors écran
      et reprend quand il redevient visible ;
-   - toute autre vidéo en cours de lecture est mise en pause
-     quand elle sort de l'écran.
+   - toute autre vidéo en lecture est mise en pause hors écran.
    ------------------------------------------------------------ */
 const videoObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       const video = entry.target;
-      const isShowreel = video.hasAttribute('data-autoplay');
-
       if (entry.isIntersecting) {
-        // Reprise du showreel uniquement (les autres restent au choix de l'utilisateur)
-        if (isShowreel) video.play().catch(() => {});
+        if (video.hasAttribute('data-autoplay')) video.play().catch(() => {});
       } else if (!video.paused) {
         video.pause();
       }
@@ -69,20 +153,16 @@ const videoObserver = new IntersectionObserver(
 );
 document.querySelectorAll('video').forEach((v) => videoObserver.observe(v));
 
-/* ------------------------------------------------------------
-   Bonus : quand une vidéo démarre, on met en pause toutes les
-   autres (évite deux bandes-son simultanées). Le showreel muet
-   n'est pas concerné.
-   ------------------------------------------------------------ */
+/* Quand une vidéo sonore démarre, on met les autres en pause
+   (évite deux bandes-son simultanées). */
 document.addEventListener(
   'play',
   (event) => {
     const current = event.target;
     if (!(current instanceof HTMLVideoElement) || current.muted) return;
-
     document.querySelectorAll('video').forEach((v) => {
       if (v !== current && !v.muted && !v.paused) v.pause();
     });
   },
-  true // capture : l'événement "play" ne remonte pas en bubbling
+  true // capture : « play » ne remonte pas en bubbling
 );

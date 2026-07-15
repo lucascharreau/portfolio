@@ -1,57 +1,52 @@
 /* ============================================================
-   PORTFOLIO VIDÉO — style.css
-   Dark mode élégant, minimaliste, orienté contenu vidéo.
+   PORTFOLIO VIDÉO — style.css (design v2 « salle de montage »)
+   Noir profond, hairlines, accent rouge REC, typo affiche.
+   Aucun coin arrondi : cadres francs, esthétique de banc de montage.
 
    Sommaire :
-   1. Variables        5. Hero + Showreel     9. Projets persos
-   2. Base / reset     6. Sections / titres  10. Contact + footer
-   3. Utilitaires      7. Formats longs      11. Animations (reveal)
-   4. En-tête          8. Reels 9:16         12. Responsive + a11y
+   1. Variables       5. Hero + Showreel      9. Collage persos
+   2. Base            6. Scènes (sections)   10. Contact + footer
+   3. Utilitaires     7. Formats longs       11. Animations
+   4. Barre + playhead 8. Reels 9:16         12. Responsive + a11y
    ============================================================ */
 
 /* ============================================================
    1. VARIABLES
    ============================================================ */
 :root {
-  /* Couleurs — noir profond, texte ivoire, un seul accent */
-  --bg:        #0A0A0B;
-  --bg-soft:   #101012;
-  --surface:   #16161A;
-  --line:      #232329;
-  --line-soft: #1B1B20;
-  --text:      #F2F1ED;
-  --text-soft: #96959C;
-  --accent:    #F2E35E;
+  --black:  #070707;   /* fond principal */
+  --panel:  #0C0C0C;   /* fonds de cadres vidéo */
+  --line:   #1F1F1F;   /* hairlines */
+  --white:  #EAE8E3;   /* texte principal */
+  --grey:   #85837C;   /* texte secondaire */
+  --red:    #FF3B30;   /* accent unique : REC / playhead */
 
-  /* Typographies */
-  --display: "Bricolage Grotesque", sans-serif;
-  --body:    "Inter", system-ui, sans-serif;
-  --mono:    "IBM Plex Mono", monospace;
+  --display: "Anton", Impact, sans-serif;
+  --body:    "Space Grotesk", system-ui, sans-serif;
+  --mono:    "JetBrains Mono", monospace;
 
-  /* Dimensions & rythme */
-  --max:     1200px;
-  --radius:  12px;
-  --gap:     28px;
-  --section: clamp(80px, 10vw, 140px);
+  --pad: clamp(20px, 4vw, 56px);       /* marge latérale globale */
+  --scene-gap: clamp(96px, 12vw, 170px);
+  --bar-h: 56px;
 }
 
 /* ============================================================
-   2. BASE / RESET
+   2. BASE
    ============================================================ */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
+  background: var(--black);
+  color: var(--white);
   font-family: var(--body);
-  font-size: 17px;
-  line-height: 1.65;
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: var(--accent); color: var(--bg); }
+::selection { background: var(--red); color: var(--black); }
 
 img, video, iframe { display: block; max-width: 100%; }
 
@@ -59,378 +54,443 @@ a { color: inherit; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 
 a:focus-visible, button:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--red);
   outline-offset: 3px;
-  border-radius: 2px;
 }
 
-/* Compense la hauteur du header sticky lors des ancres #section */
-section { scroll-margin-top: 80px; }
+section { scroll-margin-top: calc(var(--bar-h) + 16px); }
 
 /* ============================================================
    3. UTILITAIRES
    ============================================================ */
-.wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+.pad { padding-inline: var(--pad); }
 
-.tag {
+.mono {
   font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-soft);
+  color: var(--grey);
 }
 
-.muted { color: var(--text-soft); }
+.accent { color: var(--red); }
 
-/* Conteneur vidéo générique : ratio garanti, coins arrondis, fond
-   dégradé visible tant que la vidéo n'est pas chargée */
-.video-frame {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
-  background: linear-gradient(135deg, var(--surface) 0%, var(--bg-soft) 100%);
+/* Texte en contour (lignes « outline » des gros titres) */
+.outline {
+  -webkit-text-stroke: 1.5px var(--white);
+  color: transparent;
 }
-.video-frame video,
-.video-frame iframe {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border: 0;
+@supports not (-webkit-text-stroke: 1px #fff) {
+  .outline { color: var(--white); }
 }
-.ratio-169 { aspect-ratio: 16 / 9; }
-.ratio-916 { aspect-ratio: 9 / 16; }
+
+/* Point rouge clignotant façon REC */
+.rec-dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+  margin-right: 8px;
+  animation: blink 1.2s steps(2, start) infinite;
+}
+@keyframes blink { to { visibility: hidden; } }
 
 /* ============================================================
-   4. EN-TÊTE STICKY
+   4. BARRE SUPÉRIEURE + TÊTE DE LECTURE
    ============================================================ */
-.site-header {
+/* Fine barre rouge en haut : progression du scroll (main.js) */
+.playhead {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--red);
+  z-index: 30;
+}
+
+.bar {
   position: sticky;
   top: 0;
-  z-index: 10;
-  background: color-mix(in srgb, var(--bg) 78%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line-soft);
-}
-.header-inner {
+  z-index: 20;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   gap: 24px;
-  padding-top: 18px;
-  padding-bottom: 18px;
-  flex-wrap: wrap;
+  height: var(--bar-h);
+  padding-inline: var(--pad);
+  background: color-mix(in srgb, var(--black) 82%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
 }
-.brand {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 19px;
-  letter-spacing: -0.01em;
-  text-decoration: none;
-}
-.brand-dot { color: var(--accent); }
 
-.site-header nav { display: flex; gap: 26px; flex-wrap: wrap; }
-.site-header nav a {
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--text-soft);
+.logo {
+  font-family: var(--display);
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   text-decoration: none;
-  padding-bottom: 3px;
-  border-bottom: 1px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
 }
-.site-header nav a:hover {
-  color: var(--text);
-  border-bottom-color: var(--accent);
+.logo-dot {
+  color: var(--red);
+  font-size: 10px;
+  vertical-align: middle;
+  margin-left: 6px;
 }
+
+.bar nav { display: flex; gap: clamp(16px, 3vw, 36px); }
+.bar nav a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.bar nav a:hover { color: var(--red); }
+
+.bar-rec { white-space: nowrap; color: var(--grey); }
 
 /* ============================================================
    5. HERO + SHOWREEL
    ============================================================ */
-.hero { padding: clamp(72px, 9vw, 130px) 0 0; }
+.hero { padding-top: clamp(56px, 8vw, 110px); }
 
-.hero h1 {
+.hero-title {
   font-family: var(--display);
-  font-weight: 700;
-  font-size: clamp(38px, 6.5vw, 78px);
-  line-height: 1.04;
-  letter-spacing: -0.03em;
-  margin-top: 18px;
-  max-width: 16ch;
+  font-weight: 400;
+  font-size: clamp(58px, 12.5vw, 168px);
+  line-height: 1.03; /* assez d'air pour les accents (É) entre les lignes */
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
-.hero .pitch {
-  margin-top: 28px;
-  max-width: 58ch;
-  font-size: clamp(17px, 1.6vw, 20px);
-  color: var(--text-soft);
-}
+.hero-title .line { display: block; }
 
-/* Le showreel : large, cinématique, autoplay silencieux */
+.hero-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  margin-top: clamp(28px, 4vw, 48px);
+  flex-wrap: wrap;
+}
+.pitch {
+  max-width: 56ch;
+  font-size: clamp(16px, 1.5vw, 19px);
+  color: var(--grey);
+}
+.hero-meta { text-align: right; line-height: 2; }
+
+/* Showreel plein cadre, habillage viseur caméra */
 .showreel {
   position: relative;
-  margin-top: clamp(48px, 6vw, 80px);
-  overflow: hidden;
-  border-radius: calc(var(--radius) + 4px);
-  border: 1px solid var(--line);
-  background: linear-gradient(135deg, var(--surface) 0%, var(--bg-soft) 100%);
+  margin-top: clamp(40px, 6vw, 72px);
+  background: var(--panel);
+  border-block: 1px solid var(--line);
 }
 .showreel video {
   width: 100%;
   aspect-ratio: 16 / 9;
-  max-height: 78vh;
+  max-height: 84vh;
   object-fit: cover;
 }
-.showreel-label {
+
+/* Les 4 coins du viseur */
+.vf-corner {
   position: absolute;
-  left: 20px;
-  bottom: 16px;
-  padding: 6px 12px;
-  border-radius: 100px;
-  background: color-mix(in srgb, var(--bg) 65%, transparent);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: var(--text);
+  width: 22px; height: 22px;
+  border: 0 solid var(--white);
+  opacity: 0.85;
 }
+.vf-corner.tl { top: 18px; left: 18px; border-top-width: 2px; border-left-width: 2px; }
+.vf-corner.tr { top: 18px; right: 18px; border-top-width: 2px; border-right-width: 2px; }
+.vf-corner.bl { bottom: 18px; left: 18px; border-bottom-width: 2px; border-left-width: 2px; }
+.vf-corner.br { bottom: 18px; right: 18px; border-bottom-width: 2px; border-right-width: 2px; }
+
+.sr-label { position: absolute; left: 52px; bottom: 26px; color: var(--white); }
+.sr-tc    { position: absolute; right: 52px; top: 26px; color: var(--white); }
 
 /* ============================================================
-   6. SECTIONS & TITRES
+   6. SCÈNES — rythme vertical + en-têtes
    ============================================================ */
-section { padding: var(--section) 0 0; }
-section:last-of-type { padding-bottom: var(--section); }
+.scene { margin-top: var(--scene-gap); }
+.scene:last-of-type { margin-bottom: var(--scene-gap); }
 
-.head { margin-bottom: clamp(40px, 5vw, 64px); }
-.head h2 {
+.scene-head {
+  display: grid;
+  grid-template-columns: 140px 1fr minmax(0, 44ch);
+  gap: 24px;
+  align-items: end;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+  margin-bottom: clamp(36px, 5vw, 56px);
+}
+.scene-num { padding-top: 6px; }
+.scene-head h2 {
   font-family: var(--display);
-  font-weight: 700;
-  font-size: clamp(28px, 3.6vw, 44px);
-  letter-spacing: -0.02em;
-  margin-top: 12px;
+  font-weight: 400;
+  font-size: clamp(40px, 6.5vw, 84px);
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
-.head p {
-  margin-top: 14px;
-  max-width: 58ch;
-  color: var(--text-soft);
-}
+.scene-head p { color: var(--grey); font-size: 15px; }
 
 /* ============================================================
-   7. FORMATS LONGS — 3 colonnes desktop, accordéon Ads
+   7. FORMATS LONGS — grille hairline + tiroir déclinaisons
    ============================================================ */
-.work-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* exactement 3 par ligne sur desktop */
-  gap: var(--gap);
-  align-items: start; /* un accordéon ouvert n'étire pas les cartes voisines */
-}
-
-.work-card {
-  display: flex;
-  flex-direction: column;
-  background: var(--bg-soft);
-  border: 1px solid var(--line-soft);
-  border-radius: calc(var(--radius) + 4px);
-  padding: 14px;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-.work-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--line);
-}
-
-.work-body { padding: 18px 8px 8px; }
-.work-body h3 {
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: 21px;
-  letter-spacing: -0.01em;
-  margin-top: 8px;
-}
-.work-body p {
-  margin-top: 8px;
-  font-size: 15px;
-  color: var(--text-soft);
-}
-
-/* Bouton discret qui révèle les déclinaisons */
-.ads-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 18px;
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--text-soft);
-  padding-bottom: 3px;
-  border-bottom: 1px solid var(--line);
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-.ads-toggle:hover {
-  color: var(--text);
-  border-bottom-color: var(--accent);
-}
-.ads-toggle .chev {
-  transition: transform 0.3s ease;
-  color: var(--accent);
-}
-.ads-toggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
-
-/* Accordéon fluide : transition de grid-template-rows (0fr → 1fr) */
-.ads-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.ads-panel.open { grid-template-rows: 1fr; }
-
-.ads-inner {
-  overflow: hidden;
-  min-height: 0;
-  /* invisible pour le clavier / lecteurs d'écran tant que c'est fermé */
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s 0.45s, opacity 0.35s ease;
-}
-.ads-panel.open .ads-inner {
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 0s, opacity 0.35s ease 0.1s;
-}
-
-.ads-grid {
+/* La grille : 3 colonnes exactes sur desktop, séparées par des
+   hairlines (gap 1px sur fond ligne = filets continus) */
+.cut-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  padding: 20px 8px 8px;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
 }
-.ad-clip figcaption { margin-top: 8px; font-size: 11px; }
+
+.cut {
+  background: var(--black);
+  padding: 18px 18px 22px;
+}
+
+.frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--panel);
+}
+.frame video, .frame iframe {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border: 0;
+  transition: transform 0.5s ease;
+}
+.cut:hover .frame video { transform: scale(1.03); }
+
+.cut-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+.cut-num { color: var(--white); transition: color 0.2s ease; }
+.cut:hover .cut-num { color: var(--red); }
+
+.cut h3 {
+  font-family: var(--body);
+  font-weight: 500;
+  font-size: 19px;
+  margin-top: 10px;
+}
+.cut p { margin-top: 6px; font-size: 14px; color: var(--grey); }
+
+/* Bouton discret d'ouverture du tiroir */
+.ads-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  color: var(--grey);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.ads-btn:hover { color: var(--white); border-color: var(--grey); }
+.ads-btn[aria-expanded="true"] { color: var(--red); border-color: var(--red); }
+.ads-btn .sign { font-size: 14px; color: var(--red); }
+
+/* Le tiroir : panneaux pleine largeur sous la grille.
+   La hauteur est animée en JS via requestAnimationFrame (main.js) —
+   pas de transition CSS ici, volontairement. */
+.ads-set {
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;          /* hors tabulation tant que fermé */
+}
+.ads-set.open { visibility: visible; }
+
+.ads-set-inner {
+  border: 1px solid var(--line);
+  border-top: 0;
+  padding: clamp(20px, 3vw, 36px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.ads-set.open .ads-set-inner {
+  opacity: 1;
+  transition: opacity 0.4s ease 0.15s;
+}
+
+.ads-set-label { margin-bottom: 18px; }
+.ads-set-label::before { content: "● "; color: var(--red); }
+
+.clips {
+  display: flex;
+  gap: clamp(14px, 2vw, 24px);
+  flex-wrap: wrap;
+}
+.clip { width: clamp(150px, 18vw, 230px); }
+.clip-frame {
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+.clip-frame video { width: 100%; height: 100%; object-fit: cover; }
+.clip figcaption { margin-top: 8px; }
 
 /* ============================================================
-   8. REELS & SHORTS — grille fluide 9:16
+   8. REELS — grille 9:16 décalée
    ============================================================ */
 .reels-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: var(--gap);
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: clamp(18px, 2.5vw, 32px);
 }
-.reel-card .video-frame {
-  transition: transform 0.3s ease, border-color 0.3s ease;
+.reel-frame {
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  transition: border-color 0.25s ease;
 }
-.reel-card:hover .video-frame {
-  transform: translateY(-4px);
-  border-color: var(--line);
+.reel:hover .reel-frame { border-color: var(--grey); }
+.reel-frame video { width: 100%; height: 100%; object-fit: cover; }
+.reel figcaption { margin-top: 10px; }
+
+/* Décalage vertical un reel sur deux (desktop) : rythme de feed */
+@media (min-width: 900px) {
+  .reel:nth-child(even) { transform: translateY(36px); }
+  .reels-grid { padding-bottom: 36px; }
 }
-.reel-card figcaption { margin-top: 12px; }
 
 /* ============================================================
-   9. PROJETS PERSOS — plus brut : fond distinct, grille asymétrique
+   9. PROJETS PERSOS — bandeau défilant + collage brut
    ============================================================ */
-.raw {
-  margin-top: var(--section);
-  padding: var(--section) 0;
-  background: var(--bg-soft);
-  border-top: 1px dashed var(--line);
-  border-bottom: 1px dashed var(--line);
+.marquee {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  padding-block: 14px;
+  margin-bottom: clamp(48px, 7vw, 80px);
 }
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 4vw, 56px);
+  width: max-content;
+  font-family: var(--display);
+  font-size: clamp(26px, 3.6vw, 48px);
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: marquee 26s linear infinite;
+}
+.marquee-track .accent { font-size: 0.4em; }
+@keyframes marquee { to { transform: translateX(-50%); } }
 
-.perso-grid {
+.collage {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: var(--gap);
+  gap: clamp(20px, 3vw, 36px);
 }
-.perso-item.span-7 { grid-column: span 7; }
-.perso-item.span-5 { grid-column: span 5; }
+.shot.span-7 { grid-column: span 7; }
+.shot.span-5 { grid-column: span 5; align-self: end; }
 
-.perso-item .video-frame {
-  border-radius: 6px; /* coins plus francs = rendu plus brut */
-  transition: border-color 0.3s ease;
+/* Rendu « planche de rushes » : cadre dashed, légère rotation */
+.shot {
+  border: 1px dashed var(--line);
+  padding: 12px;
+  background: var(--panel);
 }
-.perso-item:hover .video-frame { border-color: var(--text-soft); }
+.shot:nth-child(odd)  { transform: rotate(-0.5deg); }
+.shot:nth-child(even) { transform: rotate(0.4deg); }
+.shot:hover { transform: rotate(0deg); border-color: var(--grey); }
+.shot { transition: transform 0.3s ease, border-color 0.3s ease; }
 
-.perso-item figcaption {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  margin-top: 12px;
-  flex-wrap: wrap;
-}
-.perso-item figcaption p { font-size: 15px; color: var(--text-soft); }
+.shot .frame { border: 0; }
+.shot figcaption { margin-top: 10px; }
 
 /* ============================================================
    10. CONTACT + FOOTER
    ============================================================ */
-.contact-lines a {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 24px;
-  padding: 24px 0;
-  border-top: 1px solid var(--line);
-  text-decoration: none;
+.contact { border-top: 1px solid var(--line); }
+
+.contact-mail {
+  display: block;
+  padding: clamp(24px, 4vw, 40px) 0;
   font-family: var(--display);
-  font-weight: 600;
-  font-size: clamp(20px, 2.8vw, 30px);
-  letter-spacing: -0.015em;
-  transition: padding-left 0.25s ease, color 0.25s ease;
-}
-.contact-lines a:last-child { border-bottom: 1px solid var(--line); }
-.contact-lines a:hover { padding-left: 14px; color: var(--accent); }
-.contact-lines .what {
-  font-family: var(--mono);
-  font-weight: 400;
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font-size: clamp(26px, 5.2vw, 72px);
+  line-height: 1.05;
   text-transform: uppercase;
-  color: var(--text-soft);
-  white-space: nowrap;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  transition: color 0.25s ease, padding-left 0.25s ease;
+  overflow-wrap: anywhere;
 }
+.contact-mail:hover { color: var(--red); padding-left: 16px; }
+
+.contact-li {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.contact-li:hover { color: var(--red); border-color: var(--red); }
 
 footer {
-  padding: 48px 0 64px;
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--text-soft);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 28px var(--pad) 40px;
+  border-top: 1px solid var(--line);
 }
 
 /* ============================================================
-   11. ANIMATIONS — apparition douce au scroll (voir js/main.js)
+   11. ANIMATIONS — apparition au scroll (main.js)
    ============================================================ */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.reveal.visible {
-  opacity: 1;
-  transform: none;
-}
+.reveal.visible { opacity: 1; transform: none; }
+/* Les rotations du collage doivent survivre au reveal */
+.shot.reveal.visible:nth-child(odd)  { transform: rotate(-0.5deg); }
+.shot.reveal.visible:nth-child(even) { transform: rotate(0.4deg); }
+.shot.reveal.visible:hover { transform: rotate(0deg); }
 
 /* ============================================================
    12. RESPONSIVE + ACCESSIBILITÉ
    ============================================================ */
-/* Tablette : 2 colonnes pour les formats longs */
 @media (max-width: 1024px) {
-  .work-grid { grid-template-columns: repeat(2, 1fr); }
+  .cut-grid { grid-template-columns: repeat(2, 1fr); }
+  .scene-head { grid-template-columns: 110px 1fr; }
+  .scene-head p { grid-column: 2; }
 }
 
-/* Mobile : tout passe en 1 colonne, rythme resserré.
-   Le header repasse en statique : sur 2 lignes, il mangerait
-   trop d'écran en restant collé en haut. */
 @media (max-width: 720px) {
-  .site-header { position: static; }
-  .header-inner { justify-content: center; text-align: center; }
-  section { scroll-margin-top: 24px; }
-  .work-grid { grid-template-columns: 1fr; }
-  .perso-item.span-7, .perso-item.span-5 { grid-column: span 12; }
-  .reels-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .showreel video { max-height: 60vh; }
+  .bar-rec { display: none; }
+  .cut-grid { grid-template-columns: 1fr; }
+  .scene-head { grid-template-columns: 1fr; gap: 10px; }
+  .hero-meta { text-align: left; }
+  .sr-label { left: var(--pad); bottom: 16px; }
+  .sr-tc { right: var(--pad); top: 16px; }
+  .vf-corner { display: none; }
+  .shot.span-7, .shot.span-5 { grid-column: span 12; }
+  .clip { width: clamp(130px, 40vw, 180px); }
+  .showreel video { max-height: 62vh; }
 }
 
 @media (max-width: 420px) {
-  .site-header nav { gap: 16px; }
+  .bar nav { gap: 12px; }
+  .bar nav a { font-size: 10px; }
 }
 
-/* Respecte les préférences de réduction de mouvement */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -438,4 +498,5 @@ footer {
     animation: none !important;
   }
   .reveal { opacity: 1; transform: none; }
+  .marquee-track { animation: none; }
 }
