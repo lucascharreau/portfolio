@@ -1,7 +1,7 @@
 # Portfolio vidéo — Lucas
 
-Site portfolio one-page, design « salle de montage » : noir profond, filets,
-accent rouge REC, typographie affiche (Anton), timecode et tête de lecture.
+Site portfolio one-page, design « Agence Créative Premium » : thème clair
+ultra-lumineux, accent dégradé sunset orangé, cartes arrondies, ombres douces.
 100 % statique (HTML / CSS / JS vanilla) — aucun build, aucune dépendance.
 
 ## Structure
@@ -61,7 +61,7 @@ Le site sera en ligne quelques minutes plus tard sur
 ## Personnaliser
 
 - **Couleurs, polices, espacements** : tout est dans les variables en tête
-  de `css/style.css` (`--black`, `--red`, `--pad`…).
+  de `css/style.css` (`--bg`, `--grad`, `--radius`…).
 - **Textes** : titres, descriptions et tags sont directement dans `index.html`,
   chaque section est délimitée par un commentaire.
 - **Contact** : l'email et le lien LinkedIn sont dans la section `#contact`.

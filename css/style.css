@@ -1,33 +1,47 @@
 /* ============================================================
-   PORTFOLIO VIDÉO — style.css (design v2 « salle de montage »)
-   Noir profond, hairlines, accent rouge REC, typo affiche.
-   Aucun coin arrondi : cadres francs, esthétique de banc de montage.
+   PORTFOLIO VIDÉO — style.css (design v3 « Agence Créative Premium »)
+   Thème clair ultra-lumineux, accent dégradé sunset orangé,
+   coins arrondis, ombres douces, glassmorphism discret.
 
    Sommaire :
-   1. Variables       5. Hero + Showreel      9. Collage persos
-   2. Base            6. Scènes (sections)   10. Contact + footer
-   3. Utilitaires     7. Formats longs       11. Animations
-   4. Barre + playhead 8. Reels 9:16         12. Responsive + a11y
+   1. Variables        5. Hero + Showreel      9. Projets persos
+   2. Base             6. Sections / titres   10. Contact + footer
+   3. Utilitaires      7. Formats longs       11. Animations
+   4. En-tête          8. Reels 9:16          12. Responsive + a11y
    ============================================================ */
 
 /* ============================================================
    1. VARIABLES
    ============================================================ */
 :root {
-  --black:  #070707;   /* fond principal */
-  --panel:  #0C0C0C;   /* fonds de cadres vidéo */
-  --line:   #1F1F1F;   /* hairlines */
-  --white:  #EAE8E3;   /* texte principal */
-  --grey:   #85837C;   /* texte secondaire */
-  --red:    #FF3B30;   /* accent unique : REC / playhead */
+  /* Thème clair */
+  --bg:      #FBFAF8;                     /* blanc cassé lumineux */
+  --surface: #FFFFFF;                     /* cartes */
+  --text:    #14161A;
+  --muted:   #5D6470;
+  --line:    rgba(20, 22, 26, 0.08);      /* hairlines très discrets */
 
-  --display: "Anton", Impact, sans-serif;
-  --body:    "Space Grotesk", system-ui, sans-serif;
-  --mono:    "JetBrains Mono", monospace;
+  /* Accent sunset orangé (sans rose) */
+  --accent:      #EA580C;                 /* orange profond */
+  --accent-text: #C2410C;                 /* orange lisible sur blanc (AA) */
+  --grad: linear-gradient(135deg, #F97316 0%, #F59E0B 100%);
 
-  --pad: clamp(20px, 4vw, 56px);       /* marge latérale globale */
-  --scene-gap: clamp(96px, 12vw, 170px);
-  --bar-h: 56px;
+  /* Profondeur */
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05), 0 1px 3px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 6px 18px rgba(16, 24, 40, 0.08);
+  --shadow-lg: 0 18px 44px rgba(16, 24, 40, 0.12);
+  --shadow-accent: 0 8px 24px rgba(234, 88, 12, 0.28);
+
+  /* Typographies */
+  --display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --body:    "Inter", system-ui, sans-serif;
+
+  /* Dimensions & rythme */
+  --max: 1200px;
+  --radius: 12px;
+  --radius-sm: 10px;
+  --gap: 28px;
+  --section: clamp(88px, 11vw, 150px);
 }
 
 /* ============================================================
@@ -38,15 +52,15 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--black);
-  color: var(--white);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--body);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: var(--red); color: var(--black); }
+::selection { background: #FDBA74; color: #431407; }
 
 img, video, iframe { display: block; max-width: 100%; }
 
@@ -54,257 +68,327 @@ a { color: inherit; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 
 a:focus-visible, button:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
+  border-radius: 4px;
 }
 
-section { scroll-margin-top: calc(var(--bar-h) + 16px); }
+section { scroll-margin-top: 84px; }
 
 /* ============================================================
    3. UTILITAIRES
    ============================================================ */
-.pad { padding-inline: var(--pad); }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
 
-.mono {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.1em;
+.eyebrow {
+  display: inline-block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--grey);
+  color: var(--accent-text);
 }
 
-.accent { color: var(--red); }
+.tag {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
 
-/* Texte en contour (lignes « outline » des gros titres) */
-.outline {
-  -webkit-text-stroke: 1.5px var(--white);
+/* Texte en dégradé (mot-clé du hero, titre contact) */
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
 }
-@supports not (-webkit-text-stroke: 1px #fff) {
-  .outline { color: var(--white); }
+
+/* Badge pill du hero */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.badge::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--grad);
 }
 
-/* Point rouge clignotant façon REC */
-.rec-dot {
-  display: inline-block;
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--red);
-  margin-right: 8px;
-  animation: blink 1.2s steps(2, start) infinite;
+/* Boutons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
 }
-@keyframes blink { to { visibility: hidden; } }
+.btn-lg { padding: 16px 32px; font-size: 17px; }
+
+.btn-primary {
+  background: var(--grad);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-accent);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(234, 88, 12, 0.38);
+}
+
+.btn-ghost {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+.btn-ghost:hover {
+  transform: translateY(-2px);
+  border-color: rgba(234, 88, 12, 0.4);
+  color: var(--accent-text);
+  box-shadow: var(--shadow-md);
+}
 
 /* ============================================================
-   4. BARRE SUPÉRIEURE + TÊTE DE LECTURE
+   4. EN-TÊTE — glassmorphism discret
    ============================================================ */
-/* Fine barre rouge en haut : progression du scroll (main.js) */
-.playhead {
-  position: fixed;
-  top: 0; left: 0;
-  height: 2px;
-  width: 0%;
-  background: var(--red);
-  z-index: 30;
-}
-
-.bar {
+.site-header {
   position: sticky;
   top: 0;
   z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  height: var(--bar-h);
-  padding-inline: var(--pad);
-  background: color-mix(in srgb, var(--black) 82%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
 }
-
-.logo {
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  flex-wrap: wrap;
+}
+.brand {
   font-family: var(--display);
+  font-weight: 800;
   font-size: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: -0.01em;
   text-decoration: none;
 }
-.logo-dot {
-  color: var(--red);
-  font-size: 10px;
-  vertical-align: middle;
-  margin-left: 6px;
-}
+.brand-dot { color: var(--accent); }
 
-.bar nav { display: flex; gap: clamp(16px, 3vw, 36px); }
-.bar nav a {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--grey);
+.site-header nav { display: flex; gap: clamp(16px, 3vw, 32px); flex-wrap: wrap; }
+.site-header nav a {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--muted);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.3s ease-in-out;
 }
-.bar nav a:hover { color: var(--red); }
-
-.bar-rec { white-space: nowrap; color: var(--grey); }
+.site-header nav a:hover { color: var(--accent-text); }
 
 /* ============================================================
    5. HERO + SHOWREEL
    ============================================================ */
-.hero { padding-top: clamp(56px, 8vw, 110px); }
+.hero { padding-top: clamp(64px, 9vw, 120px); }
 
-.hero-title {
+.hero-content { text-align: center; }
+
+.hero h1 {
   font-family: var(--display);
-  font-weight: 400;
-  font-size: clamp(58px, 12.5vw, 168px);
-  line-height: 1.03; /* assez d'air pour les accents (É) entre les lignes */
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
+  font-weight: 800;
+  font-size: clamp(38px, 6vw, 72px);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  margin-top: 24px;
+  margin-inline: auto;
+  max-width: 22ch;
 }
-.hero-title .line { display: block; }
-
-.hero-row {
+.hero .pitch {
+  margin: 24px auto 0;
+  max-width: 62ch;
+  font-size: clamp(16px, 1.5vw, 19px);
+  color: var(--muted);
+}
+.hero-cta {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 40px;
-  margin-top: clamp(28px, 4vw, 48px);
+  justify-content: center;
+  gap: 14px;
+  margin-top: 32px;
   flex-wrap: wrap;
 }
-.pitch {
-  max-width: 56ch;
-  font-size: clamp(16px, 1.5vw, 19px);
-  color: var(--grey);
-}
-.hero-meta { text-align: right; line-height: 2; }
 
-/* Showreel plein cadre, habillage viseur caméra */
+/* Showreel : carte arrondie, ombre douce, aucun habillage caméra */
 .showreel {
   position: relative;
-  margin-top: clamp(40px, 6vw, 72px);
-  background: var(--panel);
-  border-block: 1px solid var(--line);
+  margin-top: clamp(48px, 6vw, 80px);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-lg);
 }
 .showreel video {
   width: 100%;
   aspect-ratio: 16 / 9;
-  max-height: 84vh;
+  max-height: 80vh;
   object-fit: cover;
 }
-
-/* Les 4 coins du viseur */
-.vf-corner {
+.showreel-label {
   position: absolute;
-  width: 22px; height: 22px;
-  border: 0 solid var(--white);
-  opacity: 0.85;
-}
-.vf-corner.tl { top: 18px; left: 18px; border-top-width: 2px; border-left-width: 2px; }
-.vf-corner.tr { top: 18px; right: 18px; border-top-width: 2px; border-right-width: 2px; }
-.vf-corner.bl { bottom: 18px; left: 18px; border-bottom-width: 2px; border-left-width: 2px; }
-.vf-corner.br { bottom: 18px; right: 18px; border-bottom-width: 2px; border-right-width: 2px; }
-
-.sr-label { position: absolute; left: 52px; bottom: 26px; color: var(--white); }
-.sr-tc    { position: absolute; right: 52px; top: 26px; color: var(--white); }
-
-/* ============================================================
-   6. SCÈNES — rythme vertical + en-têtes
-   ============================================================ */
-.scene { margin-top: var(--scene-gap); }
-.scene:last-of-type { margin-bottom: var(--scene-gap); }
-
-.scene-head {
-  display: grid;
-  grid-template-columns: 140px 1fr minmax(0, 44ch);
-  gap: 24px;
-  align-items: end;
-  border-top: 1px solid var(--line);
-  padding-top: 20px;
-  margin-bottom: clamp(36px, 5vw, 56px);
-}
-.scene-num { padding-top: 6px; }
-.scene-head h2 {
+  left: 20px;
+  bottom: 18px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   font-family: var(--display);
-  font-weight: 400;
-  font-size: clamp(40px, 6.5vw, 84px);
-  line-height: 0.95;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
 }
-.scene-head p { color: var(--grey); font-size: 15px; }
 
 /* ============================================================
-   7. FORMATS LONGS — grille hairline + tiroir déclinaisons
+   6. SECTIONS & TITRES
    ============================================================ */
-/* La grille : 3 colonnes exactes sur desktop, séparées par des
-   hairlines (gap 1px sur fond ligne = filets continus) */
-.cut-grid {
+section { padding-top: var(--section); }
+section:last-of-type { padding-bottom: var(--section); }
+
+.head { margin-bottom: clamp(36px, 5vw, 56px); }
+.head h2 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(30px, 4vw, 48px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-top: 12px;
+}
+.head p {
+  margin-top: 14px;
+  max-width: 58ch;
+  color: var(--muted);
+}
+
+/* ============================================================
+   7. FORMATS LONGS — cartes blanches + tiroir déclinaisons
+   ============================================================ */
+.work-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--line);
+  grid-template-columns: repeat(3, 1fr); /* exactement 3 par ligne sur desktop */
+  gap: var(--gap);
+  align-items: start;
+}
+
+.work-card {
+  background: var(--surface);
   border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease-in-out;
+}
+.work-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
-.cut {
-  background: var(--black);
-  padding: 18px 18px 22px;
-}
-
-.frame {
+/* Miniature vidéo générique : arrondie, zoom léger au survol */
+.thumb {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: var(--panel);
+  border-radius: var(--radius-sm);
+  background: #EEEDEA;
 }
-.frame video, .frame iframe {
+.thumb video, .thumb iframe {
   width: 100%; height: 100%;
   object-fit: cover;
   border: 0;
-  transition: transform 0.5s ease;
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+  filter: saturate(0.94);
 }
-.cut:hover .frame video { transform: scale(1.03); }
+.work-card:hover .thumb video,
+.perso-card:hover .thumb video { transform: scale(1.02); filter: saturate(1); }
 
-.cut-meta {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 16px;
-}
-.cut-num { color: var(--white); transition: color 0.2s ease; }
-.cut:hover .cut-num { color: var(--red); }
-
-.cut h3 {
-  font-family: var(--body);
-  font-weight: 500;
+.work-body { padding: 18px 8px 8px; }
+.work-body h3 {
+  font-family: var(--display);
+  font-weight: 700;
   font-size: 19px;
-  margin-top: 10px;
+  letter-spacing: -0.01em;
+  margin-top: 8px;
 }
-.cut p { margin-top: 6px; font-size: 14px; color: var(--grey); }
+.work-body p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
 
-/* Bouton discret d'ouverture du tiroir */
+/* Bouton pill qui ouvre le tiroir : outline → dégradé quand actif */
 .ads-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 18px;
-  padding: 9px 14px;
+  margin-top: 16px;
+  padding: 10px 18px;
+  border-radius: 999px;
   border: 1px solid var(--line);
-  color: var(--grey);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  background: var(--surface);
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--muted);
+  transition: all 0.3s ease-in-out;
 }
-.ads-btn:hover { color: var(--white); border-color: var(--grey); }
-.ads-btn[aria-expanded="true"] { color: var(--red); border-color: var(--red); }
-.ads-btn .sign { font-size: 14px; color: var(--red); }
+.ads-btn:hover {
+  color: var(--accent-text);
+  border-color: rgba(234, 88, 12, 0.4);
+  box-shadow: var(--shadow-sm);
+}
+.ads-btn[aria-expanded="true"] {
+  background: var(--grad);
+  border-color: transparent;
+  color: #FFFFFF;
+  box-shadow: var(--shadow-accent);
+}
+.ads-btn .sign {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: rgba(234, 88, 12, 0.12);
+  color: var(--accent-text);
+  font-weight: 700;
+  transition: all 0.3s ease-in-out;
+}
+.ads-btn[aria-expanded="true"] .sign {
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
 
-/* Le tiroir : panneaux pleine largeur sous la grille.
-   La hauteur est animée en JS via requestAnimationFrame (main.js) —
-   pas de transition CSS ici, volontairement. */
+/* Le tiroir : panneau arrondi pleine largeur sous la grille.
+   La hauteur est animée en JS (main.js) — pas de transition ici. */
 .ads-set {
   height: 0;
   overflow: hidden;
@@ -313,19 +397,27 @@ section { scroll-margin-top: calc(var(--bar-h) + 16px); }
 .ads-set.open { visibility: visible; }
 
 .ads-set-inner {
+  margin-top: var(--gap);
+  background: var(--surface);
   border: 1px solid var(--line);
-  border-top: 0;
-  padding: clamp(20px, 3vw, 36px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: clamp(20px, 3vw, 32px);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease-in-out;
 }
 .ads-set.open .ads-set-inner {
   opacity: 1;
-  transition: opacity 0.4s ease 0.15s;
+  transition: opacity 0.4s ease-in-out 0.15s;
 }
 
-.ads-set-label { margin-bottom: 18px; }
-.ads-set-label::before { content: "● "; color: var(--red); }
+.ads-set-label {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent-text);
+  margin-bottom: 18px;
+}
 
 .clips {
   display: flex;
@@ -336,161 +428,185 @@ section { scroll-margin-top: calc(var(--bar-h) + 16px); }
 .clip-frame {
   aspect-ratio: 9 / 16;
   overflow: hidden;
-  background: var(--panel);
+  border-radius: var(--radius-sm);
+  background: #EEEDEA;
   border: 1px solid var(--line);
 }
 .clip-frame video { width: 100%; height: 100%; object-fit: cover; }
-.clip figcaption { margin-top: 8px; }
+.clip figcaption {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
 
 /* ============================================================
-   8. REELS — grille 9:16 décalée
+   8. REELS — grille 9:16 alignée et harmonieuse
    ============================================================ */
 .reels-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  gap: clamp(18px, 2.5vw, 32px);
+  gap: var(--gap);
 }
 .reel-frame {
   aspect-ratio: 9 / 16;
   overflow: hidden;
-  background: var(--panel);
+  border-radius: var(--radius);
+  background: #EEEDEA;
   border: 1px solid var(--line);
-  transition: border-color 0.25s ease;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease-in-out;
 }
-.reel:hover .reel-frame { border-color: var(--grey); }
-.reel-frame video { width: 100%; height: 100%; object-fit: cover; }
-.reel figcaption { margin-top: 10px; }
-
-/* Décalage vertical un reel sur deux (desktop) : rythme de feed */
-@media (min-width: 900px) {
-  .reel:nth-child(even) { transform: translateY(36px); }
-  .reels-grid { padding-bottom: 36px; }
+.reel-frame video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+  filter: saturate(0.94);
+}
+.reel:hover .reel-frame {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.reel:hover .reel-frame video { transform: scale(1.02); filter: saturate(1); }
+.reel figcaption {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
 }
 
 /* ============================================================
-   9. PROJETS PERSOS — bandeau défilant + collage brut
+   9. PROJETS PERSOS — grille asymétrique droite et propre
    ============================================================ */
-.marquee {
-  overflow: hidden;
-  border-block: 1px solid var(--line);
-  padding-block: 14px;
-  margin-bottom: clamp(48px, 7vw, 80px);
-}
-.marquee-track {
-  display: flex;
-  align-items: center;
-  gap: clamp(28px, 4vw, 56px);
-  width: max-content;
-  font-family: var(--display);
-  font-size: clamp(26px, 3.6vw, 48px);
-  text-transform: uppercase;
-  white-space: nowrap;
-  animation: marquee 26s linear infinite;
-}
-.marquee-track .accent { font-size: 0.4em; }
-@keyframes marquee { to { transform: translateX(-50%); } }
-
-.collage {
+.perso-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: clamp(20px, 3vw, 36px);
+  gap: var(--gap);
 }
-.shot.span-7 { grid-column: span 7; }
-.shot.span-5 { grid-column: span 5; align-self: end; }
+.perso-card.span-7 { grid-column: span 7; }
+.perso-card.span-5 { grid-column: span 5; }
 
-/* Rendu « planche de rushes » : cadre dashed, légère rotation */
-.shot {
-  border: 1px dashed var(--line);
+.perso-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
   padding: 12px;
-  background: var(--panel);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease-in-out;
 }
-.shot:nth-child(odd)  { transform: rotate(-0.5deg); }
-.shot:nth-child(even) { transform: rotate(0.4deg); }
-.shot:hover { transform: rotate(0deg); border-color: var(--grey); }
-.shot { transition: transform 0.3s ease, border-color 0.3s ease; }
-
-.shot .frame { border: 0; }
-.shot figcaption { margin-top: 10px; }
+.perso-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.perso-card figcaption {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 14px 6px 6px;
+}
+.perso-card figcaption p { font-size: 14px; color: var(--muted); }
+.perso-card .tag {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--accent-text);
+}
 
 /* ============================================================
    10. CONTACT + FOOTER
    ============================================================ */
-.contact { border-top: 1px solid var(--line); }
-
-.contact-mail {
-  display: block;
-  padding: clamp(24px, 4vw, 40px) 0;
+.contact { text-align: center; }
+.contact h2 {
   font-family: var(--display);
-  font-size: clamp(26px, 5.2vw, 72px);
-  line-height: 1.05;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-bottom: 1px solid var(--line);
-  transition: color 0.25s ease, padding-left 0.25s ease;
-  overflow-wrap: anywhere;
+  font-weight: 800;
+  font-size: clamp(36px, 5.5vw, 68px);
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  margin-top: 16px;
 }
-.contact-mail:hover { color: var(--red); padding-left: 16px; }
-
-.contact-li {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 16px;
-  border: 1px solid var(--line);
-  text-decoration: none;
-  transition: color 0.2s ease, border-color 0.2s ease;
+.contact > p {
+  margin: 18px auto 0;
+  max-width: 50ch;
+  color: var(--muted);
+  font-size: clamp(16px, 1.5vw, 18px);
 }
-.contact-li:hover { color: var(--red); border-color: var(--red); }
+.contact-cta {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+.contact-mail-line {
+  margin-top: 28px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.contact-mail-line a {
+  color: var(--accent-text);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(234, 88, 12, 0.35);
+  transition: all 0.3s ease-in-out;
+}
+.contact-mail-line a:hover { border-bottom-color: var(--accent); }
 
-footer {
+footer { border-top: 1px solid var(--line); }
+.footer-inner {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   gap: 16px;
   flex-wrap: wrap;
-  padding: 28px var(--pad) 40px;
-  border-top: 1px solid var(--line);
+  padding-top: 28px;
+  padding-bottom: 40px;
+  font-size: 13px;
+  color: var(--muted);
 }
+.footer-inner a {
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+.footer-inner a:hover { color: var(--accent-text); }
 
 /* ============================================================
-   11. ANIMATIONS — apparition au scroll (main.js)
+   11. ANIMATIONS — apparition douce au scroll (main.js)
    ============================================================ */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
 }
 .reveal.visible { opacity: 1; transform: none; }
-/* Les rotations du collage doivent survivre au reveal */
-.shot.reveal.visible:nth-child(odd)  { transform: rotate(-0.5deg); }
-.shot.reveal.visible:nth-child(even) { transform: rotate(0.4deg); }
-.shot.reveal.visible:hover { transform: rotate(0deg); }
 
 /* ============================================================
    12. RESPONSIVE + ACCESSIBILITÉ
    ============================================================ */
+/* Tablette : 2 colonnes pour les formats longs */
 @media (max-width: 1024px) {
-  .cut-grid { grid-template-columns: repeat(2, 1fr); }
-  .scene-head { grid-template-columns: 110px 1fr; }
-  .scene-head p { grid-column: 2; }
+  .work-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* Mobile : 1 colonne, rythme resserré */
 @media (max-width: 720px) {
-  .bar-rec { display: none; }
-  .cut-grid { grid-template-columns: 1fr; }
-  .scene-head { grid-template-columns: 1fr; gap: 10px; }
-  .hero-meta { text-align: left; }
-  .sr-label { left: var(--pad); bottom: 16px; }
-  .sr-tc { right: var(--pad); top: 16px; }
-  .vf-corner { display: none; }
-  .shot.span-7, .shot.span-5 { grid-column: span 12; }
-  .clip { width: clamp(130px, 40vw, 180px); }
+  .work-grid { grid-template-columns: 1fr; }
+  .perso-card.span-7, .perso-card.span-5 { grid-column: span 12; }
+  .reels-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .showreel video { max-height: 62vh; }
+  .header-inner { justify-content: center; text-align: center; }
+  .clip { width: clamp(130px, 40vw, 180px); }
+  .hero h1 { max-width: 16ch; }
 }
 
 @media (max-width: 420px) {
-  .bar nav { gap: 12px; }
-  .bar nav a { font-size: 10px; }
+  .site-header nav { gap: 14px; }
+  .site-header nav a { font-size: 13px; }
+  .btn { width: 100%; }
+  .hero-cta, .contact-cta { flex-direction: column; align-items: stretch; }
 }
 
+/* Respecte les préférences de réduction de mouvement */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -498,5 +614,4 @@ footer {
     animation: none !important;
   }
   .reveal { opacity: 1; transform: none; }
-  .marquee-track { animation: none; }
 }

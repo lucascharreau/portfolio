@@ -1,11 +1,9 @@
 /* ============================================================
-   PORTFOLIO VIDÉO — main.js (design v2 « salle de montage »)
-   JS minimal, sans dépendance. Cinq responsabilités :
+   PORTFOLIO VIDÉO — main.js (design v3 « Agence Créative Premium »)
+   JS minimal, sans dépendance. Trois responsabilités :
    1. Tiroir des déclinaisons Ads (un seul ouvert à la fois)
-   2. Tête de lecture : progression du scroll
-   3. Timecode qui défile (habillage REC)
-   4. Apparition des blocs au scroll
-   5. Gestion de la lecture vidéo (perf / batterie / audio)
+   2. Apparition des blocs au scroll
+   3. Gestion de la lecture vidéo (perf / batterie / audio)
    ============================================================ */
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -17,8 +15,7 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
    ------------------------------------------------------------ */
 const adsButtons = document.querySelectorAll('.ads-btn');
 
-/* Anime la hauteur d'un panneau entre deux valeurs (easeInOutQuad).
-   `to === null` signifie « hauteur libre » (auto) en fin d'animation. */
+/* Anime la hauteur d'un panneau entre deux valeurs (easeInOutQuad). */
 function animateHeight(set, from, to, onDone) {
   if (reducedMotion) {
     set.style.height = to === 0 ? '0px' : 'auto';
@@ -79,44 +76,7 @@ adsButtons.forEach((btn) => {
 });
 
 /* ------------------------------------------------------------
-   2. TÊTE DE LECTURE — la fine barre rouge en haut de l'écran
-   reflète la position de scroll dans la page.
-   ------------------------------------------------------------ */
-const playhead = document.querySelector('.playhead');
-
-function updatePlayhead() {
-  const max = document.documentElement.scrollHeight - window.innerHeight;
-  const ratio = max > 0 ? window.scrollY / max : 0;
-  playhead.style.width = (ratio * 100).toFixed(2) + '%';
-}
-window.addEventListener('scroll', updatePlayhead, { passive: true });
-updatePlayhead();
-
-/* ------------------------------------------------------------
-   3. TIMECODE — HH:MM:SS:FF (25 i/s) depuis l'arrivée sur la page.
-   Purement décoratif ; désactivé si l'utilisateur préfère
-   réduire les animations.
-   ------------------------------------------------------------ */
-const tcElements = document.querySelectorAll('[data-tc]');
-
-if (tcElements.length && !reducedMotion) {
-  const start = performance.now();
-  const pad = (n) => String(n).padStart(2, '0');
-
-  (function tickTimecode(now) {
-    const t = (now - start) / 1000;
-    const tc =
-      pad(Math.floor(t / 3600)) + ':' +
-      pad(Math.floor(t / 60) % 60) + ':' +
-      pad(Math.floor(t) % 60) + ':' +
-      pad(Math.floor((t % 1) * 25));
-    tcElements.forEach((el) => { el.textContent = tc; });
-    requestAnimationFrame(tickTimecode);
-  })(start);
-}
-
-/* ------------------------------------------------------------
-   4. APPARITION AU SCROLL — ajoute .visible aux .reveal
+   2. APPARITION AU SCROLL — ajoute .visible aux .reveal
    quand ils entrent dans le viewport (une seule fois).
    ------------------------------------------------------------ */
 const revealObserver = new IntersectionObserver(
@@ -133,7 +93,7 @@ const revealObserver = new IntersectionObserver(
 document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
 /* ------------------------------------------------------------
-   5. VIDÉOS & VIEWPORT —
+   3. VIDÉOS & VIEWPORT —
    - le showreel (data-autoplay) se met en pause hors écran
      et reprend quand il redevient visible ;
    - toute autre vidéo en lecture est mise en pause hors écran.
