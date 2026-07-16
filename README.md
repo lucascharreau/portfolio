@@ -23,7 +23,10 @@ Site/
    dans `index.html` (ou adapte les `src` dans le HTML) :
    - `showreel.mp4` — le montage d'accueil (autoplay, muet, en boucle)
    - `projet-01.mp4` … `projet-03.mp4` — formats longs 16:9
-   - `projet-01-ad-hook.mp4` etc. — déclinaisons verticales 9:16
+   - `projet-0X-ad-<nom>.mp4` — déclinaisons ads, **jusqu'à 6 par projet**
+     (hook, preuve, cta, story, carre, banniere, teaser…). Dans le HTML,
+     ajoute la classe `ratio-carre` (1:1) ou `ratio-paysage` (16:9) sur
+     un `.clip` pour les formats non verticaux.
    - `reel-01.mp4` … `reel-04.mp4` — reels 9:16
    - `perso-*.mp4` — projets personnels
 2. Ajoute une miniature `.jpg` du même nom dans `assets/posters/`
