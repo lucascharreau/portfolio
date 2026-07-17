@@ -1,0 +1,700 @@
+/* ============================================================
+   PORTFOLIO + CV — app.css
+   Couche « application » par-dessus style.css (inchangé) :
+   1. Vues (landing / portfolio / cv) et visibilité
+   2. En-tête partagé : marque roulante, navs, switch, langue
+   3. Écran d'entrée (« gate »)
+   4. Voile de transition façon montage vidéo (« wipe »)
+   5. View Transitions API — glissements directionnels
+   6. Composants CV (même moule que le portfolio)
+   7. Responsive + accessibilité
+   ============================================================ */
+
+/* ============================================================
+   1. VUES — une seule visible à la fois, pilotée par body[data-view]
+   ============================================================ */
+.view { display: none; }
+body[data-view="portfolio"] #view-portfolio { display: block; }
+body[data-view="cv"]        #view-cv        { display: block; }
+
+.gate { display: none; }
+body[data-view="landing"] .gate { display: flex; }
+
+.app-header { display: none; }
+body[data-view="portfolio"] .app-header,
+body[data-view="cv"]        .app-header { display: block; }
+
+/* ============================================================
+   2. EN-TÊTE PARTAGÉ
+   ============================================================ */
+
+/* --- Marque roulante : « Portfolio » ⇄ « CV », même composant --- */
+.brand-word {
+  display: grid;
+  overflow: hidden;
+}
+.brand-word .w {
+  grid-area: 1 / 1;
+  justify-self: start;
+  font-style: normal;
+  transition: opacity 0.32s ease-in-out, transform 0.32s ease-in-out;
+}
+/* état par défaut : Portfolio visible, CV en attente sous la ligne */
+.brand-word .w-cv { opacity: 0; transform: translateY(72%); pointer-events: none; }
+body[data-view="cv"] .brand-word .w-portfolio { opacity: 0; transform: translateY(-72%); pointer-events: none; }
+body[data-view="cv"] .brand-word .w-cv        { opacity: 1; transform: none; pointer-events: auto; }
+
+/* --- Navigations contextuelles --- */
+body[data-view="portfolio"] .app-header nav[data-nav="cv"]        { display: none; }
+body[data-view="cv"]        .app-header nav[data-nav="portfolio"] { display: none; }
+
+/* --- Outils à droite : langue (CV) + switch --- */
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lang-btn {
+  display: none;
+  align-items: center;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  transition: all 0.3s ease-in-out;
+}
+body[data-view="cv"] .lang-btn { display: inline-flex; }
+.lang-btn:hover {
+  color: var(--accent-text);
+  border-color: rgba(234, 88, 12, 0.4);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* --- Le switch Portfolio / CV : pastille dégradée coulissante --- */
+.view-switch {
+  --seg: 92px;
+  position: relative;
+  display: inline-flex;
+  padding: 4px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+}
+.switch-btn {
+  position: relative;
+  z-index: 1;
+  width: var(--seg);
+  padding: 7px 0;
+  border-radius: 999px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13px;
+  text-align: center;
+  color: var(--muted);
+  transition: color 0.3s ease-in-out;
+}
+.switch-btn:hover { color: var(--accent-text); }
+.switch-thumb {
+  position: absolute;
+  top: 4px; bottom: 4px; left: 4px;
+  width: var(--seg);
+  border-radius: 999px;
+  background: var(--grad);
+  box-shadow: 0 2px 10px rgba(234, 88, 12, 0.35);
+  transition: transform 0.4s cubic-bezier(0.6, 0, 0.2, 1);
+}
+body[data-view="cv"] .switch-thumb { transform: translateX(var(--seg)); }
+body[data-view="portfolio"] .switch-btn[data-goto="portfolio"],
+body[data-view="cv"]        .switch-btn[data-goto="cv"] { color: #FFFFFF; }
+
+/* ============================================================
+   3. ÉCRAN D'ENTRÉE — deux panneaux, split-screen interactif
+   ============================================================ */
+/* section.gate : contre les règles génériques « section » de style.css */
+section.gate {
+  padding: clamp(18px, 3vw, 36px);
+}
+.gate {
+  position: relative;
+  min-height: 100dvh;
+  flex-direction: column;
+  gap: clamp(18px, 2.5vh, 28px);
+  padding: clamp(18px, 3vw, 36px);
+  background:
+    radial-gradient(720px 440px at 12% -5%, rgba(249, 115, 22, 0.20), transparent 65%),
+    radial-gradient(680px 460px at 90% 12%, rgba(245, 158, 11, 0.18), transparent 65%),
+    radial-gradient(900px 520px at 50% 105%, rgba(253, 186, 116, 0.16), transparent 70%);
+}
+
+.gate-top {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+  padding-top: clamp(10px, 2vh, 22px);
+}
+.gate-brand {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(20px, 2.4vw, 24px);
+  letter-spacing: -0.01em;
+}
+.gate-brand-sub {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.gate-panels {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  gap: clamp(14px, 2vw, 26px);
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.gate-panel {
+  position: relative;
+  overflow: hidden;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+  padding: clamp(26px, 4vw, 54px);
+  text-decoration: none;
+  transition:
+    flex-grow 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.35s ease-in-out,
+    border-color 0.35s ease-in-out;
+}
+.gate-panel:hover,
+.gate-panel:focus-visible {
+  flex-grow: 1.28;
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(234, 88, 12, 0.35);
+}
+/* Halo sunset qui s'allume dans le panneau survolé */
+.gate-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(560px 320px at 85% 100%, rgba(249, 115, 22, 0.14), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.45s ease-in-out;
+  pointer-events: none;
+}
+.gate-panel:hover::after { opacity: 1; }
+
+.gate-panel .eyebrow { align-self: flex-start; }
+
+.gate-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+.gate-title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(46px, 6.5vw, 84px);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+/* Le surligneur sunset balaie le mot au survol */
+.gate-title .hl {
+  background-image: linear-gradient(104deg, #F97316 0%, #F59E0B 100%);
+  background-repeat: no-repeat;
+  background-size: 0% 86%;
+  background-position: 0 58%;
+  padding: 0 10px;
+  margin: 0 -10px;
+  transition: background-size 0.5s cubic-bezier(0.6, 0, 0.2, 1), color 0.35s ease-in-out 0.08s;
+}
+.gate-panel:hover .hl,
+.gate-panel:focus-visible .hl {
+  background-size: 100% 86%;
+  color: #431407;
+}
+.gate-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 36ch;
+}
+.gate-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  transition: all 0.3s ease-in-out;
+}
+.gate-panel:hover .gate-cta {
+  background: var(--grad);
+  border-color: transparent;
+  color: #FFFFFF;
+  box-shadow: var(--shadow-accent);
+}
+.gate-arrow { transition: transform 0.3s ease-in-out; }
+.gate-panel:hover .gate-arrow { transform: translateX(4px); }
+
+.gate-or {
+  align-self: center;
+  flex: none;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.gate-foot {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  padding-bottom: clamp(4px, 1vh, 10px);
+}
+
+/* Entrée en scène de l'écran (rejouée à chaque retour à l'accueil) */
+.gate.enter .gate-top   { animation: gate-fall 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.gate.enter .gate-panel { animation: gate-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.gate.enter .gate-panel + .gate-or + .gate-panel { animation-delay: 0.12s; }
+.gate.enter .gate-or    { animation: gate-pop 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both; }
+.gate.enter .gate-foot  { animation: gate-fade 0.7s ease-in-out 0.42s both; }
+
+@keyframes gate-rise {
+  from { opacity: 0; transform: translateY(34px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes gate-fall {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes gate-pop {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes gate-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ============================================================
+   4. VOILE DE TRANSITION — double balayage incliné + mot-chapitre
+   ============================================================ */
+.wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 130;
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+.wipe.run { visibility: visible; pointer-events: auto; }
+
+.wipe-slab {
+  position: absolute;
+  top: -12%; bottom: -12%;
+  left: -20%; right: -20%;
+  transform: translateX(-118%) skewX(-8deg);
+}
+.wipe-slab-back  { background: var(--bg-deep); }
+.wipe-slab-front { background: var(--grad); }
+
+.wipe.run .wipe-slab-front { animation: wipe-sweep 1s cubic-bezier(0.8, 0, 0.2, 1) both; }
+.wipe.run .wipe-slab-back  { animation: wipe-sweep 1s cubic-bezier(0.8, 0, 0.2, 1) 0.06s both; }
+
+@keyframes wipe-sweep {
+  0%   { transform: translateX(-118%) skewX(-8deg); }
+  44%  { transform: translateX(0)     skewX(-8deg); }
+  56%  { transform: translateX(0)     skewX(-8deg); }
+  100% { transform: translateX(118%)  skewX(-8deg); }
+}
+
+.wipe-word {
+  position: relative;
+  z-index: 2;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(44px, 8vw, 96px);
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  opacity: 0;
+  text-shadow: 0 2px 24px rgba(67, 20, 7, 0.18);
+}
+.wipe.run .wipe-word { animation: wipe-word 1.06s ease-in-out both; }
+
+@keyframes wipe-word {
+  0%, 38%  { opacity: 0; transform: translateY(26px); }
+  48%, 58% { opacity: 1; transform: none; }
+  70%, 100%{ opacity: 0; transform: translateY(-22px); }
+}
+
+/* ============================================================
+   5. VIEW TRANSITIONS API — glissements directionnels du toggle
+   (fallback JS équivalent dans app.js pour les autres navigateurs)
+   ============================================================ */
+.app-header { view-transition-name: app-header; }
+
+::view-transition-old(app-header),
+::view-transition-new(app-header) { animation-duration: 0.32s; }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.45, 0.05, 0.15, 1);
+}
+
+html[data-vt="cv"]::view-transition-old(root)        { animation-name: vt-out-left; }
+html[data-vt="cv"]::view-transition-new(root)        { animation-name: vt-in-right; }
+html[data-vt="portfolio"]::view-transition-old(root) { animation-name: vt-out-right; }
+html[data-vt="portfolio"]::view-transition-new(root) { animation-name: vt-in-left; }
+html[data-vt="home"]::view-transition-old(root)      { animation-name: vt-zoom-out; }
+html[data-vt="home"]::view-transition-new(root)      { animation-name: vt-zoom-in; }
+
+@keyframes vt-out-left  { to   { opacity: 0; transform: translateX(-4.5%) scale(0.982); } }
+@keyframes vt-in-right  { from { opacity: 0; transform: translateX(4.5%)  scale(0.982); } }
+@keyframes vt-out-right { to   { opacity: 0; transform: translateX(4.5%)  scale(0.982); } }
+@keyframes vt-in-left   { from { opacity: 0; transform: translateX(-4.5%) scale(0.982); } }
+@keyframes vt-zoom-out  { to   { opacity: 0; transform: scale(0.965); } }
+@keyframes vt-zoom-in   { from { opacity: 0; transform: scale(1.03); } }
+
+/* ============================================================
+   6. COMPOSANTS CV — calqués sur la charte du portfolio
+   ============================================================ */
+
+/* --- Hero CV --- */
+.cv-rotator {
+  margin-top: 26px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent-text);
+  min-height: 1.7em;
+}
+#cv-rotator {
+  display: inline-block;
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+#cv-rotator.out { opacity: 0; transform: translateY(8px); }
+
+.cv-meta {
+  margin-top: 22px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.cv-meta .dot { margin: 0 10px; opacity: 0.5; }
+.cv-meta a {
+  color: var(--accent-text);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(234, 88, 12, 0.35);
+  transition: border-color 0.3s ease-in-out;
+}
+.cv-meta a:hover { border-bottom-color: var(--accent); }
+
+.cv-hero .pitch strong { color: var(--text); }
+.cv-hero .pitch a {
+  color: var(--accent-text);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(234, 88, 12, 0.35);
+  transition: border-color 0.3s ease-in-out;
+}
+.cv-hero .pitch a:hover { border-bottom-color: var(--accent); }
+
+/* --- Grande carte blanche des sections liste --- */
+.cv-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: clamp(22px, 3.4vw, 42px);
+}
+
+/* --- Lignes date / contenu --- */
+.cv-rows { display: flex; flex-direction: column; }
+
+.cv-row {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 8px 24px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+.cv-row:first-child { padding-top: 4px; }
+.cv-row:last-child  { border-bottom: none; padding-bottom: 4px; }
+
+.cv-when {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  padding-top: 3px;
+}
+.cv-when strong { color: var(--accent-text); font-weight: 600; }
+
+.cv-row-head {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  text-align: left;
+}
+.cv-title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.cv-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: rgba(234, 88, 12, 0.12);
+  color: var(--accent-text);
+  font-weight: 700;
+  font-size: 14px;
+  flex: none;
+  transition: transform 0.35s ease-in-out, background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+button.cv-row-head:hover .cv-toggle { background: var(--grad); color: #FFFFFF; }
+.cv-row.open .cv-toggle {
+  transform: rotate(45deg);
+  background: var(--grad);
+  color: #FFFFFF;
+}
+span.cv-row-head { cursor: default; }
+
+.cv-org {
+  margin-top: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent-text);
+}
+.cv-note {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+/* Détails dépliables (grid-rows : 0fr → 1fr, fluide sans JS de mesure) */
+.cv-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cv-details > div { overflow: hidden; }
+.cv-row.open .cv-details { grid-template-rows: 1fr; }
+.cv-details ul { list-style: none; margin-top: 12px; }
+.cv-details li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.cv-details li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* --- Compétences : trois cartes, pastilles-chips --- */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+  align-items: start;
+}
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 26px 26px 28px;
+  transition: all 0.3s ease-in-out;
+}
+.skill-card:hover {
+  transform: translateY(-4px) rotate(-0.4deg);
+  box-shadow: var(--shadow-md);
+}
+.skill-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+.skill-label::before {
+  content: "";
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--grad);
+  flex: none;
+}
+.skill-card:nth-child(2) .skill-label::before { background: #14B8A6; }
+.skill-card:nth-child(3) .skill-label::before { background: #8B5CF6; }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.chip {
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+.chip:hover {
+  transform: rotate(-1.5deg) scale(1.05);
+  border-color: rgba(234, 88, 12, 0.4);
+}
+
+/* --- International : trois cartes-pays --- */
+.intl-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+.intl-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 26px;
+  transition: all 0.3s ease-in-out;
+}
+.intl-card:hover {
+  transform: translateY(-4px) rotate(0.4deg);
+  box-shadow: var(--shadow-md);
+}
+.intl-when { font-size: 13px; font-weight: 500; color: var(--muted); }
+.intl-title {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  color: #431407;
+  background: linear-gradient(104deg,
+    transparent 1%, var(--accent-faint) 4%, var(--accent-faint) 96%, transparent 99%);
+  padding: 0 8px;
+}
+.intl-org {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent-text);
+}
+.intl-note {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Cascade d'apparition des grilles CV (écho des règles work-grid) */
+.skills-grid .reveal:nth-child(2),
+.intl-grid   .reveal:nth-child(2) { transition-delay: 0.08s; }
+.skills-grid .reveal:nth-child(3),
+.intl-grid   .reveal:nth-child(3) { transition-delay: 0.16s; }
+
+/* Halo assorti derrière le contact CV (même recette que #contact) */
+#cv-contact {
+  background:
+    radial-gradient(720px 480px at 50% 92%, rgba(249, 115, 22, 0.18), transparent 70%),
+    radial-gradient(540px 380px at 8% 20%, rgba(245, 158, 11, 0.13), transparent 70%);
+}
+
+/* ============================================================
+   7. RESPONSIVE + ACCESSIBILITÉ
+   ============================================================ */
+@media (max-width: 1024px) {
+  .skills-grid, .intl-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .app-header nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+  .app-header .header-inner { row-gap: 10px; }
+}
+
+@media (max-width: 760px) {
+  .gate { min-height: 100dvh; }
+  .gate-panels { flex-direction: column; }
+  .gate-panel { min-height: 30vh; }
+  .gate-title { font-size: clamp(40px, 11vw, 56px); }
+  .gate-or { margin: -4px 0; }
+}
+
+@media (max-width: 720px) {
+  .skills-grid, .intl-grid { grid-template-columns: 1fr; }
+  .cv-row { grid-template-columns: 1fr; gap: 4px; }
+  .cv-when { padding-top: 0; }
+  .cv-card { padding: 22px 18px; }
+  .view-switch { --seg: 78px; }
+  .switch-btn { font-size: 12px; }
+}
+
+/* Réduction de mouvement : pas de balayage, pas de glissement */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+  .gate.enter .gate-top,
+  .gate.enter .gate-panel,
+  .gate.enter .gate-or,
+  .gate.enter .gate-foot { animation: none !important; opacity: 1; }
+}

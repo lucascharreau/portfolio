@@ -4,25 +4,81 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Lucas — Créateur de contenu &amp; monteur vidéo marketing</title>
-  <meta name="description" content="Créateur de contenu et monteur vidéo orienté marketing. Du storytelling de fond aux formats publicitaires optimisés pour les réseaux sociaux et la conversion.">
+  <title>Lucas Charreau — Portfolio &amp; CV | Créateur de contenu &amp; monteur vidéo</title>
+  <meta name="description" content="Portfolio et CV de Lucas Charreau — créateur de contenu et monteur vidéo orienté marketing. Réalisations, formats courts, parcours international et compétences.">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23F97316'/><stop offset='1' stop-color='%23F59E0B'/></linearGradient></defs><circle cx='50' cy='50' r='42' fill='url(%23g)'/></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/app.css">
 </head>
 
-<body>
+<body data-view="landing">
+<script>
+  /* Résout la vue avant le premier rendu (évite tout flash au chargement) */
+  (function () {
+    var h = location.hash.replace('#', '');
+    var v = 'landing';
+    if (h === 'portfolio' || /^(top|realisations|reels|copywriting|projets|apropos|contact)$/.test(h)) v = 'portfolio';
+    else if (h === 'cv' || h.indexOf('cv-') === 0) v = 'cv';
+    document.body.setAttribute('data-view', v);
+  })();
+</script>
 
-<header class="site-header">
+<!-- ============================================================
+     ÉCRAN D'ENTRÉE — choix Portfolio / CV
+     ============================================================ -->
+<section class="gate" id="view-landing" aria-label="Écran d'accueil — choisir Portfolio ou CV">
+  <header class="gate-top">
+    <span class="gate-brand">Lucas Charreau</span>
+    <span class="gate-brand-sub">Créateur de contenu &amp; monteur vidéo — Nantes / Angers</span>
+  </header>
+
+  <div class="gate-panels">
+    <a class="gate-panel" href="#portfolio" data-goto="portfolio" data-wipe="Portfolio">
+      <span class="eyebrow">Créations &amp; vidéos</span>
+      <span class="gate-body">
+        <span class="gate-title"><span class="hl">Portfolio</span></span>
+        <span class="gate-desc">Réalisations clients, formats courts, articles &amp; projets drone.</span>
+        <span class="gate-cta">Entrer <span class="gate-arrow" aria-hidden="true">→</span></span>
+      </span>
+    </a>
+
+    <span class="gate-or" aria-hidden="true">ou</span>
+
+    <a class="gate-panel" href="#cv" data-goto="cv" data-wipe="CV">
+      <span class="eyebrow">Parcours &amp; compétences</span>
+      <span class="gate-body">
+        <span class="gate-title"><span class="hl">CV</span></span>
+        <span class="gate-desc">Expérience, formation, langues &amp; parcours international.</span>
+        <span class="gate-cta">Entrer <span class="gate-arrow" aria-hidden="true">→</span></span>
+      </span>
+    </a>
+  </div>
+
+  <footer class="gate-foot">
+    <span>Vous pourrez basculer de l'un à l'autre à tout moment.</span>
+  </footer>
+</section>
+
+<!-- ============================================================
+     EN-TÊTE PARTAGÉ — marque, navigation contextuelle, switch
+     ============================================================ -->
+<header class="site-header app-header">
   <div class="wrap header-inner">
-    <a class="brand" href="#top">
-      Portfolio
+    <a class="brand" href="#accueil" data-goto="landing" aria-label="Revenir à l'écran d'accueil">
+      <span class="brand-word" aria-hidden="false">
+        <i class="w w-portfolio">Portfolio</i>
+        <i class="w w-cv">CV</i>
+      </span>
       <span class="brand-sub">Lucas Charreau</span>
     </a>
-    <nav aria-label="Navigation principale">
+
+    <nav data-nav="portfolio" aria-label="Navigation portfolio">
       <a href="#realisations">Réalisations</a>
       <a href="#reels">Déclinaisons</a>
       <a href="#copywriting">Articles</a>
@@ -30,9 +86,31 @@
       <a href="#apropos">À propos</a>
       <a href="#contact">Contact</a>
     </nav>
+
+    <nav data-nav="cv" aria-label="Navigation CV">
+      <a href="#cv-experience" data-cv="nav_exp">Expérience</a>
+      <a href="#cv-formation" data-cv="nav_edu">Formation</a>
+      <a href="#cv-competences" data-cv="nav_skills">Compétences</a>
+      <a href="#cv-langues" data-cv="nav_langs">Langues</a>
+      <a href="#cv-international" data-cv="nav_intl">International</a>
+      <a href="#cv-contact" data-cv="nav_contact">Contact</a>
+    </nav>
+
+    <div class="header-tools">
+      <button type="button" class="lang-btn" id="cv-lang-btn" aria-label="Switch to English">EN</button>
+      <div class="view-switch" role="group" aria-label="Basculer entre le portfolio et le CV">
+        <span class="switch-thumb" aria-hidden="true"></span>
+        <button type="button" class="switch-btn" data-goto="portfolio" aria-current="true">Portfolio</button>
+        <button type="button" class="switch-btn" data-goto="cv" aria-current="false">CV</button>
+      </div>
+    </div>
   </div>
 </header>
 
+<!-- ============================================================
+     VUE PORTFOLIO — contenu identique au site actuel
+     ============================================================ -->
+<div class="view" id="view-portfolio">
 <main id="top">
 
   <section class="hero">
@@ -49,7 +127,7 @@
       </h1>
       <p class="pitch reveal">
         <strong>Créateur de contenu, monteur vidéo orienté marketing et pilote de drone.</strong><br>
-        Je traduis l’identité d’une marque en images percutantes, 
+        Je traduis l’identité d’une marque en images percutantes,
         du storytelling de fond aux formats publicitaires - optimisés pour les réseaux sociaux et la conversion.
       </p>
       <div class="hero-cta reveal">
@@ -255,8 +333,8 @@
         <span class="eyebrow">03 — Copywriting</span>
         <h2>Articles & Stratégie</h2>
         <p>
-          Parce qu'une belle image ne suffit pas si le message de fond n'accroche pas. 
-          J'utilise mes compétences en commerce international et marketing pour écrire des textes 
+          Parce qu'une belle image ne suffit pas si le message de fond n'accroche pas.
+          J'utilise mes compétences en commerce international et marketing pour écrire des textes
           orientés vers l'objectif. Retrouvez mes articles sur le copywriting et la stratégie vidéo.
         </p>
       </div>
@@ -365,7 +443,7 @@
 
         <figure class="perso-card reveal">
           <div class="thumb">
-            <iframe 
+            <iframe
                     title="Projet perso 04" loading="lazy" allowfullscreen
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
@@ -402,7 +480,139 @@
     <a href="#top">Retour en haut ↑</a>
   </div>
 </footer>
+</div><!-- /view-portfolio -->
+
+<!-- ============================================================
+     VUE CV — même charte, contenu injecté par js/app.js
+     ============================================================ -->
+<div class="view" id="view-cv">
+<main id="cv-top">
+
+  <section class="hero cv-hero">
+    <div class="wrap hero-content">
+      <div class="badge-group reveal">
+        <span class="badge badge-dispo" data-cv="b_dispo">Disponible — poste &amp; missions</span>
+        <span class="badge badge-mim" data-cv="b_master">Master 2 Management International et Marketing — IAE Angers</span>
+        <span class="badge badge-lang" data-cv="b_lang">FR · EN (TOEIC 910/990) · ES</span>
+      </div>
+      <h1 class="reveal">
+        <span data-cv="h1a">Marketing international,</span><br>
+        <span class="grad-text" data-cv="h1b">création de contenu.</span>
+      </h1>
+      <p class="cv-rotator reveal" aria-hidden="true"><span id="cv-rotator"></span></p>
+      <p class="pitch reveal" data-cv="bio">
+        <strong>Chargé de Marketing opérationnel chez Weenat (AgTech).</strong><br>
+        Étudiant en Master 2 Management International et Marketing à l’IAE d’Angers,
+        je traduis la technique en histoires simples — en plusieurs langues, à travers l’Europe.
+      </p>
+      <p class="cv-meta reveal">
+        <span data-cv="loc">Nantes / Angers, France</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="mailto:lucas.charreau.pro@gmail.com">lucas.charreau.pro@gmail.com</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="https://www.linkedin.com/in/lucas-charreau-6429a4206/" target="_blank" rel="noopener">LinkedIn</a>
+      </p>
+      <div class="hero-cta reveal">
+        <a class="btn btn-primary" href="#cv-experience" data-cv="cta1">Parcourir l'expérience</a>
+        <a class="btn btn-ghost" href="#portfolio" data-goto="portfolio" data-cv="cta2">Voir le portfolio →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="cv-experience">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="eyebrow" data-cv="s1e">01 — Expérience</span>
+        <h2 data-cv="s1t">Parcours professionnel</h2>
+        <p data-cv="s1p">De l'AgTech à la banque : cliquez sur une expérience pour le détail des missions.</p>
+      </div>
+      <div class="cv-card reveal">
+        <div class="cv-rows" id="cv-exp-rows"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cv-formation">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="eyebrow" data-cv="s2e">02 — Formation</span>
+        <h2 data-cv="s2t">Formation académique</h2>
+      </div>
+      <div class="cv-card reveal">
+        <div class="cv-rows" id="cv-edu-rows"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cv-competences">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="eyebrow" data-cv="s3e">03 — Compétences</span>
+        <h2 data-cv="s3t">Compétences clés</h2>
+        <p data-cv="s3p">Du terrain à l'analyse : produire le contenu, et savoir pourquoi on le produit.</p>
+      </div>
+      <div class="skills-grid" id="cv-skills"></div>
+    </div>
+  </section>
+
+  <section id="cv-langues">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="eyebrow" data-cv="s4e">04 — Langues</span>
+        <h2 data-cv="s4t">Langues parlées</h2>
+      </div>
+      <div class="cv-card reveal">
+        <div class="cv-rows" id="cv-lang-rows"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cv-international">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="eyebrow" data-cv="s5e">05 — International</span>
+        <h2 data-cv="s5t">Expérience internationale</h2>
+        <p data-cv="s5p">Un an en Nouvelle-Zélande, un semestre en Finlande, des tournages à travers l'Europe.</p>
+      </div>
+      <div class="intl-grid" id="cv-intl"></div>
+    </div>
+  </section>
+
+  <section id="cv-contact">
+    <div class="wrap contact">
+      <span class="eyebrow reveal" data-cv="s6e">06 — Contact</span>
+      <h2 class="reveal" data-cv="s6t">Un poste, une mission&nbsp;?<br><span class="grad-text">Parlons-en.</span></h2>
+      <p class="reveal" data-cv="s6p">Flexible - Réponse rapide</p>
+      <div class="contact-cta reveal">
+        <a class="btn btn-primary btn-lg" href="mailto:lucas.charreau.pro@gmail.com" data-cv="c_mail">Écrivez-moi</a>
+        <a class="btn btn-ghost btn-lg" href="https://www.linkedin.com/in/lucas-charreau-6429a4206/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+      <p class="contact-mail-line reveal">
+        <span data-cv="c_line">ou directement :</span> <a href="mailto:lucas.charreau.pro@gmail.com">lucas.charreau.pro@gmail.com</a>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span data-cv="foot">© 2026 Lucas Charreau — Création vidéo · Imagerie drone · Callisthénie</span>
+    <a href="#cv-top" data-cv="foot_top">Retour en haut ↑</a>
+  </div>
+</footer>
+</div><!-- /view-cv -->
+
+<!-- ============================================================
+     VOILE DE TRANSITION — balayage façon montage vidéo
+     ============================================================ -->
+<div class="wipe" aria-hidden="true">
+  <div class="wipe-slab wipe-slab-back"></div>
+  <div class="wipe-slab wipe-slab-front"></div>
+  <span class="wipe-word"></span>
+</div>
 
 <script src="js/main.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

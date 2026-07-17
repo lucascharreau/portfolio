@@ -1,21 +1,32 @@
-# Portfolio vidéo — Lucas
+# Portfolio & CV — Lucas
 
-Site portfolio one-page, design « Agence Créative Premium » : thème clair
-ultra-lumineux, accent dégradé sunset orangé, cartes arrondies, ombres douces.
-100 % statique (HTML / CSS / JS vanilla) — aucun build, aucune dépendance.
+Site one-page à trois vues (Accueil / Portfolio / CV), design « Agence Créative
+Premium » : thème clair ultra-lumineux, accent dégradé sunset orangé, cartes
+arrondies, ombres douces. Écran d'entrée avec choix Portfolio ou CV, bascule
+instantanée via le toggle du header (transitions View Transitions API + repli),
+CV bilingue FR/EN. 100 % statique (HTML / CSS / JS vanilla) — aucun build,
+aucune dépendance.
 
 ## Structure
 
 ```
 Site/
-├── index.html          → structure de la page (hero, formats longs, reels, projets persos, contact)
-├── css/style.css       → design complet (variables CSS, grid, accordéons, responsive)
+├── index.html          → les 3 vues : écran d'entrée, portfolio, CV (+ header partagé)
+├── css/style.css       → design du portfolio (variables CSS, grid, accordéons, responsive)
+├── css/app.css         → écran d'entrée, header partagé (switch, marque roulante), composants CV, transitions
 ├── js/main.js          → accordéons Ads, apparitions au scroll, pause auto des vidéos
+├── js/app.js           → contenu du CV (FR/EN, à éditer ici), routeur de vues, transitions
 ├── assets/
 │   ├── videos/         → fichiers .mp4
 │   └── posters/        → miniatures .jpg affichées avant lecture
 └── README.md
 ```
+
+## Modifier le CV
+
+Tout le contenu du CV (expériences, formation, compétences, langues,
+international) est dans `js/app.js`, en français et en anglais — même principe
+que l'ancien site CV : modifier les textes dans les tableaux de données suffit.
 
 ## Ajouter tes vidéos
 
