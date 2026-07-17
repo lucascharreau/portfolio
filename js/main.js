@@ -76,6 +76,19 @@ adsButtons.forEach((btn) => {
 });
 
 /* ------------------------------------------------------------
+   1bis. « ET BIEN PLUS » — chaque bouton déplie sa liste de liens
+   ------------------------------------------------------------ */
+document.querySelectorAll('.more-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const panel = document.getElementById(btn.getAttribute('aria-controls'));
+    const wasOpen = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!wasOpen));
+    btn.querySelector('.sign').textContent = wasOpen ? '+' : '−';
+    panel.hidden = wasOpen;
+  });
+});
+
+/* ------------------------------------------------------------
    2. APPARITION AU SCROLL — ajoute .visible aux .reveal
    quand ils entrent dans le viewport (une seule fois).
    ------------------------------------------------------------ */

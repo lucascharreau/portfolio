@@ -1,7 +1,9 @@
 /* ============================================================
-   PORTFOLIO VIDÉO — style.css (design v3 « Agence Créative Premium »)
+   PORTFOLIO VIDÉO — style.css (design v3.1 « Agence Créative Premium »)
    Thème clair ultra-lumineux, accent dégradé sunset orangé,
    coins arrondis, ombres douces, glassmorphism discret.
+   v3.1 : touche pop — surligneur orange sunset sur les mots-clés,
+   eyebrows en pastilles encre, micro-interactions plus franches.
 
    Sommaire :
    1. Variables        5. Hero + Showreel      9. Projets persos
@@ -14,8 +16,9 @@
    1. VARIABLES
    ============================================================ */
 :root {
-  /* Thème clair */
-  --bg:      #FBFAF8;                     /* blanc cassé lumineux */
+  /* Thème clair — fond crème/beige chaud, cartes blanches qui ressortent */
+  --bg:      #F7F1E6;                     /* crème beige chaleureux */
+  --bg-deep: #F1E7D6;                     /* beige plus soutenu (bas de page) */
   --surface: #FFFFFF;                     /* cartes */
   --text:    #14161A;
   --muted:   #5D6470;
@@ -25,6 +28,10 @@
   --accent:      #EA580C;                 /* orange profond */
   --accent-text: #C2410C;                 /* orange lisible sur blanc (AA) */
   --grad: linear-gradient(135deg, #F97316 0%, #F59E0B 100%);
+
+  /* Déclinaisons claires de l'orange : surligneurs + ombres franches */
+  --accent-soft:  #FDBA74;
+  --accent-faint: #FED7AA;
 
   /* Profondeur */
   --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05), 0 1px 3px rgba(16, 24, 40, 0.06);
@@ -52,7 +59,9 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg);
+  /* Dégradé vertical très doux : crème lumineux en haut,
+     beige plus soutenu vers le bas de page */
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 55%, var(--bg-deep) 100%);
   color: var(--text);
   font-family: var(--body);
   font-size: 16px;
@@ -80,15 +89,21 @@ section { scroll-margin-top: 84px; }
    ============================================================ */
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
 
+/* Eyebrows « 01 — Réalisations » : pastilles encre, zoom discret au survol */
 .eyebrow {
   display: inline-block;
   font-family: var(--display);
   font-weight: 700;
   font-size: 13px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent-text);
+  color: #FFFFFF;
+  background: var(--text);
+  padding: 6px 14px;
+  border-radius: 999px;
+  transition: transform 0.3s ease-in-out;
 }
+.eyebrow:hover { transform: scale(1.03); }
 
 .tag {
   font-size: 13px;
@@ -96,12 +111,21 @@ section { scroll-margin-top: 84px; }
   color: var(--muted);
 }
 
-/* Texte en dégradé (mot-clé du hero, titre contact) */
+/* Mot-clé au surligneur orange sunset (hero, titre contact).
+   Texte brun foncé pour rester lisible sur l'orange. */
 .grad-text {
-  background: var(--grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  background: linear-gradient(104deg,
+    transparent 0.5%, #F97316 3%, #F59E0B 97%, transparent 99%);
+  color: #431407;
+  padding: 0 10px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Espace entre les deux lignes du titre hero */
+.hero h1 .grad-text {
+  display: inline-block;
+  margin-top: 18px;
 }
 
 /* Badges pills du hero : disponibilité + description courte */
@@ -124,7 +148,10 @@ section { scroll-margin-top: 84px; }
   font-size: 13px;
   font-weight: 500;
   color: var(--muted);
+  transition: transform 0.3s ease-in-out;
 }
+/* Droits par défaut, légère inclinaison au survol (sticker) */
+.badge:hover { transform: rotate(-1.5deg) scale(1.04); }
 .badge::before {
   content: "";
   width: 8px; height: 8px;
@@ -134,9 +161,20 @@ section { scroll-margin-top: 84px; }
 .badge-dispo::before {
   background: #22C55E; /* vert « disponible / en ligne » */
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18); }
+  50%      { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0.05); }
 }
 .badge-role::before {
   background: var(--grad); /* écho du dégradé sunset */
+}
+.badge-copy::before {
+  background: #0071e3; /* bleu — distingue le copywriting */
+}
+.badge-drone::before {
+  background: #8B5CF6; /* violet — vidéo drone */
 }
 
 /* Boutons */
@@ -161,8 +199,8 @@ section { scroll-margin-top: 84px; }
   box-shadow: var(--shadow-accent);
 }
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(234, 88, 12, 0.38);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 rgba(20, 22, 26, 0.9);
 }
 
 .btn-ghost {
@@ -172,10 +210,10 @@ section { scroll-margin-top: 84px; }
   box-shadow: var(--shadow-sm);
 }
 .btn-ghost:hover {
-  transform: translateY(-2px);
+  transform: translate(-2px, -2px);
   border-color: rgba(234, 88, 12, 0.4);
   color: var(--accent-text);
-  box-shadow: var(--shadow-md);
+  box-shadow: 4px 4px 0 var(--accent-soft);
 }
 
 /* ============================================================
@@ -185,7 +223,7 @@ section { scroll-margin-top: 84px; }
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(247, 241, 230, 0.78); /* verre teinté crème, assorti au fond */
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
@@ -218,6 +256,7 @@ section { scroll-margin-top: 84px; }
 
 .site-header nav { display: flex; gap: clamp(16px, 3vw, 32px); flex-wrap: wrap; }
 .site-header nav a {
+  position: relative;
   font-family: var(--display);
   font-weight: 600;
   font-size: 14px;
@@ -226,18 +265,30 @@ section { scroll-margin-top: 84px; }
   transition: color 0.3s ease-in-out;
 }
 .site-header nav a:hover { color: var(--accent-text); }
+/* Soulignement qui se dessine au survol */
+.site-header nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 100%;
+  bottom: -4px;
+  height: 2px;
+  background: var(--accent);
+  transition: right 0.3s ease-in-out;
+}
+.site-header nav a:hover::after { right: 0; }
 
 /* ============================================================
    5. HERO + SHOWREEL
    ============================================================ */
-.hero { padding-top: clamp(64px, 9vw, 120px); }
+.hero { padding-top: clamp(36px, 5vw, 64px); }
 
 /* Halos dégradés très doux (« aurora ») : réchauffent le fond
    sans gêner la lecture. Dégradés radiaux natifs, pas de blur. */
 .hero {
   background:
-    radial-gradient(720px 440px at 12% -5%, rgba(249, 115, 22, 0.10), transparent 65%),
-    radial-gradient(680px 460px at 90% 12%, rgba(245, 158, 11, 0.10), transparent 65%);
+    radial-gradient(720px 440px at 12% -5%, rgba(249, 115, 22, 0.20), transparent 65%),
+    radial-gradient(680px 460px at 90% 12%, rgba(245, 158, 11, 0.18), transparent 65%),
+    radial-gradient(900px 520px at 50% 105%, rgba(253, 186, 116, 0.16), transparent 70%);
 }
 
 .hero-content { text-align: center; }
@@ -338,7 +389,7 @@ section:last-of-type { padding-bottom: var(--section); }
   transition: all 0.3s ease-in-out;
 }
 .work-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px) rotate(-0.4deg);
   box-shadow: var(--shadow-md);
 }
 
@@ -348,7 +399,15 @@ section:last-of-type { padding-bottom: var(--section); }
   aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: var(--radius-sm);
-  background: #EEEDEA;
+  background: #EDE6D8; /* attente vidéo : beige assorti au fond */
+}
+.thumb-vertical { aspect-ratio: 9 / 16; }
+.thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+  filter: saturate(0.94);
 }
 .thumb video, .thumb iframe {
   width: 100%; height: 100%;
@@ -358,7 +417,12 @@ section:last-of-type { padding-bottom: var(--section); }
   filter: saturate(0.94);
 }
 .work-card:hover .thumb video,
+.work-card:hover .thumb img,
 .perso-card:hover .thumb video { transform: scale(1.02); filter: saturate(1); }
+
+/* Cartes articles : toute la carte est un lien */
+.article-card { display: block; color: inherit; text-decoration: none; }
+.article-card .article-btn { margin-top: 24px; }
 
 .work-body { padding: 18px 8px 8px; }
 .work-body h3 {
@@ -399,7 +463,7 @@ section:last-of-type { padding-bottom: var(--section); }
   background: var(--grad);
   border-color: transparent;
   color: #FFFFFF;
-  box-shadow: var(--shadow-accent);
+  box-shadow: 3px 3px 0 rgba(20, 22, 26, 0.85);
 }
 .ads-btn .sign {
   display: inline-flex;
@@ -463,7 +527,7 @@ section:last-of-type { padding-bottom: var(--section); }
   aspect-ratio: 9 / 16;
   overflow: hidden;
   border-radius: var(--radius-sm);
-  background: #EEEDEA;
+  background: #EDE6D8; /* attente vidéo : beige assorti au fond */
   border: 1px solid var(--line);
 }
 /* Formats alternatifs d'une déclinaison */
@@ -483,14 +547,14 @@ section:last-of-type { padding-bottom: var(--section); }
    ============================================================ */
 .reels-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--gap);
 }
 .reel-frame {
   aspect-ratio: 9 / 16;
   overflow: hidden;
   border-radius: var(--radius);
-  background: #EEEDEA;
+  background: #EDE6D8; /* attente vidéo : beige assorti au fond */
   border: 1px solid var(--line);
   box-shadow: var(--shadow-sm);
   transition: all 0.3s ease-in-out;
@@ -501,8 +565,13 @@ section:last-of-type { padding-bottom: var(--section); }
   transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
   filter: saturate(0.94);
 }
+.reel-frame iframe {
+  width: 100%; height: 100%;
+  border: 0;
+  display: block;
+}
 .reel:hover .reel-frame {
-  transform: translateY(-3px);
+  transform: translateY(-4px) rotate(-0.6deg);
   box-shadow: var(--shadow-md);
 }
 .reel:hover .reel-frame video { transform: scale(1.02); filter: saturate(1); }
@@ -512,17 +581,20 @@ section:last-of-type { padding-bottom: var(--section); }
   font-weight: 500;
   color: var(--muted);
 }
+.reel figcaption p {
+  margin-top: 6px;
+  font-weight: 400;
+  line-height: 1.5;
+}
 
 /* ============================================================
-   9. PROJETS PERSOS — grille asymétrique droite et propre
+   9. PROJETS PERSOS — grille 2×2 en 16:9
    ============================================================ */
 .perso-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--gap);
 }
-.perso-card.span-7 { grid-column: span 7; }
-.perso-card.span-5 { grid-column: span 5; }
 
 .perso-card {
   background: var(--surface);
@@ -533,7 +605,7 @@ section:last-of-type { padding-bottom: var(--section); }
   transition: all 0.3s ease-in-out;
 }
 .perso-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px) rotate(0.4deg);
   box-shadow: var(--shadow-md);
 }
 .perso-card figcaption {
@@ -548,8 +620,54 @@ section:last-of-type { padding-bottom: var(--section); }
   font-family: var(--display);
   font-weight: 700;
   font-size: 13px;
-  color: var(--accent-text);
+  color: #431407;
+  background: linear-gradient(104deg,
+    transparent 1%, var(--accent-faint) 4%, var(--accent-faint) 96%, transparent 99%);
+  padding: 0 6px;
 }
+
+/* ============================================================
+   9bis. « ET BIEN PLUS » — bouton + liens dépliables
+   ============================================================ */
+.more-block { margin-top: 34px; text-align: center; }
+.more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 14px;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.more-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.more-btn .sign { color: var(--accent, #F97316); }
+.more-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.more-links a {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+.more-links a:hover { transform: translateY(-2px) rotate(-1deg); color: inherit; }
 
 /* ============================================================
    10. CONTACT + FOOTER
@@ -557,11 +675,15 @@ section:last-of-type { padding-bottom: var(--section); }
 /* Halo assorti derrière la section contact */
 #contact {
   background:
-    radial-gradient(720px 480px at 50% 92%, rgba(249, 115, 22, 0.09), transparent 70%),
-    radial-gradient(540px 380px at 8% 20%, rgba(245, 158, 11, 0.07), transparent 70%);
+    radial-gradient(720px 480px at 50% 92%, rgba(249, 115, 22, 0.18), transparent 70%),
+    radial-gradient(540px 380px at 8% 20%, rgba(245, 158, 11, 0.13), transparent 70%);
 }
 
 .contact { text-align: center; }
+.contact .eyebrow {
+  display: table;        /* la pastille garde sa largeur de contenu… */
+  margin-right: auto;    /* …et reste calée à gauche comme les autres sections */
+}
 .contact h2 {
   font-family: var(--display);
   font-weight: 800;
@@ -620,10 +742,19 @@ footer { border-top: 1px solid var(--line); }
    ============================================================ */
 .reveal {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(22px) scale(0.99);
   transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
 }
 .reveal.visible { opacity: 1; transform: none; }
+
+/* Les grilles apparaissent en cascade */
+.work-grid  .reveal:nth-child(2),
+.reels-grid .reveal:nth-child(2) { transition-delay: 0.08s; }
+.work-grid  .reveal:nth-child(3),
+.reels-grid .reveal:nth-child(3) { transition-delay: 0.16s; }
+.reels-grid .reveal:nth-child(4) { transition-delay: 0.24s; }
+.reels-grid .reveal:nth-child(5) { transition-delay: 0.32s; }
+.reels-grid .reveal:nth-child(6) { transition-delay: 0.40s; }
 
 /* ============================================================
    12. RESPONSIVE + ACCESSIBILITÉ
@@ -636,7 +767,7 @@ footer { border-top: 1px solid var(--line); }
 /* Mobile : 1 colonne, rythme resserré */
 @media (max-width: 720px) {
   .work-grid { grid-template-columns: 1fr; }
-  .perso-card.span-7, .perso-card.span-5 { grid-column: span 12; }
+  .perso-grid { grid-template-columns: 1fr; }
   .reels-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .showreel video { max-height: 62vh; }
   .header-inner { justify-content: center; text-align: center; }
