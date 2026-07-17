@@ -627,37 +627,6 @@ section:last-of-type { padding-bottom: var(--section); }
 }
 
 /* ============================================================
-   9a. PREUVE SOCIALE — bande « Ils m'ont fait confiance »
-   ============================================================ */
-.trust { padding: 56px 0; }
-.trust-inner { text-align: center; }
-.trust .eyebrow { display: inline-flex; }
-.trust-logos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 44px;
-  margin-top: 28px;
-}
-.trust-logo {
-  display: inline-flex;
-  align-items: center;
-  filter: grayscale(1) opacity(0.55);
-  transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
-.trust-logo:hover { filter: none; transform: translateY(-2px); }
-.trust-logo img { height: 34px; width: auto; display: block; }
-.trust-quote {
-  max-width: 52ch;
-  margin: 26px auto 0;
-  font-style: italic;
-  font-size: 15px;
-  color: var(--muted);
-}
-.trust-quote strong { font-style: normal; font-weight: 500; }
-
-/* ============================================================
    9b. À PROPOS — portrait + badges
    ============================================================ */
 .about-card {
@@ -691,17 +660,54 @@ section:last-of-type { padding-bottom: var(--section); }
   color: var(--muted);
   max-width: 62ch;
 }
-.about-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-.about-badges span {
-  font-size: 12.5px;
-  font-weight: 500;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-sm);
-  color: var(--muted);
+.about-badges { display: flex; flex-wrap: nowrap; gap: 6px; margin-top: 16px; }
+.about-badges .badge {
+  font-size: 11px;
+  padding: 5px 10px;
+  gap: 6px;
+  white-space: nowrap;
 }
+.about-badges .badge::before { width: 7px; height: 7px; }
+@media (max-width: 1024px) {
+  .about-badges { flex-wrap: wrap; }
+}
+.badge-mim::before {
+  background: #C41E4F; /* magenta IAE — écho du logo de l'école */
+}
+.badge-lang::before {
+  background: #14B8A6; /* turquoise — langues / international */
+}
+
+/* Colonne droite de la carte : logo IAE + preuve sociale */
+.about-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  min-width: 220px;
+  padding: 0 8px 0 36px;
+  border-left: 1px solid var(--line);
+}
+.about-name { display: flex; align-items: center; gap: 16px; }
+.about-iae { height: 52px; width: auto; display: block; }
+.about-trust {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 0 auto;
+}
+.about-trust .eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  padding: 5px 11px;
+  white-space: nowrap;
+}
+.trust-logo { display: inline-flex; transition: transform 0.3s ease-in-out; }
+.trust-logo:hover { transform: translateY(-2px); }
+.trust-logo img { height: 30px; width: auto; display: block; }
 
 /* ============================================================
    9bis. « ET BIEN PLUS » — bouton + liens dépliables
@@ -745,6 +751,12 @@ section:last-of-type { padding-bottom: var(--section); }
   transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 .more-links a:hover { transform: translateY(-2px) rotate(-1deg); color: inherit; }
+/* Pilules sans href (placeholders) : pas de curseur cliquable */
+.more-links a:not([href]) { cursor: default; }
+.more-links a:not([href]):hover { transform: none; color: var(--muted); }
+
+/* Iframe sans src (vidéo pas encore renseignée) : on garde le cadre beige vide */
+iframe:not([src]) { display: none; }
 
 /* ============================================================
    10. CONTACT + FOOTER
@@ -847,6 +859,7 @@ footer { border-top: 1px solid var(--line); }
   .perso-grid { grid-template-columns: 1fr; }
   .about-card { flex-direction: column; text-align: center; padding: 28px 22px; }
   .about-badges { justify-content: center; }
+  .about-side { padding-left: 0; padding-top: 24px; border-left: 0; border-top: 1px solid var(--line); width: 100%; }
   .reels-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .showreel video { max-height: 62vh; }
   .header-inner { justify-content: center; text-align: center; }

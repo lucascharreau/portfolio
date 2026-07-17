@@ -69,6 +69,45 @@
     </div>
   </section>
 
+  <section id="apropos">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="eyebrow">À propos</span>
+        <h2>Mon profil</h2>
+      </div>
+      <div class="about-card reveal">
+        <img class="about-photo" src="assets/photos/portrait.png" alt="Portrait de Lucas Charreau">
+        <div class="about-body">
+          <div class="about-name">
+            <h3>Lucas Charreau</h3>
+            <img class="about-iae" src="assets/logos/iae.png.webp"
+                 alt="IAE Angers — École universitaire de management">
+          </div>
+          <p>
+            Créateur de contenu et monteur vidéo, formé au marketing international
+            (Master 2 Management International et Marketing). Je conçois chaque vidéo comme un outil de conversion —
+            du storytelling au format publicitaire — et je tourne aussi au drone,
+            en France comme à l’étranger.
+          </p>
+          <div class="about-badges">
+            <span class="badge badge-dispo">Disponible pour projets</span>
+            <span class="badge badge-role">Montage Vidéo & Création de Contenu Axé Marketing</span>
+            <span class="badge badge-copy">Copywriting</span>
+            <span class="badge badge-drone">Vidéo drone</span>
+          </div>
+        </div>
+        <div class="about-side">
+          <div class="about-trust">
+            <span class="eyebrow">Ils m'ont fait confiance</span>
+            <a class="trust-logo" href="https://weenat.com" target="_blank" rel="noopener" aria-label="Weenat">
+              <img src="assets/logos/weenat.png" alt="Weenat">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="realisations">
     <div class="wrap">
       <div class="head reveal">
@@ -81,13 +120,14 @@
         </p>
       </div>
 
+      <!-- Pour ajouter une vidéo : mettre src="https://www.youtube.com/embed/TON_ID" sur l'iframe. -->
       <div class="work-grid">
 
         <article class="work-card reveal">
           <div class="thumb thumb-vertical">
-            <video controls preload="metadata" poster="assets/posters/projet-01.jpg">
-              <source src="assets/videos/projet-01.mp4" type="video/mp4">
-            </video>
+            <iframe
+                    title="Projet 01" loading="lazy" allowfullscreen
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <div class="work-body">
             <span class="tag">Témoignage client · 2026</span>
@@ -98,9 +138,9 @@
 
         <article class="work-card reveal">
           <div class="thumb thumb-vertical">
-            <video controls preload="metadata" poster="assets/posters/projet-02.jpg">
-              <source src="assets/videos/projet-02.mp4" type="video/mp4">
-            </video>
+            <iframe
+                    title="Projet 02" loading="lazy" allowfullscreen
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <div class="work-body">
             <span class="tag">Film de marque · 2026</span>
@@ -111,9 +151,9 @@
 
         <article class="work-card reveal">
           <div class="thumb thumb-vertical">
-            <video controls preload="metadata" poster="assets/posters/projet-03.jpg">
-              <source src="assets/videos/projet-03.mp4" type="video/mp4">
-            </video>
+            <iframe
+                    title="Projet 03" loading="lazy" allowfullscreen
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <div class="work-body">
             <span class="tag">Interview fondateur · 2026</span>
@@ -130,10 +170,10 @@
           Et bien plus <span class="sign" aria-hidden="true">+</span>
         </button>
         <div class="more-links" id="more-realisations" hidden>
-          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">Projet 04 ↗</a>
-          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">Projet 05 ↗</a>
-          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">Projet 06 ↗</a>
-          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">Projet 07 ↗</a>
+          <a>Projet 04 ↗</a>
+          <a>Projet 05 ↗</a>
+          <a>Projet 06 ↗</a>
+          <a>Projet 07 ↗</a>
         </div>
       </div>
 
@@ -151,12 +191,12 @@
         </p>
       </div>
 
-      <!-- Pour remplacer une vidéo : changer uniquement l'ID à la fin
-           du src (ex. https://www.youtube.com/embed/TON_ID_ICI). -->
+      <!-- Pour ajouter une vidéo : mettre src="https://www.youtube.com/embed/TON_ID"
+           sur l'iframe (pour un Short youtube.com/shorts/ABC -> ID = ABC). -->
       <div class="reels-grid">
         <figure class="reel reveal">
           <div class="reel-frame">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            <iframe
                     title="Reel 01" loading="lazy" allowfullscreen
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
@@ -168,7 +208,7 @@
 
         <figure class="reel reveal">
           <div class="reel-frame">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            <iframe
                     title="Reel 02" loading="lazy" allowfullscreen
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
@@ -180,7 +220,7 @@
 
         <figure class="reel reveal">
           <div class="reel-frame">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            <iframe
                     title="Reel 03" loading="lazy" allowfullscreen
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
@@ -198,32 +238,16 @@
           Et bien plus <span class="sign" aria-hidden="true">+</span>
         </button>
         <div class="more-links" id="more-reels" hidden>
-          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">Reel 04 ↗</a>
-          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">Reel 05 ↗</a>
-          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">Reel 06 ↗</a>
-          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">Reel 07 ↗</a>
+          <a>Reel 04 ↗</a>
+          <a>Reel 05 ↗</a>
+          <a>Reel 06 ↗</a>
+          <a>Reel 07 ↗</a>
         </div>
       </div>
 
     </div>
   </section>
 
-  <section class="trust">
-    <div class="wrap">
-      <div class="trust-inner reveal">
-        <span class="eyebrow">Ils m’ont fait confiance</span>
-        <div class="trust-logos">
-          <a class="trust-logo" href="https://weenat.com" target="_blank" rel="noopener" aria-label="Weenat">
-            <img src="assets/logos/weenat.png" alt="Weenat">
-          </a>
-        </div>
-        <p class="trust-quote">
-          « Une citation courte du client — deux lignes maximum, concrète,
-          qui parle du résultat obtenu. »<br><strong>— Prénom, poste chez Weenat</strong>
-        </p>
-      </div>
-    </div>
-  </section>
 
   <section id="copywriting">
     <div class="wrap">
@@ -245,9 +269,9 @@
             <img src="assets/posters/blog-01.jpg" alt="Couverture article 1">
           </div>
           <div class="work-body">
-            <span class="tag">Stratégie Vidéo · 2026</span>
-            <h3>L'art du storytelling orienté conversion</h3>
-            <p>Comment structurer un script vidéo pour capter l'attention dans les 3 premières secondes et guider vers l'appel à l'action.</p>
+            <span class="tag">À venir · 2026</span>
+            <h3>À venir</h3>
+            <p>Description à venir.</p>
             <span class="btn btn-ghost article-btn">Lire l'article ↗</span>
           </div>
         </a>
@@ -257,9 +281,9 @@
             <img src="assets/posters/blog-02.jpg" alt="Couverture article 2">
           </div>
           <div class="work-body">
-            <span class="tag">Marketing Digital · 2026</span>
-            <h3>Traduire les bénéfices d'une marque en images</h3>
-            <p>Le pont entre une stratégie de commerce international et le contenu percutant : adapter son Tone of Voice à sa cible.</p>
+            <span class="tag">À venir · 2026</span>
+            <h3>À venir</h3>
+            <p>Description à venir.</p>
             <span class="btn btn-ghost article-btn">Lire l'article ↗</span>
           </div>
         </a>
@@ -269,9 +293,9 @@
             <img src="assets/posters/blog-03.jpg" alt="Couverture article 3">
           </div>
           <div class="work-body">
-            <span class="tag">Copywriting · 2026</span>
-            <h3>Écrire pour les formats courts (Ads & Reels)</h3>
-            <p>Analyse des techniques de rédaction publicitaire qui performent sur les réseaux sociaux et transforment les vues en clics.</p>
+            <span class="tag">À venir · 2026</span>
+            <h3>À venir</h3>
+            <p>Description à venir.</p>
             <span class="btn btn-ghost article-btn">Lire l'article ↗</span>
           </div>
         </a>
@@ -300,8 +324,8 @@
         <p>Ce que je filme quand personne ne me le demande. Drone, expérimentations, créations libres.</p>
       </div>
 
-      <!-- Pour remplacer une vidéo : changer uniquement l'ID à la fin du src
-           (ex. youtube.com/watch?v=ABC123 -> https://www.youtube.com/embed/ABC123). -->
+      <!-- Pour ajouter une vidéo : mettre src="https://www.youtube.com/embed/TON_ID"
+           sur l'iframe (youtube.com/watch?v=ABC123 -> ID = ABC123). -->
       <div class="perso-grid">
         <figure class="perso-card reveal">
           <div class="thumb">
@@ -310,80 +334,54 @@
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <figcaption>
-            <span class="tag">Drone · 4K</span>
-            <p>Plans aériens — littoral, forêt, lignes urbaines.</p>
+            <span class="tag">Drone · Voyage</span>
+            <p>Plans aériens, littoral, forêt, paysages.</p>
           </figcaption>
         </figure>
 
         <figure class="perso-card reveal">
           <div class="thumb">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            <iframe
                     title="Projet perso 02" loading="lazy" allowfullscreen
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <figcaption>
-            <span class="tag">Expérimentation</span>
-            <p>Textures, vitesses, matières — recherche de style libre.</p>
+            <span class="tag">À venir</span>
+            <p>À venir.</p>
           </figcaption>
         </figure>
 
         <figure class="perso-card reveal">
           <div class="thumb">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            <iframe
                     title="Projet perso 03" loading="lazy" allowfullscreen
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <figcaption>
-            <span class="tag">Motion</span>
-            <p>Typographie en mouvement, rythmée au son.</p>
+            <span class="tag">À venir</span>
+            <p>À venir.</p>
           </figcaption>
         </figure>
 
         <figure class="perso-card reveal">
           <div class="thumb">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            <iframe
                     title="Projet perso 04" loading="lazy" allowfullscreen
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <figcaption>
-            <span class="tag">Carnet de route</span>
-            <p>Montages voyage — tourné, monté, étalonné en solo.</p>
+            <span class="tag">À venir</span>
+            <p>À venir.</p>
           </figcaption>
         </figure>
       </div>
     </div>
   </section>
 
-  <section id="apropos">
-    <div class="wrap">
-      <div class="head reveal">
-        <span class="eyebrow">05 — À propos</span>
-        <h2>Derrière la caméra</h2>
-      </div>
-      <div class="about-card reveal">
-        <img class="about-photo" src="assets/photos/portrait.png" alt="Portrait de Lucas Charreau">
-        <div class="about-body">
-          <h3>Lucas Charreau</h3>
-          <p>
-            Créateur de contenu et monteur vidéo, formé au marketing international
-            (Master 2 MIM). Je conçois chaque vidéo comme un outil de conversion —
-            du storytelling au format publicitaire — et je tourne aussi au drone,
-            en France comme à l’étranger.
-          </p>
-          <div class="about-badges">
-            <span>Master 2 MIM</span>
-            <span>Télépilote drone</span>
-            <span>FR / EN</span>
-            <span>Copywriting</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section id="contact">
     <div class="wrap contact">
-      <span class="eyebrow reveal">06 — Contact</span>
+      <span class="eyebrow reveal">05 — Contact</span>
       <h2 class="reveal">Un projet en tête&nbsp;?<br><span class="grad-text">Parlons-en.</span></h2>
       <p class="reveal">Flexible - Réponse rapide</p>
       <div class="contact-cta reveal">
