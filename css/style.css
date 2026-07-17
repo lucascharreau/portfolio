@@ -627,6 +627,83 @@ section:last-of-type { padding-bottom: var(--section); }
 }
 
 /* ============================================================
+   9a. PREUVE SOCIALE — bande « Ils m'ont fait confiance »
+   ============================================================ */
+.trust { padding: 56px 0; }
+.trust-inner { text-align: center; }
+.trust .eyebrow { display: inline-flex; }
+.trust-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 44px;
+  margin-top: 28px;
+}
+.trust-logo {
+  display: inline-flex;
+  align-items: center;
+  filter: grayscale(1) opacity(0.55);
+  transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.trust-logo:hover { filter: none; transform: translateY(-2px); }
+.trust-logo img { height: 34px; width: auto; display: block; }
+.trust-quote {
+  max-width: 52ch;
+  margin: 26px auto 0;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--muted);
+}
+.trust-quote strong { font-style: normal; font-weight: 500; }
+
+/* ============================================================
+   9b. À PROPOS — portrait + badges
+   ============================================================ */
+.about-card {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 36px 40px;
+}
+.about-photo {
+  width: 132px; height: 132px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+  background: #EDE6D8;
+  border: 1px solid var(--line);
+}
+.about-body h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+.about-body p {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 62ch;
+}
+.about-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.about-badges span {
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  color: var(--muted);
+}
+
+/* ============================================================
    9bis. « ET BIEN PLUS » — bouton + liens dépliables
    ============================================================ */
 .more-block { margin-top: 34px; text-align: center; }
@@ -768,6 +845,8 @@ footer { border-top: 1px solid var(--line); }
 @media (max-width: 720px) {
   .work-grid { grid-template-columns: 1fr; }
   .perso-grid { grid-template-columns: 1fr; }
+  .about-card { flex-direction: column; text-align: center; padding: 28px 22px; }
+  .about-badges { justify-content: center; }
   .reels-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .showreel video { max-height: 62vh; }
   .header-inner { justify-content: center; text-align: center; }
