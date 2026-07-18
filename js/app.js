@@ -197,7 +197,7 @@
       brand_sub: 'MSc International Management &amp; Marketing graduate' +
                  '<i class="sep" aria-hidden="true"></i>Canada / France',
       welcome_e: 'Home',
-      welcome_t: 'My journey and <span class="grad-text">portfolio</span>',
+      welcome_t: 'My <span class="grad-text">journey and portfolio</span>',
       welcome_p: 'MSc International Management & Marketing, experience in video. ' +
                  'Discover my work and my professional background.',
       pf_e: 'Creations &amp; videos',
