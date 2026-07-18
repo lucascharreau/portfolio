@@ -286,18 +286,15 @@ section.gate {
 }
 
 .gate-panels {
-  /* Occupe l'espace entre l'accroche et la bande de logos, cartes centrées
-     verticalement dedans. Grille 1fr / auto / 1fr : les deux tuiles ont
+  /* Grille 1fr / auto / 1fr : les deux tuiles ont
      exactement la même largeur et la même hauteur quel que soit leur contenu. */
-  flex: 1 1 auto;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: stretch;
-  align-content: center;
   gap: clamp(14px, 2vw, 26px);
   width: 100%;
   max-width: 1120px;
-  margin: 0 auto;
+  margin: clamp(20px, 2.5vh, 32px) auto 0;
 }
 
 .gate-panel {

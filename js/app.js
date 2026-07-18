@@ -180,7 +180,7 @@
       brand_sub: 'Diplômé Master Management &amp; Marketing International' +
                  '<i class="sep" aria-hidden="true"></i>Canada / France',
       welcome_e: 'Accueil',
-      welcome_t: 'Mon parcours et <span class="grad-text">portfolio</span>',
+      welcome_t: 'Mon <span class="grad-text">parcours et portfolio</span>',
       welcome_p: 'Master Management International et Marketing, expériences en vidéo. ' +
                  'Découvrez mes réalisations et mon parcours professionnel.',
       pf_e: 'Créations &amp; vidéos',
