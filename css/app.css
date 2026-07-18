@@ -287,10 +287,13 @@ section.gate {
 
 .gate-panels {
   /* Occupe l'espace entre l'accroche et la bande de logos, cartes centrées
-     verticalement dedans. */
+     verticalement dedans. Grille 1fr / auto / 1fr : les deux tuiles ont
+     exactement la même largeur et la même hauteur quel que soit leur contenu. */
   flex: 1 1 auto;
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  align-content: center;
   gap: clamp(14px, 2vw, 26px);
   width: 100%;
   max-width: 1120px;
@@ -300,7 +303,7 @@ section.gate {
 .gate-panel {
   position: relative;
   overflow: hidden;
-  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -315,14 +318,16 @@ section.gate {
   padding: clamp(14px, 1.8vw, 22px) clamp(22px, 3vw, 36px) clamp(16px, 2.2vw, 26px);
   text-decoration: none;
   transition:
-    flex-grow 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.35s ease-in-out,
     border-color 0.35s ease-in-out,
     background-color 0.35s ease-in-out;
 }
 .gate-panel:hover,
 .gate-panel:focus-visible {
-  flex-grow: 1.28;
+  /* transform plutôt que flex-grow : la tuile voisine ne bouge plus,
+     donc plus d'oscillation du survol entre les deux tuiles */
+  transform: translateY(-4px) scale(1.015);
   background: rgba(255, 255, 255, 0.92);
   box-shadow: var(--shadow-lg);
   border-color: rgba(249, 115, 22, 0.55);
@@ -430,6 +435,7 @@ section.gate {
 
 .gate-or {
   align-self: center;
+  justify-self: center;
   flex: none;
   width: 46px;
   height: 46px;
@@ -504,7 +510,9 @@ section.gate {
 /* Entrée en scène de l'écran (rejouée à chaque retour à l'accueil) */
 .gate.enter .gate-top     { animation: gate-fall 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .gate.enter .gate-welcome { animation: gate-fall 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
-.gate.enter .gate-panel { animation: gate-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+/* fill-mode "backwards" (et non "both") : une fois l'animation finie, le
+   transform redevient libre pour l'effet de survol des tuiles */
+.gate.enter .gate-panel { animation: gate-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
 .gate.enter .gate-panel + .gate-or + .gate-panel { animation-delay: 0.12s; }
 .gate.enter .gate-or    { animation: gate-pop 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both; }
 .gate.enter .gate-foot  { animation: gate-fade 0.7s ease-in-out 0.42s both; }
@@ -930,8 +938,8 @@ span.cv-row-head { cursor: default; }
 @media (max-width: 760px) {
   .gate { min-height: 100dvh; }
   .gate-top { padding-top: 46px; }
-  .gate-panels { flex-direction: column; align-items: stretch; }
-  .gate-panel { flex: 1 1 auto; min-height: 24vh; }
+  .gate-panels { grid-template-columns: 1fr; }
+  .gate-panel { min-height: 24vh; }
   .gate-title { font-size: clamp(30px, 8vw, 42px); }
   .gate-welcome-title { font-size: clamp(30px, 8.5vw, 42px); }
   .gate-or { margin: -4px 0; }
