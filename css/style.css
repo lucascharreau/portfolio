@@ -647,6 +647,7 @@ section:last-of-type { padding-bottom: var(--section); }
   background: #EDE6D8;
   border: 1px solid var(--line);
 }
+.about-body { flex: 1; min-width: 0; }
 .about-body h3 {
   font-family: var(--display);
   font-weight: 800;
@@ -687,7 +688,7 @@ section:last-of-type { padding-bottom: var(--section); }
   align-self: stretch;
   flex-shrink: 0;
   min-width: 220px;
-  padding: 0 8px 0 36px;
+  padding: 0 36px;
   border-left: 1px solid var(--line);
 }
 .about-name { display: flex; align-items: center; gap: 16px; }
@@ -738,6 +739,9 @@ section:last-of-type { padding-bottom: var(--section); }
   gap: 10px;
   margin-top: 18px;
 }
+/* L'attribut hidden doit gagner sur le display:flex ci-dessus,
+   sinon le bouton « Et bien plus » ne replie jamais la liste */
+.more-links[hidden] { display: none; }
 .more-links a {
   padding: 8px 16px;
   border-radius: 999px;

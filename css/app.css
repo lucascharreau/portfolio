@@ -70,7 +70,28 @@ body[data-view="cv"]        .app-header nav[data-nav="portfolio"] { display: non
   color: var(--muted);
   transition: all 0.3s ease-in-out;
 }
-body[data-view="cv"] .lang-btn { display: inline-flex; }
+body[data-view="cv"] .lang-btn,
+body[data-view="portfolio"] .lang-btn { display: inline-flex; }
+
+/* Bouton de langue sur l'écran d'accueil */
+.gate-lang {
+  position: absolute;
+  top: clamp(16px, 2.5vw, 28px);
+  right: clamp(16px, 2.5vw, 28px);
+  z-index: 2;
+  cursor: pointer;
+  padding: 9px 16px;
+  font-size: 13px;
+}
+body[data-view="landing"] .gate-lang { display: inline-flex; }
+.lang-btn { gap: 7px; }
+.lang-btn .flag {
+  width: 18px;
+  height: 12px;
+  flex: none;
+  border-radius: 2.5px;
+  box-shadow: 0 0 0 1px rgba(20, 22, 26, 0.12);
+}
 .lang-btn:hover {
   color: var(--accent-text);
   border-color: rgba(234, 88, 12, 0.4);
@@ -117,7 +138,7 @@ body[data-view="portfolio"] .switch-btn[data-goto="portfolio"],
 body[data-view="cv"]        .switch-btn[data-goto="cv"] { color: #FFFFFF; }
 
 /* ============================================================
-   3. ÉCRAN D'ENTRÉE — deux panneaux, split-screen interactif
+   3. ÉCRAN D'ENTRÉE — plateau cinéma sombre, halos animés, grain
    ============================================================ */
 /* section.gate : contre les règles génériques « section » de style.css */
 section.gate {
@@ -125,42 +146,154 @@ section.gate {
 }
 .gate {
   position: relative;
+  overflow: hidden;
   min-height: 100dvh;
   flex-direction: column;
-  gap: clamp(18px, 2.5vh, 28px);
-  padding: clamp(18px, 3vw, 36px);
+  gap: clamp(2px, 0.4vh, 6px);
+  padding: clamp(10px, 1.6vw, 18px) clamp(18px, 3vw, 36px) clamp(16px, 2.6vw, 28px);
   background:
-    radial-gradient(720px 440px at 12% -5%, rgba(249, 115, 22, 0.20), transparent 65%),
-    radial-gradient(680px 460px at 90% 12%, rgba(245, 158, 11, 0.18), transparent 65%),
-    radial-gradient(900px 520px at 50% 105%, rgba(253, 186, 116, 0.16), transparent 70%);
+    radial-gradient(1100px 700px at 50% 118%, rgba(249, 115, 22, 0.12), transparent 62%),
+    linear-gradient(180deg, #FBF4E8 0%, #F5EBDA 55%, #F1E3CC 100%);
 }
+
+/* Halos orangés flottants (sous le contenu) */
+.gate-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.gate-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  opacity: 0.35;
+  will-change: transform;
+}
+.gate-blob.b1 {
+  width: 560px; height: 560px; left: -170px; top: -190px;
+  background: radial-gradient(circle at 32% 32%, rgba(249, 115, 22, 0.55), transparent 66%);
+  animation: blob-drift 22s ease-in-out infinite alternate;
+}
+.gate-blob.b2 {
+  width: 660px; height: 660px; right: -240px; top: 2%;
+  background: radial-gradient(circle at 60% 40%, rgba(245, 158, 11, 0.40), transparent 66%);
+  animation: blob-drift 27s ease-in-out -7s infinite alternate-reverse;
+}
+.gate-blob.b3 {
+  width: 760px; height: 540px; left: 26%; bottom: -300px;
+  background: radial-gradient(circle at 50% 50%, rgba(253, 186, 116, 0.30), transparent 66%);
+  animation: blob-drift 31s ease-in-out -13s infinite alternate;
+}
+@keyframes blob-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(70px, 44px, 0) scale(1.14); }
+}
+
+/* Grain de pellicule par-dessus les halos */
+.gate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Contenu au-dessus du décor */
+.gate-top, .gate-panels, .gate-foot, .gate-welcome { position: relative; z-index: 1; }
 
 .gate-top {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  gap: 7px;
   text-align: center;
-  padding-top: clamp(10px, 2vh, 22px);
+  padding-top: clamp(4px, 0.8vh, 10px);
 }
 .gate-brand {
   font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(20px, 2.4vw, 24px);
-  letter-spacing: -0.01em;
+  font-size: clamp(24px, 3vw, 30px);
+  letter-spacing: -0.02em;
+  color: #431407;
+  /* Surligneur orange tracé derrière le nom */
+  background: linear-gradient(104deg,
+    transparent 0.5%, #F97316 3%, #F59E0B 97%, transparent 99%);
+  background-repeat: no-repeat;
+  background-size: 100% 62%;
+  background-position: 0 68%;
+  padding: 0 14px;
+  border-radius: 2px;
 }
 .gate-brand-sub {
-  font-size: 13px;
-  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+  /* Kicker éditorial : même police, mise en avant par la casse et le
+     tracking plutôt que par la graisse — évite de concurrencer le nom */
+  font-size: clamp(11.5px, 1.05vw, 13px);
+  line-height: 1.5;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent-text);
+}
+/* Petit point orange à la place du tiret cadratin */
+.gate-brand-sub .sep {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  margin: 0 12px;
+  border-radius: 50%;
+  background: #F97316;
+  vertical-align: middle;
+}
+
+/* Section de bienvenue au-dessus des panneaux */
+.gate-welcome {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+  padding-top: clamp(2px, 0.6vh, 8px);
+}
+.gate-welcome-eyebrow {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--line);
+  color: var(--accent-text);
+}
+.gate-welcome-title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+.gate-welcome-text {
+  font-size: clamp(15px, 1.6vw, 17px);
+  line-height: 1.65;
   color: var(--muted);
+  max-width: 56ch;
+  margin-top: clamp(2px, 0.6vh, 7px);
 }
 
 .gate-panels {
-  flex: 1;
+  /* Occupe l'espace entre l'accroche et la bande de logos, cartes centrées
+     verticalement dedans. */
+  flex: 1 1 auto;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   gap: clamp(14px, 2vw, 26px);
   width: 100%;
-  max-width: 1280px;
+  max-width: 1120px;
   margin: 0 auto;
 }
 
@@ -171,48 +304,58 @@ section.gate {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 24px;
-  background: var(--surface);
+  min-height: clamp(170px, 22vh, 240px);
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.72);
   border: 1px solid var(--line);
   border-radius: 18px;
-  box-shadow: var(--shadow-sm);
-  padding: clamp(26px, 4vw, 54px);
+  box-shadow: var(--shadow-md);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  padding: clamp(14px, 1.8vw, 22px) clamp(22px, 3vw, 36px) clamp(16px, 2.2vw, 26px);
   text-decoration: none;
   transition:
     flex-grow 0.55s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.35s ease-in-out,
-    border-color 0.35s ease-in-out;
+    border-color 0.35s ease-in-out,
+    background-color 0.35s ease-in-out;
 }
 .gate-panel:hover,
 .gate-panel:focus-visible {
   flex-grow: 1.28;
+  background: rgba(255, 255, 255, 0.92);
   box-shadow: var(--shadow-lg);
-  border-color: rgba(234, 88, 12, 0.35);
+  border-color: rgba(249, 115, 22, 0.55);
 }
 /* Halo sunset qui s'allume dans le panneau survolé */
 .gate-panel::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(560px 320px at 85% 100%, rgba(249, 115, 22, 0.14), transparent 70%);
+  background: radial-gradient(560px 320px at 85% 100%, rgba(249, 115, 22, 0.12), transparent 70%);
   opacity: 0;
   transition: opacity 0.45s ease-in-out;
   pointer-events: none;
 }
 .gate-panel:hover::after { opacity: 1; }
 
-.gate-panel .eyebrow { align-self: flex-start; }
+.gate-panel .eyebrow {
+  align-self: flex-start;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--accent-text);
+}
 
 .gate-body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 14px;
+  gap: 12px;
 }
 .gate-title {
   font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(46px, 6.5vw, 84px);
+  font-size: clamp(34px, 4.2vw, 54px);
   line-height: 1.02;
   letter-spacing: -0.025em;
   color: var(--text);
@@ -238,6 +381,29 @@ section.gate {
   color: var(--muted);
   max-width: 36ch;
 }
+/* Mots-clés sous la description : remplissent le bas des cartes et
+   donnent un aperçu du contenu avant d'entrer */
+.gate-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.gate-meta span {
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+  transition: border-color 0.35s ease-in-out, color 0.35s ease-in-out;
+}
+.gate-panel:hover .gate-meta span {
+  border-color: rgba(249, 115, 22, 0.35);
+  color: var(--accent-text);
+}
+
 .gate-cta {
   display: inline-flex;
   align-items: center;
@@ -245,8 +411,8 @@ section.gate {
   padding: 10px 20px;
   border-radius: 999px;
   border: 1px solid var(--line);
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
+  background: var(--bg);
+  box-shadow: none;
   font-family: var(--display);
   font-weight: 700;
   font-size: 14px;
@@ -271,8 +437,10 @@ section.gate {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.8);
   border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   box-shadow: var(--shadow-sm);
   font-family: var(--display);
   font-weight: 700;
@@ -280,15 +448,62 @@ section.gate {
   color: var(--muted);
 }
 
+/* Bande de logos défilants sous les panneaux */
+.gate-marquee {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  overflow: hidden;
+  flex: 0 0 auto;
+  padding: clamp(6px, 1.2vh, 14px) 0 clamp(2px, 0.6vh, 6px);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.gate-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: gate-marquee 38s linear infinite;
+}
+.gate-marquee:hover .gate-marquee-track { animation-play-state: paused; }
+.gate-marquee-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 4vw, 56px);
+  padding-right: clamp(28px, 4vw, 56px);
+}
+.gate-marquee-row img {
+  height: clamp(22px, 3.2vh, 34px);
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(0.7);
+  opacity: 0.62;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+.gate-marquee-row img:hover {
+  filter: grayscale(0);
+  opacity: 1;
+}
+@keyframes gate-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gate-marquee-track { animation: none; }
+}
+
 .gate-foot {
   text-align: center;
   font-size: 13px;
   color: var(--muted);
+  opacity: 0.75;
   padding-bottom: clamp(4px, 1vh, 10px);
 }
 
 /* Entrée en scène de l'écran (rejouée à chaque retour à l'accueil) */
-.gate.enter .gate-top   { animation: gate-fall 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.gate.enter .gate-top     { animation: gate-fall 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.gate.enter .gate-welcome { animation: gate-fall 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
 .gate.enter .gate-panel { animation: gate-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .gate.enter .gate-panel + .gate-or + .gate-panel { animation-delay: 0.12s; }
 .gate.enter .gate-or    { animation: gate-pop 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both; }
@@ -452,10 +667,43 @@ html[data-vt="home"]::view-transition-new(root)      { animation-name: vt-zoom-i
 
 .cv-row {
   display: grid;
-  grid-template-columns: 170px 1fr;
+  grid-template-columns: 170px 1fr auto;
   gap: 8px 24px;
   padding: 22px 0;
   border-bottom: 1px solid var(--line);
+}
+
+/* --- Logos des expériences / formations (colonne de droite) --- */
+.cv-logo-cell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  align-self: center;
+}
+.cv-logo {
+  height: 48px;
+  width: 120px;
+  object-fit: contain;
+  padding: 8px 14px;
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.cv-logo:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+/* --- Petits drapeaux (langues, international) --- */
+.flag {
+  height: 15px;
+  width: 22px;
+  object-fit: cover;
+  vertical-align: -2px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(20, 22, 26, 0.10);
+  display: inline-block;
+  flex: none;
 }
 .cv-row:first-child { padding-top: 4px; }
 .cv-row:last-child  { border-bottom: none; padding-bottom: 4px; }
@@ -618,6 +866,14 @@ span.cv-row-head { cursor: default; }
   box-shadow: var(--shadow-md);
 }
 .intl-when { font-size: 13px; font-weight: 500; color: var(--muted); }
+.intl-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.intl-title-row .intl-title { margin-top: 0; }
+.intl-title-row .flag { height: 17px; width: 25px; }
 .intl-title {
   display: inline-block;
   margin-top: 10px;
@@ -673,16 +929,33 @@ span.cv-row-head { cursor: default; }
 
 @media (max-width: 760px) {
   .gate { min-height: 100dvh; }
-  .gate-panels { flex-direction: column; }
-  .gate-panel { min-height: 30vh; }
-  .gate-title { font-size: clamp(40px, 11vw, 56px); }
+  .gate-top { padding-top: 46px; }
+  .gate-panels { flex-direction: column; align-items: stretch; }
+  .gate-panel { flex: 1 1 auto; min-height: 24vh; }
+  .gate-title { font-size: clamp(30px, 8vw, 42px); }
+  .gate-welcome-title { font-size: clamp(30px, 8.5vw, 42px); }
   .gate-or { margin: -4px 0; }
+  /* Tracking resserré : le kicker tient sur deux lignes au lieu de trois */
+  .gate-brand-sub { letter-spacing: 0.09em; }
+  /* Le point devient un séparateur pleine largeur : le lieu passe proprement
+     à la ligne au lieu de laisser un point orphelin en début de ligne */
+  .gate-brand-sub .sep {
+    flex-basis: 100%;
+    height: 1px;
+    margin: 9px auto;
+    border-radius: 0;
+    background: linear-gradient(90deg,
+      transparent, rgba(249, 115, 22, 0.55) 35%, rgba(249, 115, 22, 0.55) 65%, transparent);
+  }
 }
 
 @media (max-width: 720px) {
   .skills-grid, .intl-grid { grid-template-columns: 1fr; }
-  .cv-row { grid-template-columns: 1fr; gap: 4px; }
-  .cv-when { padding-top: 0; }
+  .cv-row { grid-template-columns: 1fr auto; gap: 4px 14px; }
+  .cv-when { padding-top: 0; grid-column: 1 / -1; }
+  .cv-main { grid-column: 1; }
+  .cv-logo-cell { grid-column: 2; flex-direction: column; align-items: flex-start; }
+  .cv-logo { height: 38px; width: 84px; padding: 5px 9px; }
   .cv-card { padding: 22px 18px; }
   .view-switch { --seg: 78px; }
   .switch-btn { font-size: 12px; }
@@ -694,7 +967,9 @@ span.cv-row-head { cursor: default; }
   ::view-transition-old(*),
   ::view-transition-new(*) { animation: none !important; }
   .gate.enter .gate-top,
+  .gate.enter .gate-welcome,
   .gate.enter .gate-panel,
   .gate.enter .gate-or,
   .gate.enter .gate-foot { animation: none !important; opacity: 1; }
+  .gate-blob { animation: none !important; }
 }

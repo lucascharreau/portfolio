@@ -33,36 +33,82 @@
      ÉCRAN D'ENTRÉE — choix Portfolio / CV
      ============================================================ -->
 <section class="gate" id="view-landing" aria-label="Écran d'accueil — choisir Portfolio ou CV">
+  <!-- Décor ambiant : halos animés + grain, purement décoratif -->
+  <div class="gate-bg" aria-hidden="true">
+    <span class="gate-blob b1"></span>
+    <span class="gate-blob b2"></span>
+    <span class="gate-blob b3"></span>
+  </div>
+
+  <button type="button" class="lang-btn gate-lang" id="gate-lang-btn" aria-label="Switch to English">EN</button>
+
   <header class="gate-top">
     <span class="gate-brand">Lucas Charreau</span>
-    <span class="gate-brand-sub">Créateur de contenu &amp; monteur vidéo — Nantes / Angers</span>
+    <span class="gate-brand-sub" data-gate="brand_sub">Diplômé Master Management &amp; Marketing International<i class="sep" aria-hidden="true"></i>Canada / France</span>
   </header>
+
+  <div class="gate-welcome">
+    <span class="eyebrow gate-welcome-eyebrow" data-gate="welcome_e">Accueil</span>
+    <h1 class="gate-welcome-title" data-gate="welcome_t">Mon parcours et <span class="grad-text">portfolio</span></h1>
+    <p class="gate-welcome-text" data-gate="welcome_p">
+      Master Management International et Marketing, expériences en vidéo.
+      Découvrez mes réalisations et mon parcours professionnel.
+    </p>
+  </div>
 
   <div class="gate-panels">
     <a class="gate-panel" href="#portfolio" data-goto="portfolio" data-wipe="Portfolio">
-      <span class="eyebrow">Créations &amp; vidéos</span>
+      <span class="eyebrow" data-gate="pf_e">Créations &amp; vidéos</span>
       <span class="gate-body">
         <span class="gate-title"><span class="hl">Portfolio</span></span>
-        <span class="gate-desc">Réalisations clients, formats courts, articles &amp; projets drone.</span>
-        <span class="gate-cta">Entrer <span class="gate-arrow" aria-hidden="true">→</span></span>
+        <span class="gate-desc" data-gate="pf_d">Réalisations clients, formats courts, articles &amp; projets drone.</span>
+        <span class="gate-meta" data-gate="pf_m"><span>Montage vidéo</span><span>Drone</span><span>Réseaux sociaux</span><span>Rédaction</span></span>
+        <span class="gate-cta" data-gate="cta">Entrer <span class="gate-arrow" aria-hidden="true">→</span></span>
       </span>
     </a>
 
-    <span class="gate-or" aria-hidden="true">ou</span>
+    <span class="gate-or" aria-hidden="true" data-gate="or">ou</span>
 
     <a class="gate-panel" href="#cv" data-goto="cv" data-wipe="CV">
-      <span class="eyebrow">Parcours &amp; compétences</span>
+      <span class="eyebrow" data-gate="cv_e">Parcours &amp; compétences</span>
       <span class="gate-body">
         <span class="gate-title"><span class="hl">CV</span></span>
-        <span class="gate-desc">Expérience, formation, langues &amp; parcours international.</span>
-        <span class="gate-cta">Entrer <span class="gate-arrow" aria-hidden="true">→</span></span>
+        <span class="gate-desc" data-gate="cv_d">Expérience, formation, langues &amp; parcours international.</span>
+        <span class="gate-meta" data-gate="cv_m"><span>Marketing international</span><span>Anglais · TOEIC 910</span><span>Erasmus Finlande</span></span>
+        <span class="gate-cta" data-gate="cta">Entrer <span class="gate-arrow" aria-hidden="true">→</span></span>
       </span>
     </a>
   </div>
 
-  <footer class="gate-foot">
-    <span>Vous pourrez basculer de l'un à l'autre à tout moment.</span>
-  </footer>
+  <div class="gate-marquee" aria-label="Ils m'ont fait confiance">
+    <div class="gate-marquee-track">
+      <span class="gate-marquee-row" aria-hidden="false">
+        <img src="assets/logos/credit-mutuel.png" alt="Crédit Mutuel">
+        <img src="assets/logos/mcdonalds.png" alt="McDonald's">
+        <img src="assets/logos/tommys-diner.png" alt="Tommy's Diner">
+        <img src="assets/logos/spaceships.png" alt="Spaceships">
+        <img src="assets/logos/weenat.png" alt="Weenat">
+        <img src="assets/logos/savoirsplus.png" alt="Savoirs Plus">
+        <img src="assets/logos/haaga-helia.png" alt="Haaga-Helia">
+        <img src="assets/logos/iae.png" alt="IAE">
+        <img src="assets/logos/iut-laval.png" alt="IUT Laval">
+        <img src="assets/logos/but.png" alt="BUT">
+      </span>
+      <span class="gate-marquee-row" aria-hidden="true">
+        <img src="assets/logos/credit-mutuel.png" alt="">
+        <img src="assets/logos/mcdonalds.png" alt="">
+        <img src="assets/logos/tommys-diner.png" alt="">
+        <img src="assets/logos/spaceships.png" alt="">
+        <img src="assets/logos/weenat.png" alt="">
+        <img src="assets/logos/savoirsplus.png" alt="">
+        <img src="assets/logos/haaga-helia.png" alt="">
+        <img src="assets/logos/iae.png" alt="">
+        <img src="assets/logos/iut-laval.png" alt="">
+        <img src="assets/logos/but.png" alt="">
+      </span>
+    </div>
+  </div>
+
 </section>
 
 <!-- ============================================================
@@ -79,12 +125,12 @@
     </a>
 
     <nav data-nav="portfolio" aria-label="Navigation portfolio">
-      <a href="#realisations">Réalisations</a>
-      <a href="#reels">Déclinaisons</a>
-      <a href="#copywriting">Articles</a>
-      <a href="#projets">Projets persos</a>
-      <a href="#apropos">À propos</a>
-      <a href="#contact">Contact</a>
+      <a href="#realisations" data-pf="pnav_real">Réalisations</a>
+      <a href="#reels" data-pf="pnav_reels">Déclinaisons</a>
+      <a href="#copywriting" data-pf="pnav_copy">Articles</a>
+      <a href="#projets" data-pf="pnav_perso">Projets persos</a>
+      <a href="#apropos" data-pf="pnav_about">À propos</a>
+      <a href="#contact" data-pf="pnav_contact">Contact</a>
     </nav>
 
     <nav data-nav="cv" aria-label="Navigation CV">
@@ -116,23 +162,23 @@
   <section class="hero">
     <div class="wrap hero-content">
       <div class="badge-group reveal">
-        <span class="badge badge-dispo">Disponible pour projets</span>
-        <span class="badge badge-role">Montage Vidéo & Création de Contenu Axé Marketing</span>
-        <span class="badge badge-copy">Copywriting</span>
-        <span class="badge badge-drone">Vidéo drone</span>
+        <span class="badge badge-dispo" data-pf="p_b_dispo">Disponible pour projets</span>
+        <span class="badge badge-role" data-pf="p_b_role">Montage Vidéo & Création de Contenu Axé Marketing</span>
+        <span class="badge badge-copy" data-pf="p_b_copy">Copywriting</span>
+        <span class="badge badge-drone" data-pf="p_b_drone">Vidéo drone</span>
       </div>
-      <h1 class="reveal">
+      <h1 class="reveal" data-pf="p_h1">
         Du contenu qui raconte votre marque.<br>
         <span class="grad-text">Création, stratégie.</span>
       </h1>
-      <p class="pitch reveal">
+      <p class="pitch reveal" data-pf="p_pitch">
         <strong>Créateur de contenu, monteur vidéo orienté marketing et pilote de drone.</strong><br>
         Je traduis l’identité d’une marque en images percutantes,
         du storytelling de fond aux formats publicitaires - optimisés pour les réseaux sociaux et la conversion.
       </p>
       <div class="hero-cta reveal">
-        <a class="btn btn-primary" href="#realisations">Voir mes réalisations</a>
-        <a class="btn btn-ghost" href="mailto:lucas.charreau.pro@gmail.com">Me contacter</a>
+        <a class="btn btn-primary" href="#realisations" data-pf="p_cta1">Voir mes réalisations</a>
+        <a class="btn btn-ghost" href="mailto:lucas.charreau.pro@gmail.com" data-pf="p_cta2">Me contacter</a>
       </div>
     </div>
 
@@ -142,7 +188,7 @@
                poster="assets/posters/showreel.jpg" aria-label="Showreel — condensé des meilleures images">
           <source src="assets/videos/showreel.mp4" type="video/mp4">
         </video>
-        <span class="showreel-label">Showreel — 2026</span>
+        <span class="showreel-label" data-pf="p_reel_label">Showreel — 2026</span>
       </div>
     </div>
   </section>
@@ -150,33 +196,33 @@
   <section id="apropos">
     <div class="wrap">
       <div class="head reveal">
-        <span class="eyebrow">À propos</span>
-        <h2>Mon profil</h2>
+        <span class="eyebrow" data-pf="p_about_e">À propos</span>
+        <h2 data-pf="p_about_t">Mon profil</h2>
       </div>
       <div class="about-card reveal">
         <img class="about-photo" src="assets/photos/portrait.png" alt="Portrait de Lucas Charreau">
         <div class="about-body">
           <div class="about-name">
             <h3>Lucas Charreau</h3>
-            <img class="about-iae" src="assets/logos/iae.png.webp"
+            <img class="about-iae" src="assets/logos/iae.png"
                  alt="IAE Angers — École universitaire de management">
           </div>
-          <p>
+          <p data-pf="p_about_bio">
             Créateur de contenu et monteur vidéo, formé au marketing international
             (Master 2 Management International et Marketing). Je conçois chaque vidéo comme un outil de conversion —
             du storytelling au format publicitaire — et je tourne aussi au drone,
             en France comme à l’étranger.
           </p>
           <div class="about-badges">
-            <span class="badge badge-dispo">Disponible pour projets</span>
-            <span class="badge badge-role">Montage Vidéo & Création de Contenu Axé Marketing</span>
-            <span class="badge badge-copy">Copywriting</span>
-            <span class="badge badge-drone">Vidéo drone</span>
+            <span class="badge badge-dispo" data-pf="p_b_dispo">Disponible pour projets</span>
+            <span class="badge badge-role" data-pf="p_b_role">Montage Vidéo & Création de Contenu Axé Marketing</span>
+            <span class="badge badge-copy" data-pf="p_b_copy">Copywriting</span>
+            <span class="badge badge-drone" data-pf="p_b_drone">Vidéo drone</span>
           </div>
         </div>
         <div class="about-side">
           <div class="about-trust">
-            <span class="eyebrow">Ils m'ont fait confiance</span>
+            <span class="eyebrow" data-pf="p_trust">Ils m'ont fait confiance</span>
             <a class="trust-logo" href="https://weenat.com" target="_blank" rel="noopener" aria-label="Weenat">
               <img src="assets/logos/weenat.png" alt="Weenat">
             </a>
@@ -189,9 +235,9 @@
   <section id="realisations">
     <div class="wrap">
       <div class="head reveal">
-        <span class="eyebrow">01 — Réalisations</span>
-        <h2>Formats organiques</h2>
-        <p>
+        <span class="eyebrow" data-pf="p_s1e">01 — Réalisations</span>
+        <h2 data-pf="p_s1t">Formats organiques</h2>
+        <p data-pf="p_s1p">
           Le format organique installe la confiance et pose le récit. Chaque projet
           est ensuite décliné en formats courts pensés pour l’acquisition —
           à retrouver dans la section Déclinaisons.
@@ -208,9 +254,9 @@
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <div class="work-body">
-            <span class="tag">Témoignage client · 2026</span>
-            <h3>Titre du projet 01</h3>
-            <p>Une phrase de contexte : l’objectif marketing, l’angle choisi, le résultat.</p>
+            <span class="tag" data-pf="p_w1tag">Témoignage client · 2026</span>
+            <h3 data-pf="p_w1t">Titre du projet 01</h3>
+            <p data-pf="p_wp">Une phrase de contexte : l’objectif marketing, l’angle choisi, le résultat.</p>
           </div>
         </article>
 
@@ -221,9 +267,9 @@
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <div class="work-body">
-            <span class="tag">Film de marque · 2026</span>
-            <h3>Titre du projet 02</h3>
-            <p>Une phrase de contexte : l’objectif marketing, l’angle choisi, le résultat.</p>
+            <span class="tag" data-pf="p_w2tag">Film de marque · 2026</span>
+            <h3 data-pf="p_w2t">Titre du projet 02</h3>
+            <p data-pf="p_wp">Une phrase de contexte : l’objectif marketing, l’angle choisi, le résultat.</p>
           </div>
         </article>
 
@@ -234,24 +280,24 @@
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <div class="work-body">
-            <span class="tag">Interview fondateur · 2026</span>
-            <h3>Titre du projet 03</h3>
-            <p>Une phrase de contexte : l’objectif marketing, l’angle choisi, le résultat.</p>
+            <span class="tag" data-pf="p_w3tag">Interview fondateur · 2026</span>
+            <h3 data-pf="p_w3t">Titre du projet 03</h3>
+            <p data-pf="p_wp">Une phrase de contexte : l’objectif marketing, l’angle choisi, le résultat.</p>
           </div>
         </article>
 
       </div>
 
-      <!-- « Et bien plus » : remplacer/ajouter simplement des <a> ci-dessous. -->
+      <!-- « Et bien plus » : remplacer les href ci-dessous par les liens YouTube. -->
       <div class="more-block reveal">
         <button class="more-btn" aria-expanded="false" aria-controls="more-realisations">
-          Et bien plus <span class="sign" aria-hidden="true">+</span>
+          <span data-pf="p_more">Et bien plus</span> <span class="sign" aria-hidden="true">+</span>
         </button>
         <div class="more-links" id="more-realisations" hidden>
-          <a>Projet 04 ↗</a>
-          <a>Projet 05 ↗</a>
-          <a>Projet 06 ↗</a>
-          <a>Projet 07 ↗</a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener" data-pf="p_ml4">Projet 04 ↗</a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener" data-pf="p_ml5">Projet 05 ↗</a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener" data-pf="p_ml6">Projet 06 ↗</a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener" data-pf="p_ml7">Projet 07 ↗</a>
         </div>
       </div>
 
@@ -261,9 +307,9 @@
   <section id="reels">
     <div class="wrap">
       <div class="head reveal">
-        <span class="eyebrow">02 — Déclinaisons</span>
-        <h2>Formats courts</h2>
-        <p>
+        <span class="eyebrow" data-pf="p_s2e">02 — Déclinaisons</span>
+        <h2 data-pf="p_s2t">Formats courts</h2>
+        <p data-pf="p_s2p">
           Pensés pour le feed : un hook dans les trois premières secondes,
           un rythme serré, un message par vidéo.
         </p>
@@ -280,7 +326,7 @@
           </div>
           <figcaption>
             <span class="tag">Reel 01 · TikTok</span>
-            <p>Une phrase de contexte : le sujet, l’angle, le résultat.</p>
+            <p data-pf="p_rctx">Une phrase de contexte : le sujet, l’angle, le résultat.</p>
           </figcaption>
         </figure>
 
@@ -292,7 +338,7 @@
           </div>
           <figcaption>
             <span class="tag">Reel 02 · Instagram</span>
-            <p>Une phrase de contexte : le sujet, l’angle, le résultat.</p>
+            <p data-pf="p_rctx">Une phrase de contexte : le sujet, l’angle, le résultat.</p>
           </figcaption>
         </figure>
 
@@ -304,22 +350,22 @@
           </div>
           <figcaption>
             <span class="tag">Reel 03 · YouTube Shorts</span>
-            <p>Une phrase de contexte : le sujet, l’angle, le résultat.</p>
+            <p data-pf="p_rctx">Une phrase de contexte : le sujet, l’angle, le résultat.</p>
           </figcaption>
         </figure>
 
 </div>
 
-        <!-- « Et bien plus » : remplacer/ajouter simplement des <a> ci-dessous. -->
+        <!-- « Et bien plus » : remplacer les href ci-dessous par les liens YouTube. -->
       <div class="more-block reveal">
         <button class="more-btn" aria-expanded="false" aria-controls="more-reels">
-          Et bien plus <span class="sign" aria-hidden="true">+</span>
+          <span data-pf="p_more">Et bien plus</span> <span class="sign" aria-hidden="true">+</span>
         </button>
         <div class="more-links" id="more-reels" hidden>
-          <a>Reel 04 ↗</a>
-          <a>Reel 05 ↗</a>
-          <a>Reel 06 ↗</a>
-          <a>Reel 07 ↗</a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener">Reel 04 ↗</a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener">Reel 05 ↗</a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener">Reel 06 ↗</a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener">Reel 07 ↗</a>
         </div>
       </div>
 
@@ -330,9 +376,9 @@
   <section id="copywriting">
     <div class="wrap">
       <div class="head reveal">
-        <span class="eyebrow">03 — Copywriting</span>
-        <h2>Articles & Stratégie</h2>
-        <p>
+        <span class="eyebrow" data-pf="p_s3e">03 — Copywriting</span>
+        <h2 data-pf="p_s3t">Articles & Stratégie</h2>
+        <p data-pf="p_s3p">
           Parce qu'une belle image ne suffit pas si le message de fond n'accroche pas.
           J'utilise mes compétences en commerce international et marketing pour écrire des textes
           orientés vers l'objectif. Retrouvez mes articles sur le copywriting et la stratégie vidéo.
@@ -347,10 +393,10 @@
             <img src="assets/posters/blog-01.jpg" alt="Couverture article 1">
           </div>
           <div class="work-body">
-            <span class="tag">À venir · 2026</span>
-            <h3>À venir</h3>
-            <p>Description à venir.</p>
-            <span class="btn btn-ghost article-btn">Lire l'article ↗</span>
+            <span class="tag" data-pf="p_a_tag">À venir · 2026</span>
+            <h3 data-pf="p_a_t">À venir</h3>
+            <p data-pf="p_a_p">Description à venir.</p>
+            <span class="btn btn-ghost article-btn" data-pf="p_a_btn">Lire l'article ↗</span>
           </div>
         </a>
 
@@ -359,10 +405,10 @@
             <img src="assets/posters/blog-02.jpg" alt="Couverture article 2">
           </div>
           <div class="work-body">
-            <span class="tag">À venir · 2026</span>
-            <h3>À venir</h3>
-            <p>Description à venir.</p>
-            <span class="btn btn-ghost article-btn">Lire l'article ↗</span>
+            <span class="tag" data-pf="p_a_tag">À venir · 2026</span>
+            <h3 data-pf="p_a_t">À venir</h3>
+            <p data-pf="p_a_p">Description à venir.</p>
+            <span class="btn btn-ghost article-btn" data-pf="p_a_btn">Lire l'article ↗</span>
           </div>
         </a>
 
@@ -371,19 +417,19 @@
             <img src="assets/posters/blog-03.jpg" alt="Couverture article 3">
           </div>
           <div class="work-body">
-            <span class="tag">À venir · 2026</span>
-            <h3>À venir</h3>
-            <p>Description à venir.</p>
-            <span class="btn btn-ghost article-btn">Lire l'article ↗</span>
+            <span class="tag" data-pf="p_a_tag">À venir · 2026</span>
+            <h3 data-pf="p_a_t">À venir</h3>
+            <p data-pf="p_a_p">Description à venir.</p>
+            <span class="btn btn-ghost article-btn" data-pf="p_a_btn">Lire l'article ↗</span>
           </div>
         </a>
 
       </div>
 
-      <!-- « Et bien plus » : remplacer/ajouter simplement des <a> ci-dessous. -->
+      <!-- « Et bien plus » : remplacer les href ci-dessous par les liens des articles. -->
       <div class="more-block reveal">
         <button class="more-btn" aria-expanded="false" aria-controls="more-articles">
-          Et bien plus <span class="sign" aria-hidden="true">+</span>
+          <span data-pf="p_more">Et bien plus</span> <span class="sign" aria-hidden="true">+</span>
         </button>
         <div class="more-links" id="more-articles" hidden>
           <a href="https://weenat.com" target="_blank" rel="noopener">Article 04 ↗</a>
@@ -397,9 +443,9 @@
   <section id="projets">
     <div class="wrap">
       <div class="head reveal">
-        <span class="eyebrow">04 — En plus</span>
-        <h2>Projets personnels</h2>
-        <p>Ce que je filme quand personne ne me le demande. Drone, expérimentations, créations libres.</p>
+        <span class="eyebrow" data-pf="p_s4e">04 — En plus</span>
+        <h2 data-pf="p_s4t">Projets personnels</h2>
+        <p data-pf="p_s4p">Ce que je filme quand personne ne me le demande. Drone, expérimentations, créations libres.</p>
       </div>
 
       <!-- Pour ajouter une vidéo : mettre src="https://www.youtube.com/embed/TON_ID"
@@ -412,8 +458,8 @@
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <figcaption>
-            <span class="tag">Nouvelle-Zélande</span>
-            <p>Plans aériens, littoral, forêt, paysages.</p>
+            <span class="tag" data-pf="p_p1tag">Nouvelle-Zélande</span>
+            <p data-pf="p_p1p">Plans aériens, littoral, forêt, paysages.</p>
           </figcaption>
         </figure>
 
@@ -424,8 +470,8 @@
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <figcaption>
-            <span class="tag">Espagne Agricole</span>
-            <p>Plans aériens, cultures agricoles.</p>
+            <span class="tag" data-pf="p_p2tag">Espagne Agricole</span>
+            <p data-pf="p_p2p">Plans aériens, cultures agricoles.</p>
           </figcaption>
         </figure>
 
@@ -436,8 +482,8 @@
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <figcaption>
-            <span class="tag">À venir</span>
-            <p>À venir.</p>
+            <span class="tag" data-pf="p_pv_tag">À venir</span>
+            <p data-pf="p_pv_p">À venir.</p>
           </figcaption>
         </figure>
 
@@ -448,8 +494,8 @@
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <figcaption>
-            <span class="tag">À venir</span>
-            <p>À venir.</p>
+            <span class="tag" data-pf="p_pv_tag">À venir</span>
+            <p data-pf="p_pv_p">À venir.</p>
           </figcaption>
         </figure>
       </div>
@@ -459,15 +505,15 @@
 
   <section id="contact">
     <div class="wrap contact">
-      <span class="eyebrow reveal">05 — Contact</span>
-      <h2 class="reveal">Un projet en tête&nbsp;?<br><span class="grad-text">Parlons-en.</span></h2>
-      <p class="reveal">Flexible - Réponse rapide</p>
+      <span class="eyebrow reveal" data-pf="p_s5e">05 — Contact</span>
+      <h2 class="reveal" data-pf="p_c_t">Un projet en tête&nbsp;?<br><span class="grad-text">Parlons-en.</span></h2>
+      <p class="reveal" data-pf="p_c_p">Flexible - Réponse rapide</p>
       <div class="contact-cta reveal">
-        <a class="btn btn-primary btn-lg" href="mailto:lucas.charreau.pro@gmail.com">Écrivez-moi</a>
+        <a class="btn btn-primary btn-lg" href="mailto:lucas.charreau.pro@gmail.com" data-pf="p_c_mail">Écrivez-moi</a>
         <a class="btn btn-ghost btn-lg" href="https://www.linkedin.com/in/lucas-charreau-6429a4206/" target="_blank" rel="noopener">LinkedIn ↗</a>
       </div>
       <p class="contact-mail-line reveal">
-        ou directement : <a href="mailto:lucas.charreau.pro@gmail.com">lucas.charreau.pro@gmail.com</a>
+        <span data-pf="p_c_line">ou directement :</span> <a href="mailto:lucas.charreau.pro@gmail.com">lucas.charreau.pro@gmail.com</a>
       </p>
     </div>
   </section>
@@ -476,8 +522,8 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <span>© 2026 Lucas Charreau — Créateur de contenu &amp; monteur vidéo</span>
-    <a href="#top">Retour en haut ↑</a>
+    <span data-pf="p_foot">© 2026 Lucas Charreau — Créateur de contenu &amp; monteur vidéo</span>
+    <a href="#top" data-pf="p_foot_top">Retour en haut ↑</a>
   </div>
 </footer>
 </div><!-- /view-portfolio -->
@@ -501,12 +547,12 @@
       </h1>
       <p class="cv-rotator reveal" aria-hidden="true"><span id="cv-rotator"></span></p>
       <p class="pitch reveal" data-cv="bio">
-        <strong>Chargé de Marketing opérationnel chez Weenat (AgTech).</strong><br>
-        Étudiant en Master 2 Management International et Marketing à l’IAE d’Angers,
-        je traduis la technique en histoires simples — en plusieurs langues, à travers l’Europe.
+        <strong>Diplômé d’un Master en Management &amp; Marketing International</strong><br>
+        Formé à l’IAE d’Angers, je traduis la technique en histoires simples —
+        en plusieurs langues, à travers l’Europe.
       </p>
       <p class="cv-meta reveal">
-        <span data-cv="loc">Nantes / Angers, France</span>
+        <span data-cv="loc">Canada, France</span>
         <span class="dot" aria-hidden="true">·</span>
         <a href="mailto:lucas.charreau.pro@gmail.com">lucas.charreau.pro@gmail.com</a>
         <span class="dot" aria-hidden="true">·</span>

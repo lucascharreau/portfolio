@@ -27,9 +27,9 @@
       h1a: 'Marketing international,',
       h1b: 'création de contenu.',
       rot: ['Marketing international', 'Production audiovisuelle', 'Imagerie drone', 'Analyse de marché'],
-      bio: '<strong>Chargé de Marketing opérationnel chez <a href="https://weenat.com" target="_blank" rel="noopener">Weenat</a> (AgTech).</strong><br>' +
-           'Étudiant en Master 2 Management International et Marketing à l’IAE d’Angers, je traduis la technique en histoires simples — en plusieurs langues, à travers l’Europe.',
-      loc: 'Nantes / Angers, France',
+      bio: '<strong>Diplômé d’un Master en Management &amp; Marketing International</strong><br>' +
+           'Formé à l’IAE d’Angers, je traduis la technique en histoires simples — en plusieurs langues, à travers l’Europe.',
+      loc: 'Canada, France',
       cta1: 'Parcourir l’expérience',
       cta2: 'Voir le portfolio →',
       s1e: '01 — Expérience', s1t: 'Parcours professionnel',
@@ -56,9 +56,9 @@
       h1a: 'International marketing,',
       h1b: 'content creation.',
       rot: ['International marketing', 'Video production', 'Drone imagery', 'Market analysis'],
-      bio: '<strong>Operational Marketing Officer at <a href="https://weenat.com" target="_blank" rel="noopener">Weenat</a> (AgTech).</strong><br>' +
-           'Master’s student in International Management & Marketing at IAE Angers, I turn technical products into simple stories — in several languages, across Europe.',
-      loc: 'Nantes / Angers, France',
+      bio: '<strong>Master’s Graduate in Management &amp; International Marketing | Video Content Creator</strong><br>' +
+           'Trained at IAE Angers, I turn technical products into simple stories — in several languages, across Europe.',
+      loc: 'Canada, France',
       cta1: 'Browse my experience',
       cta2: 'View the portfolio →',
       s1e: '01 — Experience', s1t: 'Professional journey',
@@ -79,10 +79,148 @@
   };
 
   /* ============================================================
+     1ter. DONNÉES — textes du portfolio (FR/EN), marqués data-pf
+     ============================================================ */
+  var PF_I18N = {
+    fr: {
+      pnav_real: 'Réalisations', pnav_reels: 'Déclinaisons', pnav_copy: 'Articles',
+      pnav_perso: 'Projets persos', pnav_about: 'À propos', pnav_contact: 'Contact',
+      p_b_dispo: 'Disponible pour projets',
+      p_b_role: 'Montage Vidéo & Création de Contenu Axé Marketing',
+      p_b_copy: 'Copywriting',
+      p_b_drone: 'Vidéo drone',
+      p_h1: 'Du contenu qui raconte votre marque.<br><span class="grad-text">Création, stratégie.</span>',
+      p_pitch: '<strong>Créateur de contenu, monteur vidéo orienté marketing et pilote de drone.</strong><br>' +
+               'Je traduis l’identité d’une marque en images percutantes, du storytelling de fond aux formats publicitaires - optimisés pour les réseaux sociaux et la conversion.',
+      p_cta1: 'Voir mes réalisations',
+      p_cta2: 'Me contacter',
+      p_reel_label: 'Showreel — 2026',
+      p_about_e: 'À propos', p_about_t: 'Mon profil',
+      p_about_bio: 'Créateur de contenu et monteur vidéo, formé au marketing international (Master 2 Management International et Marketing). ' +
+                   'Je conçois chaque vidéo comme un outil de conversion — du storytelling au format publicitaire — et je tourne aussi au drone, en France comme à l’étranger.',
+      p_trust: 'Ils m’ont fait confiance',
+      p_s1e: '01 — Réalisations', p_s1t: 'Formats organiques',
+      p_s1p: 'Le format organique installe la confiance et pose le récit. Chaque projet est ensuite décliné en formats courts pensés pour l’acquisition — à retrouver dans la section Déclinaisons.',
+      p_w1tag: 'Témoignage client · 2026', p_w1t: 'Titre du projet 01',
+      p_w2tag: 'Film de marque · 2026',    p_w2t: 'Titre du projet 02',
+      p_w3tag: 'Interview fondateur · 2026', p_w3t: 'Titre du projet 03',
+      p_wp: 'Une phrase de contexte : l’objectif marketing, l’angle choisi, le résultat.',
+      p_more: 'Et bien plus',
+      p_ml4: 'Projet 04 ↗', p_ml5: 'Projet 05 ↗', p_ml6: 'Projet 06 ↗', p_ml7: 'Projet 07 ↗',
+      p_s2e: '02 — Déclinaisons', p_s2t: 'Formats courts',
+      p_s2p: 'Pensés pour le feed : un hook dans les trois premières secondes, un rythme serré, un message par vidéo.',
+      p_rctx: 'Une phrase de contexte : le sujet, l’angle, le résultat.',
+      p_s3e: '03 — Copywriting', p_s3t: 'Articles &amp; Stratégie',
+      p_s3p: 'Parce qu’une belle image ne suffit pas si le message de fond n’accroche pas. J’utilise mes compétences en commerce international et marketing pour écrire des textes orientés vers l’objectif. Retrouvez mes articles sur le copywriting et la stratégie vidéo.',
+      p_a_tag: 'À venir · 2026', p_a_t: 'À venir', p_a_p: 'Description à venir.',
+      p_a_btn: 'Lire l’article ↗',
+      p_s4e: '04 — En plus', p_s4t: 'Projets personnels',
+      p_s4p: 'Ce que je filme quand personne ne me le demande. Drone, expérimentations, créations libres.',
+      p_p1tag: 'Nouvelle-Zélande', p_p1p: 'Plans aériens, littoral, forêt, paysages.',
+      p_p2tag: 'Espagne Agricole',  p_p2p: 'Plans aériens, cultures agricoles.',
+      p_pv_tag: 'À venir', p_pv_p: 'À venir.',
+      p_s5e: '05 — Contact',
+      p_c_t: 'Un projet en tête&nbsp;?<br><span class="grad-text">Parlons-en.</span>',
+      p_c_p: 'Flexible - Réponse rapide',
+      p_c_mail: 'Écrivez-moi', p_c_line: 'ou directement :',
+      p_foot: '© 2026 Lucas Charreau — Créateur de contenu &amp; monteur vidéo',
+      p_foot_top: 'Retour en haut ↑'
+    },
+    en: {
+      pnav_real: 'Work', pnav_reels: 'Short cuts', pnav_copy: 'Articles',
+      pnav_perso: 'Side projects', pnav_about: 'About', pnav_contact: 'Contact',
+      p_b_dispo: 'Available for projects',
+      p_b_role: 'Video Editing & Marketing-Driven Content Creation',
+      p_b_copy: 'Copywriting',
+      p_b_drone: 'Drone videography',
+      p_h1: 'Content that tells your brand’s story.<br><span class="grad-text">Creation, strategy.</span>',
+      p_pitch: '<strong>Content creator, marketing-driven video editor and drone pilot.</strong><br>' +
+               'I turn a brand’s identity into striking visuals — from long-form storytelling to ad formats, optimised for social media and conversion.',
+      p_cta1: 'See my work',
+      p_cta2: 'Contact me',
+      p_reel_label: 'Showreel — 2026',
+      p_about_e: 'About', p_about_t: 'My profile',
+      p_about_bio: 'Content creator and video editor with an international marketing background (MSc International Management & Marketing). ' +
+                   'I design every video as a conversion tool — from storytelling to ad formats — and I also shoot with a drone, in France and abroad.',
+      p_trust: 'They trusted me',
+      p_s1e: '01 — Work', p_s1t: 'Organic formats',
+      p_s1p: 'Organic content builds trust and sets the story. Each project is then declined into short formats built for acquisition — see the Short cuts section.',
+      p_w1tag: 'Client testimonial · 2026', p_w1t: 'Project 01 title',
+      p_w2tag: 'Brand film · 2026',         p_w2t: 'Project 02 title',
+      p_w3tag: 'Founder interview · 2026',  p_w3t: 'Project 03 title',
+      p_wp: 'One line of context: the marketing goal, the chosen angle, the result.',
+      p_more: 'And much more',
+      p_ml4: 'Project 04 ↗', p_ml5: 'Project 05 ↗', p_ml6: 'Project 06 ↗', p_ml7: 'Project 07 ↗',
+      p_s2e: '02 — Short cuts', p_s2t: 'Short formats',
+      p_s2p: 'Built for the feed: a hook in the first three seconds, a tight pace, one message per video.',
+      p_rctx: 'One line of context: the topic, the angle, the result.',
+      p_s3e: '03 — Copywriting', p_s3t: 'Articles &amp; Strategy',
+      p_s3p: 'Because a beautiful image is not enough if the underlying message does not land. I use my international business and marketing background to write goal-driven copy. Read my articles on copywriting and video strategy.',
+      p_a_tag: 'Coming soon · 2026', p_a_t: 'Coming soon', p_a_p: 'Description coming soon.',
+      p_a_btn: 'Read the article ↗',
+      p_s4e: '04 — Extras', p_s4t: 'Personal projects',
+      p_s4p: 'What I film when nobody asks me to. Drone, experiments, free creations.',
+      p_p1tag: 'New Zealand', p_p1p: 'Aerial shots, coastline, forest, landscapes.',
+      p_p2tag: 'Agricultural Spain', p_p2p: 'Aerial shots, farmland.',
+      p_pv_tag: 'Coming soon', p_pv_p: 'Coming soon.',
+      p_s5e: '05 — Contact',
+      p_c_t: 'Got a project in mind?<br><span class="grad-text">Let’s talk.</span>',
+      p_c_p: 'Flexible — quick to reply',
+      p_c_mail: 'Email me', p_c_line: 'or directly:',
+      p_foot: '© 2026 Lucas Charreau — Content creator &amp; video editor',
+      p_foot_top: 'Back to top ↑'
+    }
+  };
+
+  /* ============================================================
+     1quater. DONNÉES — textes de l'écran d'accueil (FR/EN), marqués data-gate
+     ============================================================ */
+  var GATE_I18N = {
+    fr: {
+      brand_sub: 'Diplômé Master Management &amp; Marketing International' +
+                 '<i class="sep" aria-hidden="true"></i>Canada / France',
+      welcome_e: 'Accueil',
+      welcome_t: 'Mon parcours et <span class="grad-text">portfolio</span>',
+      welcome_p: 'Master Management International et Marketing, expériences en vidéo. ' +
+                 'Découvrez mes réalisations et mon parcours professionnel.',
+      pf_e: 'Créations &amp; vidéos',
+      pf_d: 'Réalisations clients, formats courts, articles &amp; projets drone.',
+      pf_m: '<span>Montage vidéo</span><span>Drone</span><span>Réseaux sociaux</span><span>Rédaction</span>',
+      cv_e: 'Parcours &amp; compétences',
+      cv_d: 'Expérience, formation, langues &amp; parcours international.',
+      cv_m: '<span>Marketing international</span><span>Anglais · TOEIC 910</span><span>Erasmus Finlande</span>',
+      cta: 'Entrer <span class="gate-arrow" aria-hidden="true">→</span>',
+      or: 'ou',
+      foot: 'Vous pourrez basculer de l\'un à l\'autre à tout moment.'
+    },
+    en: {
+      brand_sub: 'MSc International Management &amp; Marketing graduate' +
+                 '<i class="sep" aria-hidden="true"></i>Canada / France',
+      welcome_e: 'Home',
+      welcome_t: 'My journey and <span class="grad-text">portfolio</span>',
+      welcome_p: 'MSc International Management & Marketing, experience in video. ' +
+                 'Discover my work and my professional background.',
+      pf_e: 'Creations &amp; videos',
+      pf_d: 'Client work, short formats, articles &amp; drone projects.',
+      pf_m: '<span>Video editing</span><span>Drone</span><span>Social media</span><span>Copywriting</span>',
+      cv_e: 'Background &amp; skills',
+      cv_d: 'Experience, education, languages &amp; international background.',
+      cv_m: '<span>International marketing</span><span>English · TOEIC 910</span><span>Erasmus Finland</span>',
+      cta: 'Enter <span class="gate-arrow" aria-hidden="true">→</span>',
+      or: 'or',
+      foot: 'You can switch between the two at any time.'
+    }
+  };
+
+  /* ============================================================
      1bis. DONNÉES — contenu du CV (FR/EN)
      ============================================================ */
+  /* Logos : déposer les fichiers PNG (fond transparent de préférence)
+     dans assets/logos/ avec exactement ces noms. Un logo manquant
+     est simplement masqué (pas d'image cassée). */
   var EXPERIENCES = [
     {
+      logo: 'assets/logos/weenat.png',
       fr: {
         when: 'Mars 2026 — auj.', title: 'Chargé de Marketing opérationnel', org: 'Weenat · Nantes',
         bullets: [
@@ -105,6 +243,7 @@
       }
     },
     {
+      logo: 'assets/logos/spaceships.png',
       fr: {
         when: 'Nov 2024 — Fév 2025', title: 'Préparateur de véhicules', org: 'Spaceships · Christchurch, NZ',
         bullets: [
@@ -121,6 +260,7 @@
       }
     },
     {
+      logo: 'assets/logos/savoirsplus.png',
       fr: {
         when: 'Avr — Juin 2023', title: 'Stagiaire Achats & Analyse de données', org: 'SavoirsPlus · Brissac-Quincé',
         bullets: [
@@ -139,6 +279,7 @@
       }
     },
     {
+      logo: 'assets/logos/credit-mutuel.png',
       fr: {
         when: 'Avr — Juin 2022', title: 'Stagiaire en agence bancaire', org: 'Crédit Mutuel · Angers',
         bullets: [
@@ -155,6 +296,7 @@
       }
     },
     {
+      logo: 'assets/logos/but.png',
       fr: {
         when: 'Mai — Juin 2021', title: 'Stagiaire vente', org: 'BUT · Angers',
         bullets: ['Conseil client, merchandising et gestion opérationnelle du magasin.']
@@ -165,6 +307,7 @@
       }
     },
     {
+      logos: ['assets/logos/tommys-diner.png', 'assets/logos/mcdonalds.png'],
       fr: {
         when: '2021 — 2023', title: 'Jobs étudiants', org: 'Tommy’s Diner · McDonald’s',
         bullets: ['En parallèle des études : rigueur, gestion du stress, polyvalence et esprit d’équipe.']
@@ -178,18 +321,22 @@
 
   var EDUCATION = [
     {
+      logo: 'assets/logos/iae.png',
       fr: { when: '2025 — 2026', title: 'Master 2 Management International et Marketing', org: 'IAE Angers', note: 'Stratégie marketing internationale, gestion de projets à l’international, ventes à l’export.' },
       en: { when: '2025 — 2026', title: 'MSc International Management & Marketing', org: 'IAE Angers', note: 'International marketing strategy, international project management, export sales.' }
     },
     {
+      logo: 'assets/logos/haaga-helia.png',
       fr: { when: 'Août — Déc 2025', title: 'Échange Erasmus', org: 'Haaga-Helia · Helsinki, Finlande', note: 'Semestre de niveau master en commerce international, en anglais.' },
       en: { when: 'Aug — Dec 2025', title: 'Erasmus Exchange', org: 'Haaga-Helia · Helsinki, Finland', note: 'Master-level semester in international business, in English.' }
     },
     {
+      logo: 'assets/logos/iae.png',
       fr: { when: '2022 — 2024', title: 'Licence 3 & Master 1 Management International', org: 'IAE Angers', note: 'Management des organisations, finance et stratégie, travail d’équipe multiculturel.' },
       en: { when: '2022 — 2024', title: 'BSc 3 & MSc 1 International Management', org: 'IAE Angers', note: 'Organisational management, finance & strategy, multicultural teamwork.' }
     },
     {
+      logo: 'assets/logos/iut-laval.png',
       fr: { when: '2020 — 2022', title: 'DUT Techniques de Commercialisation', org: 'IUT de Laval', note: 'Marketing opérationnel, gestion commerciale, études de marché.' },
       en: { when: '2020 — 2022', title: 'Two-year degree in Marketing Techniques', org: 'IUT de Laval', note: 'Operational marketing, sales management, market research.' }
     }
@@ -211,33 +358,58 @@
   ];
 
   var LANGUAGES = [
-    { fr: { when: 'Maternelle', title: 'Français' }, en: { when: 'Native', title: 'French' } },
-    { fr: { when: 'Professionnel · <strong>TOEIC 910/990</strong>', title: 'Anglais' }, en: { when: 'Full professional · <strong>TOEIC 910/990</strong>', title: 'English' } },
-    { fr: { when: 'Notions', title: 'Espagnol' }, en: { when: 'Elementary', title: 'Spanish' } }
+    { flag: 'fr', fr: { when: 'Maternelle', title: 'Français' }, en: { when: 'Native', title: 'French' } },
+    { flag: 'gb', fr: { when: 'Professionnel · <strong>TOEIC 910/990</strong>', title: 'Anglais' }, en: { when: 'Full professional · <strong>TOEIC 910/990</strong>', title: 'English' } },
+    { flag: 'es', fr: { when: 'Notions', title: 'Espagnol' }, en: { when: 'Elementary', title: 'Spanish' } }
   ];
 
   var INTL = [
     {
+      flag: 'nz',
       fr: { when: 'Sept 2024 — Juil 2025', title: 'Nouvelle-Zélande', org: 'Programme Vacances-Travail', note: 'Un an d’immersion linguistique et culturelle, expériences professionnelles variées.' },
       en: { when: 'Sep 2024 — Jul 2025', title: 'New Zealand', org: 'Working Holiday Visa', note: 'One year of language and cultural immersion, varied work experiences.' }
     },
     {
+      flag: 'fi',
       fr: { when: 'Août — Déc 2025', title: 'Finlande', org: 'Erasmus · Haaga-Helia', note: 'Semestre d’échange à Helsinki, études en anglais.' },
       en: { when: 'Aug — Dec 2025', title: 'Finland', org: 'Erasmus · Haaga-Helia', note: 'Exchange semester in Helsinki, studies in English.' }
     },
     {
+      flag: 'eu',
       fr: { when: '2026', title: 'Europe', org: 'Tournages Weenat', note: 'Déplacements en France, Portugal, Suisse, Espagne et Allemagne.' },
       en: { when: '2026', title: 'Europe', org: 'Weenat shoots', note: 'Business travel across France, Portugal, Switzerland, Spain and Germany.' }
     }
   ];
 
   /* ============================================================
-     2. RENDU DU CV
+     2. RENDU DU CV + PORTFOLIO (langue partagée FR/EN)
      ============================================================ */
-  var cvLang = localStorage.getItem('cv-lang') || 'fr';
+  /* Langue : préférence enregistrée, sinon langue du navigateur (fr → français, sinon anglais) */
+  var siteLang = localStorage.getItem('site-lang') || localStorage.getItem('cv-lang');
+  if (!siteLang) {
+    var navLang = (navigator.language || (navigator.languages && navigator.languages[0]) || 'fr');
+    siteLang = /^fr/i.test(navLang) ? 'fr' : 'en';
+  }
   var viewCv = document.getElementById('view-cv');
 
-  function expandableRow(d) {
+  /* Petit drapeau (servi par flagcdn.com — même logique que les
+     polices Google : nécessite d'être en ligne, dégrade proprement) */
+  function flagImg(code) {
+    return '<img class="flag" src="https://flagcdn.com/h40/' + code + '.png" alt="" ' +
+      'loading="lazy" onerror="this.style.display=\'none\'">';
+  }
+
+  /* Colonne logo d'une ligne du CV (accepte logo unique ou liste) */
+  function logoCell(entry) {
+    var list = entry.logos || (entry.logo ? [entry.logo] : []);
+    if (!list.length) return '';
+    return '<div class="cv-logo-cell">' + list.map(function (src) {
+      return '<img class="cv-logo" src="' + src + '" alt="" loading="lazy" ' +
+        'onerror="this.style.display=\'none\'">';
+    }).join('') + '</div>';
+  }
+
+  function expandableRow(d, entry) {
     return '<div class="cv-row expandable">' +
       '<div class="cv-when">' + d.when + '</div>' +
       '<div class="cv-main">' +
@@ -250,22 +422,27 @@
           d.bullets.map(function (b) { return '<li>' + b + '</li>'; }).join('') +
         '</ul></div></div>' +
       '</div>' +
+      logoCell(entry) +
     '</div>';
   }
 
-  function simpleRow(d) {
+  function simpleRow(d, entry) {
     return '<div class="cv-row">' +
       '<div class="cv-when">' + d.when + '</div>' +
       '<div class="cv-main">' +
-        '<span class="cv-row-head"><span class="cv-title">' + d.title + '</span></span>' +
+        '<span class="cv-row-head">' +
+          (entry.flag ? flagImg(entry.flag) : '') +
+          '<span class="cv-title">' + d.title + '</span>' +
+        '</span>' +
         (d.org ? '<div class="cv-org">' + d.org + '</div>' : '') +
         (d.note ? '<div class="cv-note">' + d.note + '</div>' : '') +
       '</div>' +
+      logoCell(entry) +
     '</div>';
   }
 
   function renderCv() {
-    var t = CV_I18N[cvLang];
+    var t = CV_I18N[siteLang];
 
     /* Textes statiques marqués data-cv */
     document.querySelectorAll('[data-cv]').forEach(function (el) {
@@ -275,14 +452,14 @@
 
     /* Lignes et grilles */
     document.getElementById('cv-exp-rows').innerHTML =
-      EXPERIENCES.map(function (e) { return expandableRow(e[cvLang]); }).join('');
+      EXPERIENCES.map(function (e) { return expandableRow(e[siteLang], e); }).join('');
     document.getElementById('cv-edu-rows').innerHTML =
-      EDUCATION.map(function (e) { return simpleRow(e[cvLang]); }).join('');
+      EDUCATION.map(function (e) { return simpleRow(e[siteLang], e); }).join('');
     document.getElementById('cv-lang-rows').innerHTML =
-      LANGUAGES.map(function (l) { return simpleRow(l[cvLang]); }).join('');
+      LANGUAGES.map(function (l) { return simpleRow(l[siteLang], l); }).join('');
 
     document.getElementById('cv-skills').innerHTML = SKILLS.map(function (s) {
-      var d = s[cvLang];
+      var d = s[siteLang];
       return '<div class="skill-card reveal">' +
         '<div class="skill-label">' + d.name + '</div>' +
         '<div class="chips">' +
@@ -292,21 +469,62 @@
     }).join('');
 
     document.getElementById('cv-intl').innerHTML = INTL.map(function (i) {
-      var d = i[cvLang];
+      var d = i[siteLang];
       return '<div class="intl-card reveal">' +
         '<div class="intl-when">' + d.when + '</div>' +
-        '<div class="intl-title">' + d.title + '</div>' +
+        '<div class="intl-title-row">' +
+          '<span class="intl-title">' + d.title + '</span>' +
+          (i.flag ? flagImg(i.flag) : '') +
+        '</div>' +
         '<div class="intl-org">' + d.org + '</div>' +
         '<div class="intl-note">' + d.note + '</div>' +
       '</div>';
     }).join('');
 
-    viewCv.setAttribute('lang', cvLang);
-    document.getElementById('cv-lang-btn').textContent = cvLang === 'fr' ? 'EN' : 'FR';
-    document.getElementById('cv-lang-btn').setAttribute('aria-label',
-      cvLang === 'fr' ? 'Switch to English' : 'Passer en français');
+    viewCv.setAttribute('lang', siteLang);
+    updateLangBtn(document.getElementById('cv-lang-btn'));
 
     observeCvReveals();
+  }
+
+  /* Drapeaux SVG inline (les emojis drapeaux ne s'affichent pas partout) */
+  var FLAG_GB = '<svg class="flag" viewBox="0 0 60 30" aria-hidden="true">' +
+    '<rect width="60" height="30" fill="#012169"/>' +
+    '<path d="M0,0 L60,30 M60,0 L0,30" stroke="#FFF" stroke-width="6"/>' +
+    '<path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="3.6"/>' +
+    '<path d="M30,0 V30 M0,15 H60" stroke="#FFF" stroke-width="10"/>' +
+    '<path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/></svg>';
+  var FLAG_FR = '<svg class="flag" viewBox="0 0 60 30" aria-hidden="true">' +
+    '<rect width="20" height="30" fill="#002395"/>' +
+    '<rect x="20" width="20" height="30" fill="#FFF"/>' +
+    '<rect x="40" width="20" height="30" fill="#ED2939"/></svg>';
+
+  /* Le bouton montre la langue vers laquelle on bascule, drapeau inclus */
+  function updateLangBtn(b) {
+    if (!b) return;
+    b.innerHTML = siteLang === 'fr' ? FLAG_GB + '<span>EN</span>' : FLAG_FR + '<span>FR</span>';
+    b.setAttribute('aria-label', siteLang === 'fr' ? 'Switch to English' : 'Passer en français');
+  }
+
+  /* Textes du portfolio marqués data-pf */
+  function renderPf() {
+    var t = PF_I18N[siteLang];
+    document.querySelectorAll('[data-pf]').forEach(function (el) {
+      var v = t[el.dataset.pf];
+      if (v !== undefined) el.innerHTML = v;
+    });
+    document.getElementById('view-portfolio').setAttribute('lang', siteLang);
+  }
+
+  /* Textes de l'écran d'accueil marqués data-gate */
+  function renderGate() {
+    var t = GATE_I18N[siteLang];
+    document.querySelectorAll('[data-gate]').forEach(function (el) {
+      var v = t[el.dataset.gate];
+      if (v !== undefined) el.innerHTML = v;
+    });
+    document.getElementById('view-landing').setAttribute('lang', siteLang);
+    updateLangBtn(document.getElementById('gate-lang-btn'));
   }
 
   /* Apparition au scroll des éléments injectés dynamiquement */
@@ -344,7 +562,7 @@
   function startRotator() {
     clearTimeout(rotTimer);
     var el = document.getElementById('cv-rotator');
-    var words = CV_I18N[cvLang].rot;
+    var words = CV_I18N[siteLang].rot;
     var i = 0;
     el.textContent = words[0];
     el.classList.remove('out');
@@ -362,13 +580,17 @@
     })();
   }
 
-  /* Bascule FR / EN */
-  document.getElementById('cv-lang-btn').addEventListener('click', function () {
-    cvLang = cvLang === 'fr' ? 'en' : 'fr';
-    localStorage.setItem('cv-lang', cvLang);
+  /* Bascule FR / EN — s'applique à l'accueil, au CV et au portfolio */
+  function toggleLang() {
+    siteLang = siteLang === 'fr' ? 'en' : 'fr';
+    localStorage.setItem('site-lang', siteLang);
+    renderGate();
     renderCv();
+    renderPf();
     startRotator();
-  });
+  }
+  document.getElementById('cv-lang-btn').addEventListener('click', toggleLang);
+  document.getElementById('gate-lang-btn').addEventListener('click', toggleLang);
 
   /* ============================================================
      4. ROUTEUR DE VUES
@@ -523,7 +745,9 @@
   /* ============================================================
      7. INITIALISATION
      ============================================================ */
+  renderGate();
   renderCv();
+  renderPf();
   startRotator();
   syncSwitch(current);
 
