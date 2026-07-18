@@ -188,7 +188,7 @@
       pf_m: '<span>Montage vidéo</span><span>Drone</span><span>Réseaux sociaux</span><span>Rédaction</span>',
       cv_e: 'Parcours &amp; compétences',
       cv_d: 'Expérience, formation, langues &amp; parcours international.',
-      cv_m: '<span>Marketing international</span><span>Anglais · TOEIC 910</span><span>Erasmus Finlande</span>',
+      cv_m: '<span>Marketing International</span><span>Stages</span><span>Expériences pro</span>',
       cta: 'Entrer <span class="gate-arrow" aria-hidden="true">→</span>',
       or: 'ou',
       foot: 'Vous pourrez basculer de l\'un à l\'autre à tout moment.'
@@ -205,7 +205,7 @@
       pf_m: '<span>Video editing</span><span>Drone</span><span>Social media</span><span>Copywriting</span>',
       cv_e: 'Background &amp; skills',
       cv_d: 'Experience, education, languages &amp; international background.',
-      cv_m: '<span>International marketing</span><span>English · TOEIC 910</span><span>Erasmus Finland</span>',
+      cv_m: '<span>International Marketing</span><span>Internships</span><span>Prof. experiences</span>',
       cta: 'Enter <span class="gate-arrow" aria-hidden="true">→</span>',
       or: 'or',
       foot: 'You can switch between the two at any time.'
@@ -352,8 +352,8 @@
       en: { name: 'Analysis & strategy', items: ['Market research', 'Competitive intelligence', 'Data analysis', 'Price mapping', 'Marketing plan'] }
     },
     {
-      fr: { name: 'Outils', items: ['Excel (avancé)', 'DaVinci Resolve', 'Canva', 'IBM SPSS', 'Suite Office'] },
-      en: { name: 'Tools', items: ['Excel (advanced)', 'DaVinci Resolve', 'Canva', 'IBM SPSS', 'Office Suite'] }
+      fr: { name: 'Outils', items: ['Excel (avancé)', 'DaVinci Resolve', 'Capcut', 'Suite Adobe', 'Canva', 'IBM SPSS', 'Suite Office'] },
+      en: { name: 'Tools', items: ['Excel (advanced)', 'DaVinci Resolve', 'Capcut', 'Adobe Suite', 'Canva', 'IBM SPSS', 'Office Suite'] }
     }
   ];
 
@@ -378,6 +378,11 @@
       flag: 'eu',
       fr: { when: '2026', title: 'Europe', org: 'Tournages Weenat', note: 'Déplacements en France, Portugal, Suisse, Espagne et Allemagne.' },
       en: { when: '2026', title: 'Europe', org: 'Weenat shoots', note: 'Business travel across France, Portugal, Switzerland, Spain and Germany.' }
+    },
+    {
+      flag: 'ca',
+      fr: { when: 'Sept 2026 — Sept 2028', title: 'Canada', org: 'Programme Vacances-Travail', note: 'Expériences à venir.' },
+      en: { when: 'Sep 2026 — Sep 2028', title: 'Canada', org: 'Working Holiday Visa', note: 'Experiences to come.' }
     }
   ];
 

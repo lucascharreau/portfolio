@@ -855,10 +855,10 @@ span.cv-row-head { cursor: default; }
   border-color: rgba(234, 88, 12, 0.4);
 }
 
-/* --- International : trois cartes-pays --- */
+/* --- International : quatre cartes-pays --- */
 .intl-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--gap);
 }
 .intl-card {
@@ -877,22 +877,24 @@ span.cv-row-head { cursor: default; }
 .intl-title-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: flex-start;
+  gap: 8px;
   margin-top: 10px;
 }
 .intl-title-row .intl-title { margin-top: 0; }
-.intl-title-row .flag { height: 17px; width: 25px; }
+.intl-title-row .flag { height: 17px; width: 34px; flex-shrink: 0; object-fit: contain; }
 .intl-title {
   display: inline-block;
   margin-top: 10px;
   font-family: var(--display);
   font-weight: 800;
-  font-size: 22px;
+  font-size: 18px;
   letter-spacing: -0.01em;
   color: #431407;
   background: linear-gradient(104deg,
     transparent 1%, var(--accent-faint) 4%, var(--accent-faint) 96%, transparent 99%);
-  padding: 0 8px;
+  padding: 0 6px;
+  white-space: nowrap;
 }
 .intl-org {
   margin-top: 8px;
@@ -957,8 +959,13 @@ span.cv-row-head { cursor: default; }
   }
 }
 
+@media (max-width: 1024px) {
+  .intl-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 720px) {
-  .skills-grid, .intl-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .intl-grid { grid-template-columns: repeat(2, 1fr); }
   .cv-row { grid-template-columns: 1fr auto; gap: 4px 14px; }
   .cv-when { padding-top: 0; grid-column: 1 / -1; }
   .cv-main { grid-column: 1; }
